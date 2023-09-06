@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>
+		<ui:insert name="title">Portal de Apoio</ui:insert>
+	</title>
+	<h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css" />
+	<h:outputStylesheet library="css" name="template.css" />
+	<h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" />
+	<link type="image/x-icon" rel="shortcut icon" href="#{resource['images/favicon.ico']}" />
+	<h:outputScript library="js" name="common.js" />
+	<script>
+		PrimeFaces.locales['pt_BR'] = {
+			closeText: 'Fechar',
+			prevText: 'Anterior',
+			nextText: 'Próximo',
+			currentText: 'Início',
+			monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+			monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+			dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+			dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+			dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+			weekHeader: 'Semana',
+			firstDay: 0,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: '',
+			timeOnlyTitle: 'Só Horas',
+			timeText: 'Tempo',
+			hourText: 'Hora',
+			minuteText: 'Minuto',
+			secondText: 'Segundo',
+			ampm: false,
+			month: 'Mês',
+			week: 'Semana',
+			day: 'Dia',
+			allDayText: 'Todo o Dia'
+		};
+	</script>
+</h:head>
+
+<h:body>
+	<p:growl id="growl" showDetail="false" sticky="false">
+		<p:autoUpdate />
+	</p:growl>
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+		onerror="window.location.replace('/portal-apoio/erros/erro-interno.jsf');" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+		showHeader="false" styleClass="status-dialog">
+		<span class="pi pi-spin pi-spinner"></span>
+	</p:dialog>
+
+	<h:form prependId="false">
+		<p:confirmDialog global="true">
+			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+		</p:confirmDialog>
+
+		<p:outputPanel styleClass="header-bar" rendered="#{request.userPrincipal == null}">&#160;</p:outputPanel>
+
+		<p:outputPanel styleClass="p-grid header-bar" style="padding:.5em" rendered="#{request.userPrincipal != null}">
+			<div class="p-col-3" style="color:white; font-weight:bold; padding: 1em">
+				<span>Novo Portal de Apoio</span>
+			</div>
+
+			<div class="p-col-9" style="color:white; text-align:right">
+				<span style="margin-right:.75em">#{request.userPrincipal.name}</span> |
+				<span>
+					<h:form prependId="false" style="text-align: center">
+
+						<p:commandButton id="logout" action="#{authController.logout}" icon="pi pi-sign-out"
+							styleClass="ui-button-flat" ajax="false" value="Sair" />
+					</h:form>
+				</span>
+			</div>
+		</p:outputPanel>
+	</h:form>
+
+	<div class="p-grid content">
+		<div class="p-col-fixed barra-lateral" style="width:220px">
+			<div style="text-align:center">
+				<a target="_blank" href="http://www.uftm.edu.br/paginas/hospitalclinicas/cod/11/t/APRESENTACAO+DO+HC">
+					<h:graphicImage value="#{resource['images/logo-hcuftm.png']}" width="150" height="150"
+						alt="HC/UFTM" />
+				</a>
+			</div>
+
+			<h:form id="formMenu">
+				<p:tieredMenu>
+					<p:menuitem icon="pi pi-home" value="Principal" outcome="/index.jsf" />
+
+					<p:submenu icon="pi pi-heart" label="Cirurgias">
+						<p:submenu label="Solicitação de Procedimento Cirúrgico">
+							<p:menuitem value="Nova solicitação" outcome="/cirurgia/solicitacao-procedimento/nova-solicitacao" />
+						</p:submenu>
+					</p:submenu>
+					
+					<p:submenu icon="pi pi-pencil" label="Evolução">
+						<p:submenu label="Terapia Intensiva">
+							<p:menuitem value="Apache II" outcome="/evolucoes/apache" />
+						</p:submenu>
+					</p:submenu>
+				</p:tieredMenu>
+			</h:form>
+		</div>
+
+		<div class="p-col content-main">
+			<ui:insert name="content">Novo Portal de Apoio</ui:insert>
+		</div>
+	</div>
+
+	<div class="p-grid p-nogutter footer">
+		<div class="p-col-2">
+			<p:graphicImage library="images" name="sgpti-qr.png" width="40" height="40" alt="SETISD" />
+		</div>
+		<div class="p-col-8" style="font-family: mono; font-size: 11px; text-align:center">
+
+			<span>Copyright © 2013 - 2023 SETISD - Setor de Tecnologia da Informação e Saúde Digital - HC/UFTM - Filial
+				Ebserh</span>
+			<br />
+			<span>Versão DEV-STG</span>
+		</div>
+		<div class="p-col-2" style="text-align: end">
+			<a target="_blank" href="http://ebserh.mec.gov.br/">
+				<p:graphicImage library="images" name="logo-ebserh.png" width="150" height="40" alt="Código IQ" />
+			</a>
+		</div>
+	</div>
+</h:body>
+
+</html>

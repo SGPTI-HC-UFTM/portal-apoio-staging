@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" 
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="content">
+        <h2>Apache II</h2>
+
+        <h:form id="formApache">
+            <p:panel header="Pesquisa">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:outputLabel value="Prontuário:" for="prontuario" />
+                        <div class="ui-inputgroup">
+                            <p:inputText id="prontuario" value="#{apacheController.prontuario}" />
+                            <p:commandButton icon="pi pi-search" 
+                                action="#{apacheController.buscaPaciente}"
+                                update="@form" />
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+
+            <p:panel id="pnlDadosPaciente"
+                header="Dados do paciente" 
+                rendered="#{apacheController.paciente != null}"
+                style="margin-top:10px">
+
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <div class="p-grid">
+                            <div class="p-col-2">Prontuário:</div>
+                            <div class="p-col-4">#{apacheController.paciente.prontuario}</div>
+
+                            <div class="p-col-2">Nome:</div>
+                            <div class="p-col-4">#{apacheController.paciente.nome}</div>
+
+                            <div class="p-col-2">Idade:</div>
+                            <div class="p-col-4">#{apacheController.paciente.idade}</div>
+
+                            <div class="p-col-2">Sexo:</div>
+                            <div class="p-col-4">#{apacheController.paciente.sexo}</div>
+
+                            <div class="p-col-2">Cartão SUS:</div>
+                            <div class="p-col-10">#{apacheController.paciente.cartaoSus}</div>
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+            
+            <p:panel id="pnlApache"
+                header="Classificação Apache II" 
+                rendered="#{apacheController.paciente != null}"
+                style="margin-top:10px">
+
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="temperatura" value="Temperatura (°C):" />
+                        <p:selectOneListbox id="temperatura" 
+                            value="#{apacheController.apache2.temperatura}"
+                            required="true"
+                            converter="omnifaces.SelectItemsConverter">
+                            
+                            <f:selectItems value="#{apacheController.opcoesTemperatura}"
+                                var="o" 
+                                itemLabel="#{o.label}"
+                                itemValue="#{o}" />
+                        </p:selectOneListbox>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

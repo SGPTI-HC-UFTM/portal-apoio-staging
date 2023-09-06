@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" 
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="content">
+        <h2>Solicitação de Procedimento Cirúrgico</h2>
+
+        <h:form id="formNovaSolicitacao">
+            <p:panel header="Pesquisa">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:outputLabel value="Prontuário:" for="prontuario" />
+                        <div class="ui-inputgroup">
+                            <p:inputText id="prontuario" value="#{solicitacoesProcedimentoController.prontuario}" />
+                            <p:commandButton icon="pi pi-search" 
+                                action="#{solicitacoesProcedimentoController.buscaPaciente}"
+                                update="@form" />
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+
+            <p:panel id="pnlDadosPaciente"
+                header="Dados do paciente" 
+                rendered="#{solicitacoesProcedimentoController.paciente != null}"
+                style="margin-top:10px">
+
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <div class="p-grid">
+                            <div class="p-col-2">Prontuário:</div>
+                            <div class="p-col-4">#{solicitacoesProcedimentoController.paciente.prontuario}</div>
+
+                            <div class="p-col-2">Nome:</div>
+                            <div class="p-col-4">#{solicitacoesProcedimentoController.paciente.nome}</div>
+
+                            <div class="p-col-2">Idade:</div>
+                            <div class="p-col-4">#{solicitacoesProcedimentoController.paciente.idade}</div>
+
+                            <div class="p-col-2">Sexo:</div>
+                            <div class="p-col-4">#{solicitacoesProcedimentoController.paciente.sexo}</div>
+
+                            <div class="p-col-2">Cartão SUS:</div>
+                            <div class="p-col-10">#{solicitacoesProcedimentoController.paciente.cartaoSus}</div>
+                        </div>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="localOrigem" value="Local de origem:" />
+                        <p:selectOneMenu id="localOrigem" 
+                            value="#{solicitacoesProcedimentoController.localOrigem}" 
+                            converter="omnifaces.SelectItemsConverter">
+                            
+                            <f:selectItems value="#{solicitacoesProcedimentoController.locaisOrigem}"
+                                var="local" 
+                                itemLabel="#{local.descricao}"
+                                itemValue="#{local}" />
+
+                            <p:ajax global="false" event="valueChange" update="pnlDadosPaciente" />
+                        </p:selectOneMenu>
+                    </div>
+                    
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="tipoPrecaucao" value="Tipo de Precaução:" />
+                        <p:selectOneMenu id="tipoPrecaucao" 
+                            value="#{solicitacoesProcedimentoController.tipoPrecaucao}" 
+                            converter="omnifaces.SelectItemsConverter">
+                            
+                            <f:selectItems value="#{solicitacoesProcedimentoController.tiposPrecaucao}"
+                                var="tp" 
+                                itemLabel="#{tp.descricao}"
+                                itemValue="#{tp}" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <p:outputPanel styleClass="p-field p-col-12 p-md-12"
+                        rendered="#{solicitacoesProcedimentoController.localOrigem.descricao == 'LEITO'}">
+
+                        <p:outputLabel for="leito" value="Leito:" />
+                        <p:autoComplete id="leito" 
+                            value="#{solicitacoesProcedimentoController.leito}"
+                            completeMethod="#{aghuLeitosController.completaLeito}"
+                            var="leito" 
+                            itemLabel="#{leito.id}" 
+                            minQueryLength="3"
+                            itemValue="#{leito}"
+                            forceSelection="true" 
+                            scrollHeight="250">
+
+                            <o:converter converterId="omnifaces.ListIndexConverter" 
+                                list="#{aghuLeitosController.leitos}" />
+                        </p:autoComplete>
+                    </p:outputPanel>
+                </div>
+            </p:panel>
+            
+            <p:panel id="pnlDadosAgendamento"
+                header="Dados do agendamento" 
+                rendered="#{solicitacoesProcedimentoController.paciente != null}"
+                style="margin-top:10px">
+
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="dataCirurgia" value="Data cirurgia:" />
+                        <p:datePicker id="dataCirurgia" 
+                            value="#{solicitacoesProcedimentoController.solicitacao.dthrCirurgia}"
+                            timeInput="true"
+                            pattern="dd/MM/yyyy HH:mm">
+
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+                        </p:datePicker>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="tempoCirurgico" value="Tempo cirúrgico previsto:"/>
+                        <p:datePicker id="tempoCirurgico" 
+                            value="#{solicitacoesProcedimentoController.solicitacao.tempoCirurgiaPrevisto}"
+                            timeInput="true"
+                            pattern="HH:mm" /> 
+                    </div>
+                </div>
+            </p:panel>
+            
+            <p:panel id="pnlDadosCirurgia"
+                header="Dados da cirurgia" 
+                rendered="#{solicitacoesProcedimentoController.paciente != null}"
+                style="margin-top:10px">
+
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:outputLabel for="diagnostico" value="CID/diagnóstico:" />
+                        <p:autoComplete id="diagnostico" 
+                            value="#{solicitacoesProcedimentoController.solicitacao.cid}"
+                            completeMethod="#{aghuCidsController.completaCid}"
+                            var="cid" 
+                            itemLabel="#{cid.descricao}" 
+                            minQueryLength="3"
+                            itemValue="#{cid}"
+                            forceSelection="true" 
+                            scrollHeight="250">
+
+                            <p:column>
+                                <h:outputText style="width: 30px; height: 20px" value="#{cid.codigo}" />
+                                <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{cid.descricao}" />
+                            </p:column>
+
+                            <p:ajax event="query" global="false" />
+
+                            <o:converter converterId="omnifaces.ListIndexConverter" 
+                                list="#{aghuCidsController.cids}" />
+                        </p:autoComplete>
+                    </div>
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:outputLabel for="procedimento" value="SIGTAP/procedimento:" />
+                        <p:autoComplete id="procedimento" 
+                            value="#{solicitacoesProcedimentoController.solicitacao.procedimento}"
+                            completeMethod="#{aghuProcedimentosController.completaProcedimento}"
+                            var="procedimento" 
+                            itemLabel="#{procedimento.descricao}" 
+                            minQueryLength="3"
+                            itemValue="#{procedimento}"
+                            forceSelection="true" 
+                            scrollHeight="250">
+
+                            <p:column>
+                                <h:outputText style="width: 30px; height: 20px" value="#{procedimento.codTabela}" />
+                                <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{procedimento.descricao}" />
+                            </p:column>
+
+                            <p:ajax event="query" global="false" />
+
+                            <o:converter converterId="omnifaces.ListIndexConverter" 
+                                list="#{aghuProcedimentosController.cids}" />
+                        </p:autoComplete>
+                    </div>
+                    
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="lateralidade" value="Lateralidade:" />
+                        <p:selectOneMenu id="lateralidade" 
+                            value="#{solicitacoesProcedimentoController.solicitacao.lateralidade}">
+                            
+                            <f:selectItem itemLabel="DIREITA" itemValue="D" />
+                            <f:selectItem itemLabel="ESQUERDA" itemValue="E" />
+                            <f:selectItem itemLabel="BILATERAL" itemValue="B" />
+                            <f:selectItem itemLabel="NÃO SE APLICA" itemValue="N" />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </p:panel>
+            
+            <p:panel id="pnlEspecialidade"
+                header="Especialidade cirúrgica" 
+                rendered="#{solicitacoesProcedimentoController.paciente != null}"
+                style="margin-top:10px">
+
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:outputLabel for="especialidadeCirurgica" value="Especialidade Cirúrgica:" />
+                        <p:selectOneMenu id="especialidadeCirurgica" 
+                            value="#{solicitacoesProcedimentoController.solicitacao.especialidadeCirurgica}" 
+                            converter="omnifaces.SelectItemsConverter">
+                            
+                            <f:selectItems value="#{solicitacoesProcedimentoController.especialidadesCirurgicas}"
+                                var="e" 
+                                itemLabel="#{e.descricao}"
+                                itemValue="#{e}" />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </p:panel>
+            
+            <p:panel id="pnlCaracteristicas"
+                header="Características da cirurgia" 
+                rendered="#{solicitacoesProcedimentoController.paciente != null}"
+                style="margin-top:10px">
+
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:selectOneRadio id="caracteristicasCirurgiaUrgencia" value="#{solicitacoesProcedimentoController.solicitacao.caracteristicasCirurgiaUrgencia}">
+                            <f:selectItem itemLabel="Eletiva" itemValue="EL" />
+                            <f:selectItem itemLabel="Urgência" itemValue="UR" />
+                            <f:selectItem itemLabel="Emergência" itemValue="EM" />
+                        </p:selectOneRadio>
+                    </div>
+                    
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:selectOneRadio id="caracteristicasCirurgiaPorte" value="#{solicitacoesProcedimentoController.solicitacao.caracteristicasCirurgiaPorte}">
+                            <f:selectItem itemLabel="Pequeno Porte" itemValue="P" />
+                            <f:selectItem itemLabel="Médio Porte" itemValue="M" />
+                            <f:selectItem itemLabel="Grande Porte" itemValue="G" />
+                        </p:selectOneRadio>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:selectOneRadio id="caracteristicasCirurgiaTipo" value="#{solicitacoesProcedimentoController.solicitacao.caracteristicasCirurgiaTipo}">
+                            <f:selectItem itemLabel="Cirurgia Aberta" itemValue="A" />
+                            <f:selectItem itemLabel="Cirurgia por Vídeo" itemValue="V" />
+                        </p:selectOneRadio>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-12">
+                        <p:selectOneRadio id="caracteristicasCirurgiaLimpeza" value="#{solicitacoesProcedimentoController.solicitacao.caracteristicasCirurgiaLimpeza}">
+                            <f:selectItem itemLabel="Limpa" itemValue="L" />
+                            <f:selectItem itemLabel="Potencialmente Contaminada" itemValue="P" />
+                            <f:selectItem itemLabel="Contaminada" itemValue="C" />
+                        </p:selectOneRadio>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
