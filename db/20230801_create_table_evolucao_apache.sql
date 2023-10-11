@@ -143,3 +143,5 @@ CREATE TABLE evolucoes.apache2 (
     FOREIGN KEY (idade) REFERENCES evolucoes.apache2_opcoes (id),
     FOREIGN KEY (problemas_saude_cronicos) REFERENCES evolucoes.apache2_opcoes (id)
 );
+
+-- Teste pull request
