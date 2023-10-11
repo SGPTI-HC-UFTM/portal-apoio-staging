@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" 
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="content">
+        <h2>Avaliação do Risco Nutricional Neonatal - FARNNeo</h2>
+
+        <h:form>
+
+            <p:panel header="Dados do Paciente" style="margin-top:10px">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12" style="margin-top:10px">
+                        <div class="p-grid">
+
+                            <div class="p-col-2" style="padding: 0"><p:outputLabel for="dataTriagem" value="Data da Triagem:" /></div>
+                            <div class="p-col-4" style="padding: 0">
+                                <p:datePicker id="dataTriagem" timeInput="true" pattern="dd/MM/yyyy HH:mm" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+                                </p:datePicker>
+                            </div>
+
+                            <div class="p-col-2"><p:outputLabel value="Data da Internação:" /></div>
+                            <div class="p-col-4">
+                                <p:datePicker timeInput="true" pattern="dd/MM/yyyy HH:mm" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+                                </p:datePicker>
+                            </div>
+
+                            <div class="p-col-2"><p:outputLabel value="Clínica:" /></div>
+                            <div class="p-col-4">
+                                <p:inputText />
+                            </div>
+
+                            <div class="p-col-2"><p:outputLabel value="Especialidade:" /></div>
+                            <div class="p-col-4">
+                                <p:inputText />
+                            </div>
+
+                            <div class="p-col-2"><p:outputLabel value="Leito:" /></div>
+                            <div class="p-col-4">
+                                <p:inputText />
+                            </div>
+
+                            <div class="p-col-2"><p:outputLabel value="R.G:" /></div>
+                            <div class="p-col-4">
+                                <p:inputText />
+                            </div>
+
+                            <div class="p-col-2"><p:outputLabel value="Nome:" /></div>
+                            <div class="p-col-4">
+                                <p:inputText />
+                            </div>
+                            
+                            <div class="p-col-2"><p:outputLabel value="Data de Nascimento:" /></div>
+                            <div class="p-col-4">
+                                <p:datePicker timeInput="true" pattern="dd/MM/yyyy HH:mm" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+                                </p:datePicker>
+                            </div>
+
+                            <div class="p-col-1"><p:outputLabel value="Idade cron.:" /></div>
+                            <div class="p-col-3">
+                                <p:inputText />
+                            </div>
+
+                            <div class="p-col-1"><p:outputLabel value="Idade corr.:" /></div>
+                            <div class="p-col-3">
+                                <p:inputText />
+                            </div>
+
+                            <div class="p-col-1"><p:outputLabel value="IG:" /></div>
+                            <div class="p-col-3">
+                                <p:inputText />
+                            </div>
+
+                            <p:outputLabel value="Cormobidades:" />
+                            <p:inputText />
+
+                            <p:outputLabel value="Diagnósticos:" />
+                            <p:inputText />
+
+                            <p:outputLabel value="Alergia/intolerância alimentar:" />
+                            <p:inputText />
+
+                            <p:outputLabel value="Prescrição dietética:" />
+                            <p:inputText />
+
+
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+
+            <p:panel header="Formulário" style="margin-top:10px">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12" style="margin-top:10px">
+                        <div class="p-grid">
+                            
+                            <p:outputLabel value="Idade gestacional de nascimento" class="p-col-12" style="margin-bottom: 5px; margin-top: 10px;" />
+                            <p:selectOneRadio layout="pageDirection">
+                                <f:selectItem itemLabel="Recém-nascido termo (>= 37 semanas) (0 ponto)" itemValue="0" />
+                                <f:selectItem itemLabel="Recém-nascido pré-termo (>= 28 até abaixo de 37 semanas) (1 ponto)" itemValue="1" />
+                                <f:selectItem itemLabel="Recém-nascido pré-termo extremo (abaixo de 28 semanas) (2 pontos)" itemValue="2" />
+                            </p:selectOneRadio>
+
+                            <p:outputLabel value="Doença e/ou condição clínica (com alto risco nutricional)" class="p-col-12" style="margin-bottom: 5px; margin-top: 10px;" />
+                            <p:accordionPanel class="p-col-12" activeIndex = "1">
+                                <p:tab title="Descrição">
+                                    Anomalia congênita ou malformação que possa comprometer o trato gastrointestinal (exemplos: síndrome de
+                                    Berdon, síndrome do intestino curto, atresia de esôfago, doença metabólica, enterocolite necrosante, fibrose
+                                    cística, cardiopatia, hiperplasia/tumor, doença hepática, doença renal, hérnia diagragmática), cirurgia de grande
+                                    porte, restrição de crescimento intrauterino, displasia broncopulmonar, condição que possa comprometer
+                                    a alimentação e o estado nutricional, dificuldade de progressão da dieta (exemplos: distensão abdominal, residuo 
+                                    gástrico, vômitos etc.), outra classificada pelo profissional.
+                                </p:tab>
+                            </p:accordionPanel>
+                            <p:selectOneRadio layout="pageDirection">
+                                <f:selectItem itemLabel="Sim (2 pontos)" itemValue="2" />
+                                <f:selectItem itemLabel="Não (0 ponto)" itemValue="0" />
+                            </p:selectOneRadio>
+
+                            
+
+                            <p:outputLabel value="Terapia nutricional" class="p-col-12" style="margin-bottom: 5px; margin-top: 10px;" />
+                            <p:selectOneRadio layout="pageDirection">
+                                <f:selectItem itemLabel="via oral exclusiva (0 ponto)" itemValue="0" />
+                                <f:selectItem itemLabel="Terapia nutricional enteral exclusiva ou mista (1 ponto)" itemValue="1" />
+                                <f:selectItem itemLabel="Terapia nutricional parental exclusiva (2 pontos)" itemValue="2" />
+                                <f:selectItem itemLabel="Sem terapia nutricional (3 pontos)" itemValue="3" />
+                            </p:selectOneRadio>
+
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+
+            <p:panel header="Classificação" style="margin-top:10px">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-12" style="margin-top:10px">
+                        <div class="p-grid">
+
+                            <p:outputLabel value="Escore total: " class="p-col-12" style="margin-bottom: 5px; margin-top: 10px;" />
+                            
+                            <p:outputLabel value="Risco nutricional" class="p-col-12" style="margin-bottom: 5px; margin-top: 10px;" />
+                            <p:selectOneRadio layout="pageDirection">
+                                <f:selectItem itemLabel="Baixo risco (0 ponto)" itemValue="A" />
+                                <f:selectItem itemLabel="Médio risco (1 - 3 pontos)" itemValue="B" />
+                                <f:selectItem itemLabel="Alto risco (>= 4 pontos)" itemValue="C" />
+                            </p:selectOneRadio>
+
+                            <p:outputLabel value="Nivel de assistência nutricional" class="p-col-12" style="margin-bottom: 5px; margin-top: 10px;" />
+                            <p:selectOneRadio layout="pageDirection">
+                                <f:selectItem itemLabel="Primário" itemValue="Primário" />
+                                <f:selectItem itemLabel="Secundário" itemValue="Secundário" />
+                                <f:selectItem itemLabel="Terciário" itemValue="Terciário" />
+                            </p:selectOneRadio>
+
+                        </div>
+
+                    </div>
+                </div>
+            </p:panel>
+
+            <p:commandButton type="button" value="Cadastrar" onclick="alert('Triagem Cadastrada!')" style="margin-top:10px"/>
+
+
+            
+        </h:form>
+    </ui:define>
+</ui:composition>
