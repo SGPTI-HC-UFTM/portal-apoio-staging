@@ -1,0 +1,175 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="peso" value="Peso: " style="margin-left:5px" />
+			<p:inputNumber decimalPlaces="0" id="peso" placeholder="Peso (Kg)"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.peso}" /> Kg
+
+			<p:outputLabel for="estatura" value="Estatura: " style="margin-left:5px" />
+			<p:inputNumber decimalPlaces="0" id="estatura" placeholder="Estatura (cm)"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.estatura}" /> cm
+		</div>
+
+		<div class="p-col-2">1. Dieta:</div>
+		<div class="p-col-10">
+			<p:selectBooleanCheckbox id="dietaOral"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaOral}" itemLabel="Oral" />
+
+			<p:outputLabel for="dietaAceitacao" value="Aceitação:" style="margin-left:5px" />
+			<p:selectOneMenu id="dietaAceitacao" style="vertical-align:top"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaAceitacao}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Boa" itemValue="BO" />
+				<f:selectItem itemLabel="Regular" itemValue="RE" />
+				<f:selectItem itemLabel="Ruim" itemValue="RU" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="dietaObs" value="Obs.:" style="margin-left:5px" />
+			<p:inputText id="dietaObs" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaObs}" />
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+
+			<div>
+				<p:selectBooleanCheckbox id="dietaEnteral"
+					value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaEnteral}" itemLabel="Enteral" />
+	
+				<p:inputNumber id="dietaEnteralVolume" style="margin-left:5px" decimalPlaces="0"
+					value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaEnteralVolume}" />
+				mL/h
+			</div>
+
+			<div style="margin-top: 0.2rem;">
+				<p:selectBooleanCheckbox id="dietaParenteral"
+					value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaParenteral}"
+					itemLabel="Parenteral" />
+	
+				<p:inputNumber id="dietaParenteralVolume" style="margin-left:5px" decimalPlaces="0"
+					value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaParenteralVolume}" />
+				mL/h
+			</div>
+
+			<div style="margin-top: 0.2rem;">
+				<p:selectBooleanCheckbox id="dietaZero" itemLabel="Zero"
+					value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaZero}" />
+	
+				<p:outputLabel for="dietaZeroObs" value="Obs.:" style="margin-left:5px" />
+				<p:inputText id="dietaZeroObs"
+					value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.dietaZeroObs}" />
+			</div>
+		</div>
+
+		<div class="p-col-2">2. Deglutição:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="degluticaoPreservada"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.degluticaoPreservada}" unselectable="true">
+				<f:selectItem itemLabel="Preservada" itemValue="true" />
+				<f:selectItem itemLabel="Alterada" itemValue="false" />
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelOpcoesDegluticao" />
+			</p:selectOneRadio>
+
+			<p:outputPanel id="panelOpcoesDegluticao">
+
+				<p:outputPanel
+					rendered="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.degluticaoPreservada == false}">
+					<p:selectBooleanCheckbox id="degluticaoDisfagia" style="margin-left:5px" itemLabel="Disfagia"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.degluticaoDisfagia}" />
+
+					<p:selectBooleanCheckbox id="degluticaoEngasgos" style="margin-left:5px" itemLabel="Engasgos"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.degluticaoEngasgos}" />
+
+					<p:selectBooleanCheckbox id="degluticaoEstase" style="margin-left:5px"
+						itemLabel="Estase alimentar bucal"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.degluticaoEstase}" />
+
+					<p:inputText id="degluticaoObs" style="margin-left:5px" maxlength="64"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.degluticaoObs}" />
+
+					<p:selectBooleanCheckbox id="degluticaoNa" style="margin-left:5px" itemLabel="Não aplica"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.degluticaoNa}" />
+				</p:outputPanel>
+			</p:outputPanel>
+		</div>
+
+		<div class="p-col-2">3. Abdome:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="abdomePreservado"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.abdomePreservado}" unselectable="true">
+				<f:selectItem itemLabel="Sem alteração" itemValue="true" />
+				<f:selectItem itemLabel="Alterado" itemValue="false" />
+
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelOpcoesAbdome" />
+
+			</p:selectOneRadio>
+
+			<p:outputPanel id="panelOpcoesAbdome">
+				<p:outputPanel
+					rendered="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.abdomePreservado == false}">
+					<p:selectBooleanCheckbox id="abdomeDistendido" style="margin-left:5px" itemLabel="Distendido"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.abdomeDistendido}" />
+
+					<p:selectBooleanCheckbox id="abdomeTenso" style="margin-left:5px" itemLabel="Tenso"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.abdomeTenso}" />
+
+					<p:selectBooleanCheckbox id="abdomeMassaPalpavel" style="margin-left:5px" itemLabel="Massa palpável"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.abdomeMassaPalpavel}" />
+
+					<p:selectBooleanCheckbox id="abdomeRuido" style="margin-left:5px" itemLabel="Ruido"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.abdomeRuido}" />
+
+					<p:inputText id="abdomeObs" style="margin-left:5px" maxlength="64"
+						value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.abdomeObs}" />
+
+				</p:outputPanel>
+			</p:outputPanel>
+		</div>
+
+		<div class="p-col-2">4. Vômito:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="vomito" value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.vomito}" unselectable="true">
+
+				<f:selectItem itemLabel="Não" itemValue="false" />
+				<f:selectItem itemLabel="Sim" itemValue="true" />
+			</p:selectOneRadio>
+
+			<p:inputText id="vomitoObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.vomitoObs}" />
+		</div>
+
+		<div class="p-col-2">5. Náusea:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="nausea" value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.nausea}" unselectable="true">
+
+				<f:selectItem itemLabel="Não" itemValue="false" />
+				<f:selectItem itemLabel="Sim" itemValue="true" />
+			</p:selectOneRadio>
+		</div>
+
+		<div class="p-col-2">6. Restrição Hídrica:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="restricaoHidrica"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.restricaoHidrica}" unselectable="true">
+
+				<f:selectItem itemLabel="Não" itemValue="false" />
+				<f:selectItem itemLabel="Sim" itemValue="true" />
+			</p:selectOneRadio>
+
+			<p:inputNumber id="restricaoHidricaVolume" style="margin-left:5px" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController.evolucao.nutricaoHidratacao.restricaoHidricaVolume}" />
+			mL
+		</div>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaNutricaoHidratacao" icon="pi pi-save" value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+
+</ui:composition>

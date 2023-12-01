@@ -1,0 +1,139 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2">
+			<p:outputLabel for="morse" value="MORSE:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="morse" value="#{evolucoesEnfermagemController.evolucao.mobilidade.morse}"
+				unselectable="true">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Baixo risco (0-24)" itemValue="BR" />
+				<f:selectItem itemLabel="Moderado (25-44)" itemValue="MO" />
+				<f:selectItem itemLabel="Elevado (&#8805;45)" itemValue="EL" />
+			</p:selectOneRadio>
+
+			<button type="button" style="margin-top: 0.2rem;"
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+				onclick="PF('dlgEscalaMorse').show()">
+				<span class="ui-button-icon-left ui-icon ui-c pi pi-calendar"></span>
+				<span class="ui-button-text ui-c">Calcular Escore</span>
+			</button>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="locomocao" value="1. Locomoção:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="locomocao" value="#{evolucoesEnfermagemController.evolucao.mobilidade.locomocao}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Deambula sem auxílio" itemValue="DS" />
+				<f:selectItem itemLabel="Deambula com auxílio" itemValue="DA" />
+				<f:selectItem itemLabel="Acamado" itemValue="AC" />
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelOpcoesLocomocao" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="locomocaoObs" value="Obs.:" />
+			<p:inputText id="locomocaoObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.mobilidade.locomocaoObs}" />
+		</div>
+
+		<p:outputPanel id="panelOpcoesLocomocao" class="p-col-12">
+			<p:outputPanel rendered="#{evolucoesEnfermagemController.evolucao.mobilidade.locomocao == 'AC'}">
+				<div class="p-grid">
+					<div class="p-col-2"></div>
+					<div class="p-col-10">
+						<p:selectBooleanCheckbox id="dependenciaParcial" itemLabel="Dependência parcial"
+							value="#{evolucoesEnfermagemController.evolucao.mobilidade.dependenciaParcial}" />
+						<p:selectBooleanCheckbox id="dependenciaTotal" itemLabel="Dependência total"
+							value="#{evolucoesEnfermagemController.evolucao.mobilidade.dependenciaTotal}" />
+					</div>
+				</div>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<div class="p-col-2">
+			<p:outputLabel for="marcha" value="2. Marcha:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="marcha" value="#{evolucoesEnfermagemController.evolucao.mobilidade.marcha}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Normal" itemValue="NO" />
+				<f:selectItem itemLabel="Lenta" itemValue="LE" />
+				<f:selectItem itemLabel="Comprometida" itemValue="CO" />
+				<f:selectItem itemLabel="Não aplica" itemValue="NA" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="equilibrio" value="3. Equilíbrio:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="equilibrio" value="#{evolucoesEnfermagemController.evolucao.mobilidade.equilibrio}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Preservado" itemValue="PS" />
+				<f:selectItem itemLabel="Prejudicado" itemValue="PJ" />
+				<f:selectItem itemLabel="Não aplica" itemValue="NA" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="forcaMuscular" value="4. Força Muscular:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="forcaMuscular"
+				value="#{evolucoesEnfermagemController.evolucao.mobilidade.forcaMuscular}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Sem Alteração" itemValue="SA" />
+				<f:selectItem itemLabel="Prejudicada" itemValue="PJ" />
+				<f:selectItem itemLabel="Não aplica" itemValue="NA" />
+
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelOpcoesForcaMuscular" />
+			</p:selectOneMenu>
+		</div>
+
+		<p:outputPanel id="panelOpcoesForcaMuscular" class="p-col-12">
+			<p:outputPanel rendered="#{evolucoesEnfermagemController.evolucao.mobilidade.forcaMuscular == 'PJ'}">
+				<div class="p-grid">
+
+					<div class="p-col-2"></div>
+					<div class="p-col-10">
+						<p:selectBooleanCheckbox id="fraqueza" itemLabel="Fraqueza"
+							value="#{evolucoesEnfermagemController.evolucao.mobilidade.fraqueza}" />
+
+						<p:outputLabel for="fraquezaObs" value="Obs.:" style="margin-left:5px" />
+						<p:inputText id="fraquezaObs" style="margin-left:5px" maxlength="64"
+							value="#{evolucoesEnfermagemController.evolucao.mobilidade.fraquezaObs}" />
+					</div>
+
+					<div class="p-col-2"></div>
+					<div class="p-col-10">
+						<p:selectBooleanCheckbox id="plegia" itemLabel="Plegia"
+							value="#{evolucoesEnfermagemController.evolucao.mobilidade.plegia}" />
+
+						<p:outputLabel for="fraquezaObs" value="Obs.:" style="margin-left:5px" />
+						<p:inputText id="plegiaObs" style="margin-left:5px" maxlength="64"
+							value="#{evolucoesEnfermagemController.evolucao.mobilidade.plegiaObs}" />
+					</div>
+				</div>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaMobilidade" icon="pi pi-save" value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+
+	<ui:include src="escalas/dlg-morse.xhtml" />
+</ui:composition>

@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+    <style>
+        th,
+        td {
+            border: 1px solid #495057;
+            padding: 0.2rem;
+        }
+    </style>
+
+    <p:dialog id="dlgEscalaBraden" widgetVar="dlgEscalaBraden" header="Escala de Braden" modal="true"
+        width="80%">
+
+        <div style="height: 60vh; overflow-y: scroll" class="ui-fluid p-formgrid p-grid">
+
+            <table class="table p-col-12">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Áreas</th>
+                        <th colspan="4" style="text-align: center;">Score</th>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Percepção Sensorial</th>
+                        <td colspan="4">
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaBraden.percepcaoSensorial}"
+                                layout="responsive" columns="4">
+                                <f:selectItem itemLabel="Totalmente limitado" itemValue="1" />
+                                <f:selectItem itemLabel="Muito limitado" itemValue="2" />
+                                <f:selectItem itemLabel="Levemente limitado" itemValue="3" />
+                                <f:selectItem itemLabel="Nenhuma limitação" itemValue="4" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Umidade</th>
+                        <td colspan="4">
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaBraden.umidade}"
+                                layout="responsive" columns="4">
+                                <f:selectItem itemLabel="Excessiva" itemValue="1" />
+                                <f:selectItem itemLabel="Muita" itemValue="2" />
+                                <f:selectItem itemLabel="Ocasional" itemValue="3" />
+                                <f:selectItem itemLabel="Rara" itemValue="4" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Atividade</th>
+                        <td colspan="4">
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaBraden.atividade}"
+                                layout="responsive" columns="4">
+                                <f:selectItem itemLabel="Acamado" itemValue="1" />
+                                <f:selectItem itemLabel="Confinado a cadeira" itemValue="2" />
+                                <f:selectItem itemLabel="Deambula ocasionalmente" itemValue="3" />
+                                <f:selectItem itemLabel="Deambula frequentemente" itemValue="4" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Mobilidade</th>
+                        <td colspan="4">
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaBraden.mobilidade}"
+                                layout="responsive" columns="4">
+                                <f:selectItem itemLabel="Imóvel" itemValue="1" />
+                                <f:selectItem itemLabel="Muito limitado" itemValue="2" />
+                                <f:selectItem itemLabel="Discreta limitação" itemValue="3" />
+                                <f:selectItem itemLabel="Sem limitação" itemValue="4" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Nutrição</th>
+                        <td colspan="4">
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaBraden.nutricao}"
+                                layout="responsive" columns="4">
+                                <f:selectItem itemLabel="Deficiente" itemValue="1" />
+                                <f:selectItem itemLabel="Inadequada" itemValue="2" />
+                                <f:selectItem itemLabel="Adequada" itemValue="3" />
+                                <f:selectItem itemLabel="Excelente" itemValue="4" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Fricção e Cisalhamento</th>
+                        <td colspan="4">
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaBraden.friccao}"
+                                layout="responsive" columns="4">
+                                <f:selectItem itemLabel="Problema" itemValue="1" />
+                                <f:selectItem itemLabel="Problema potencial" itemValue="2" />
+                                <f:selectItem itemLabel="Sem problema aparente" itemValue="3" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="p-col-2" style="margin-top: 0.5rem;">
+                <p:commandButton icon="pi pi-play" value="Calcular Escore" process="@parent"
+                    update="formEvolucaoEnfermagem:tabView:braden"
+                    action="#{evolucoesEnfermagemController.calcularEscalaBraden}" />
+            </div>
+        </div>
+
+    </p:dialog>
+
+</ui:composition>

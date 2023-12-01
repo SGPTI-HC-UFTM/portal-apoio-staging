@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+    <style>
+        th,
+        td {
+            border: 1px solid #495057;
+            padding: 0.2rem;
+        }
+    </style>
+
+    <p:dialog id="dlgEscalaMorse" widgetVar="dlgEscalaMorse" header="Escala de Morse" modal="true"
+        width="80%">
+
+        <div style="height: 70vh; overflow-y: scroll" class="ui-fluid p-formgrid p-grid">
+
+            <table class="table p-col-12">
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Histórico de queda recente</th>
+                        <td>
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaMorse.historicoQueda}">
+                                <f:selectItem itemLabel="Não" itemValue="0" />
+                                <f:selectItem itemLabel="Sim" itemValue="25" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Diagnóstico secundário</th>
+                        <td>
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaMorse.diagSecundario}">
+                                <f:selectItem itemLabel="Não" itemValue="0" />
+                                <f:selectItem itemLabel="Sim" itemValue="15" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Auxílio para deambular</th>
+                        <td>
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{evolucoesEnfermagemController.escalaMorse.auxilioDeambular}">
+                                <f:selectItem itemLabel="Nenhum/acamado/auxiliado por profissional de Saúde" itemValue="0" />
+                                <f:selectItem itemLabel="Muleta/bengala/andador" itemValue="15" />
+                                <f:selectItem itemLabel="Mobiliário/parede" itemValue="30" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Terapia endovenosa/Dispositivo endovenoso salinizado ou heparinizado</th>
+                        <td>
+                            <p:selectOneRadio value="#{evolucoesEnfermagemController.escalaMorse.terapiaEndovenosa}">
+                                <f:selectItem itemLabel="Não" itemValue="0" />
+                                <f:selectItem itemLabel="Sim" itemValue="15" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Marcha</th>
+                        <td>
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{evolucoesEnfermagemController.escalaMorse.marcha}">
+                                <f:selectItem itemLabel="Normal/sem deambulação/acamado/cadeira de rodas" itemValue="0" />
+                                <f:selectItem itemLabel="Fraca" itemValue="10" />
+                                <f:selectItem itemLabel="Comprometida, cambaleante" itemValue="20" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Estado Mental</th>
+                        <td>
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{evolucoesEnfermagemController.escalaMorse.estadoMental}">
+                                <f:selectItem itemLabel="Orientado, capaz quanto a sua capacidade/limitação" itemValue="0" />
+                                <f:selectItem itemLabel="Superestima capacidade/esquece limitações" itemValue="15" />
+                            </p:selectOneRadio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="p-col-2" style="margin-top: 0.5rem;">
+                <p:commandButton icon="pi pi-play" value="Calcular Escore" process="@parent"
+                    update="formEvolucaoEnfermagem:tabView:morse"
+                    action="#{evolucoesEnfermagemController.calcularEscalaMorse}" />
+            </div>
+        </div>
+
+    </p:dialog>
+
+</ui:composition>

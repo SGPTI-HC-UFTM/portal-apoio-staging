@@ -1,0 +1,207 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2">
+			<p:outputLabel for="braden" value="BRADEN:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="braden" value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.braden}">
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Sem risco (&#8805;19)" itemValue="SR" />
+				<f:selectItem itemLabel="Leve (15-18)" itemValue="LE" />
+				<f:selectItem itemLabel="Moderado (13-14)" itemValue="MO" />
+				<f:selectItem itemLabel="Alto (&#8804;12)" itemValue="AL" />
+			</p:selectOneMenu>
+
+			<button type="button" style="margin-top: 0.2rem;"
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+				onclick="PF('dlgEscalaBraden').show()">
+				<span class="ui-button-icon-left ui-icon ui-c pi pi-calendar"></span>
+				<span class="ui-button-text ui-c">Calcular Escore</span>
+			</button>
+
+		</div>
+
+		<div class="p-col-2">1. Temperatura corporal:</div>
+		<div class="p-col-10">
+			<p:outputLabel for="temperaturaDelta1" value="&#916;" />
+			<p:inputNumber id="temperaturaDelta1" style="margin-left:5px" decimalPlaces="1" locale="pt_BR"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.temperaturaDelta1}" />
+			-
+			<p:inputNumber id="temperaturaDelta2" style="margin-left:5px" decimalPlaces="1" locale="pt_BR"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.temperaturaDelta2}" />
+			&#176;C
+		</div>
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="temperaturaObs" value="Obs.:" />
+			<p:inputText id="temperaturaObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.temperaturaObs}" />
+		</div>
+
+		<div class="p-col-2">2. Pele:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="peleAlterada"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleAlterada}" unselectable="true">
+
+				<f:selectItem itemLabel="Sem alteração" itemValue="false" />
+				<f:selectItem itemLabel="Alterada" itemValue="true" />
+
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelOpcoesPeleAlterada" />
+			</p:selectOneRadio>
+		</div>
+
+		<p:outputPanel id="panelOpcoesPeleAlterada" class="p-col-12">
+			<p:outputPanel rendered="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleAlterada}">
+				<div class="p-grid">
+					<div class="p-col-2"></div>
+					<div class="p-col-10">
+						<p:selectBooleanCheckbox id="pelePalidez" itemLabel="Palidez"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.pelePalidez}" />
+
+						<p:selectBooleanCheckbox id="peleCianose" itemLabel="Cianose" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleCianose}" />
+
+						<p:selectBooleanCheckbox id="peleRubor" itemLabel="Rubor" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleRubor}" />
+
+						<p:selectBooleanCheckbox id="peleFria" itemLabel="Fria" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleFria}" />
+
+						<p:selectBooleanCheckbox id="peleIctericia" itemLabel="Icterícia" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleIctericia}" />
+
+						<p:selectBooleanCheckbox id="pelePrurido" itemLabel="Prurido" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.pelePrurido}" />
+
+						<p:selectBooleanCheckbox id="peleSudorese" itemLabel="Sudorese" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleSudorese}" />
+
+						<p:selectBooleanCheckbox id="peleRessecada" itemLabel="Ressecada" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleRessecada}" />
+
+						<p:selectBooleanCheckbox id="peleLesoes" itemLabel="Lesões elementares" style="margin-left:5px"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleLesoes}" />
+					</div>
+
+
+					<div class="p-col-2"></div>
+					<div class="p-col-10">
+						<p:outputLabel for="peleObs" value="Obs. (caract., local):" />
+						<p:inputText id="peleObs" style="margin-left:5px" maxlength="64"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.peleObs}" />
+					</div>
+
+				</div>
+			</p:outputPanel>
+		</p:outputPanel>
+
+
+
+		<div class="p-col-2">3. Conjuntiva:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="conjuntivaAlterada"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaAlterada}" unselectable="true">
+				<f:selectItem itemLabel="Sem alteração" itemValue="false" />
+				<f:selectItem itemLabel="Alterada" itemValue="true" />
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelOpcoesConjuntivaAlterada" />
+			</p:selectOneRadio>
+
+			<p:outputPanel id="panelOpcoesConjuntivaAlterada">
+				<p:outputPanel rendered="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaAlterada == true}">
+					<p:selectBooleanCheckbox id="conjuntivaAlteradaD" itemLabel="D" style="margin-left:5px"
+						value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaAlteradaD}" />
+
+					<p:selectBooleanCheckbox id="conjuntivaAlteradaE" itemLabel="E" style="margin-left:5px"
+						value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaAlteradaE}" />
+				</p:outputPanel>
+			</p:outputPanel>
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:selectBooleanCheckbox id="conjuntivaHipocorada" itemLabel="Hipocorada" style="margin-left:5px"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaHipocorada}" />
+
+			<p:inputNumber id="conjuntivaHipocoradaValor" style="margin-left:5px" decimalPlaces="0" value="#{evolucoesEnfermagemController
+      							.evolucao
+      							.regulacaoTermica
+      							.conjuntivaHipocoradaValor}" />
+			/+4
+
+			<p:selectBooleanCheckbox id="conjuntivaPrurido" itemLabel="Prurido" style="margin-left:5px"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaPrurido}" />
+
+			<p:selectBooleanCheckbox id="conjuntivaHiperemia" itemLabel="Hiperemia" style="margin-left:5px"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaHiperemia}" />
+
+			<p:selectBooleanCheckbox id="conjuntivaIctericia" itemLabel="Icterícia" style="margin-left:5px"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaIctericia}" />
+
+			<p:selectBooleanCheckbox id="conjuntivaRessecada" itemLabel="Ressecada" style="margin-left:5px"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaRessecada}" />
+
+			<p:inputText id="conjuntivaObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaObs}" />
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:inputText id="conjuntivaOutro" class="p-col-10" style="margin-left:5px" maxlength="64"
+				placeholder="Outro"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.conjuntivaOutro}" />
+		</div>
+
+		<div class="p-col-2">4. Cavidade Bucal:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="cavidadeBucalAlterada" value="#{evolucoesEnfermagemController
+				.evolucao
+				.regulacaoTermica
+				.cavidadeBucalAlterada}" unselectable="true">
+
+				<f:selectItem itemLabel="Íntegra" itemValue="false" />
+				<f:selectItem itemLabel="Alterada" itemValue="true" />
+			</p:selectOneRadio>
+
+			<p:inputText id="cavidadeBucalObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.cavidadeBucalObs}" />
+		</div>
+
+		<div class="p-col-2">5. Genitália:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="genitaliaAlterada" value="#{evolucoesEnfermagemController
+				.evolucao
+				.regulacaoTermica
+				.genitaliaAlterada}" unselectable="true">
+
+				<f:selectItem itemLabel="Íntegra" itemValue="false" />
+				<f:selectItem itemLabel="Alterada" itemValue="true" />
+			</p:selectOneRadio>
+
+			<p:inputText id="genitaliaObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.genitaliaObs}" />
+		</div>
+
+		<div class="p-col-2">6. Ferida:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="ferida" value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.ferida}" unselectable="true">
+
+				<f:selectItem itemLabel="Não" itemValue="false" />
+				<f:selectItem itemLabel="Sim" itemValue="true" />
+			</p:selectOneRadio>
+
+			<p:outputLabel for="feridaObs" value="(tipo, local, estadiamento, caract.):" style="margin-left:5px" />
+			<p:inputText id="feridaObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoTermica.feridaObs}" />
+		</div>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaRegulacaoTermica" icon="pi pi-save" value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+
+	<ui:include src="escalas/dlg-braden.xhtml" />
+</ui:composition>

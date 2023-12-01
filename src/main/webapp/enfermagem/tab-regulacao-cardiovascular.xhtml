@@ -1,0 +1,147 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2">1. Frequência cardíaca:</div>
+		<div class="p-col-10">
+			<p:outputLabel for="frequenciaCardiaca1" value="&#916;" />
+			<p:inputNumber id="frequenciaCardiaca1" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.frequenciaCardiaca1}" />
+			-
+			<p:inputNumber id="frequenciaCardiaca2" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.frequenciaCardiaca2}" />
+			bpm
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="frequenciaCardiacaObs" value="Obs." />
+			<p:inputText id="frequenciaCardiacaObs" maxlength="64"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.frequenciaCardiacaObs}" />
+		</div>
+
+		<div class="p-col-2">2. Pressão arterial:</div>
+		<div class="p-col-10">
+			<p:outputLabel for="pas1" value="&#916;PAS" />
+			<p:inputNumber id="pas1" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.pas1}" />
+			-
+			<p:inputNumber id="pas2" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.pas2}" />
+			mmHg
+
+			<p:outputLabel for="pad1" value="&#916;PAD" style="margin-left:5px" />
+			<p:inputNumber id="pad1" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.pad1}" />
+			-
+			<p:inputNumber id="pad2" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.pad2}" />
+			mmHg
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="paObs" value="Obs." />
+			<p:inputText id="paObs" maxlength="64"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.paObs}" />
+		</div>
+
+		<div class="p-col-2">3. Pulsos periféricos
+			(local/amplitude/ritmo):</div>
+		<div class="p-col-10">
+			<p:inputText id="pulsosPerifericos"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.pulsosPerifericos}" />
+		</div>
+
+		<div class="p-col-2">4. Perfusão periférica:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="perfusaoPeriferica"
+				value="#{evolucoesEnfermagemController
+									.evolucao
+									.regulacaoCardiovascular
+									.perfusaoPeriferica}" unselectable="true">
+
+				<f:selectItem itemLabel="Preservada" itemValue="PR" />
+				<f:selectItem itemLabel="Diminuída (&#8805; 3s)" itemValue="DI" />
+			</p:selectOneRadio>
+		</div>
+
+		<div class="p-col-2">5. Rede vascular:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="redeVascular"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoCardiovascular.redeVascular}" unselectable="true">
+
+				<f:selectItem itemLabel="Preservada" itemValue="PS" />
+				<f:selectItem itemLabel="Prejudicada" itemValue="PJ" />
+			</p:selectOneRadio>
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="redeVascularObs" value="Obs." />
+			<p:inputText id="redeVascularObs" maxlength="64"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.redeVascularObs}" />
+		</div>
+
+		<div class="p-col-2">6. Edema:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="edema"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoCardiovascular.edema}" unselectable="true">
+
+				<f:selectItem itemLabel="Não" itemValue="false" />
+				<f:selectItem itemLabel="Sim" itemValue="true" />
+			</p:selectOneRadio>
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="edemaLocalCacifo" value="Obs." />
+			<p:inputText id="edemaLocalCacifo" maxlength="64"
+				value="#{evolucoesEnfermagemController
+           							.evolucao
+           							.regulacaoCardiovascular
+           							.edemaLocalCacifo}" />
+		</div>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaRegulacaoCardiovascular"
+				icon="pi pi-save" value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+
+
+</ui:composition>

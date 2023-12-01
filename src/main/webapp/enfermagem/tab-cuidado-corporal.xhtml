@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2">
+			<p:outputLabel for="autocuidado" value="1. Capacidade para Autocuidado:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="autocuidado"
+				value="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.autocuidadoPreservado}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Preservada" itemValue="PS" />
+				<f:selectItem itemLabel="Prejudicada" itemValue="PJ" />
+				<f:selectItem itemLabel="Não aplica" itemValue="NA" />
+
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelAutocuidadoPreservado" />
+			</p:selectOneMenu>
+		</div>
+
+		<p:outputPanel id="panelAutocuidadoPreservado" class="p-col-12">
+			<p:outputPanel rendered="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.autocuidadoPreservado == 'PJ'}">
+				<div class="p-grid">
+					<div class="p-col-2"></div>
+					<div class="p-col-10">
+						<p:selectBooleanCheckbox id="alimentacao" itemLabel="Alimentação"
+							value="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.alimentacao}" />
+
+						<p:selectBooleanCheckbox id="banho" itemLabel="Banho"
+							value="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.banho}" />
+
+						<p:selectBooleanCheckbox id="higiene" itemLabel="Higiene Íntima"
+							value="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.higieneIntima}" />
+
+						<p:selectBooleanCheckbox id="vestir" itemLabel="Vestir-se"
+							value="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.vestir}" />
+					</div>
+				</div>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<div class="p-col-2">
+			<p:outputLabel for="sono" value="2. Padrão do Sono e Repouso:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="sono" value="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.padraoSono}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Preservada" itemValue="PS" />
+				<f:selectItem itemLabel="Prejudicada" itemValue="PJ" />
+				<f:selectItem itemLabel="Não aplica" itemValue="NA" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="sonoObs" value="Obs.:" />
+			<p:inputTextarea rows="3" cols="30" id="sonoObs" style="margin-left:5px"
+				value="#{evolucoesEnfermagemController.evolucao.cuidadoCorporal.padraoSonoObs}" />
+		</div>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaCuidado" icon="pi pi-save" value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+</ui:composition>

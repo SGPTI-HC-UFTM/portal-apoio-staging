@@ -25,7 +25,7 @@
 		<version.itextpdf>5.5.13.2</version.itextpdf>
 		<version.commons>2.11.0</version.commons>
 		<version.commons.csv>1.9.0</version.commons.csv>
-		<version.commons.lang>3.12.0</version.commons.lang>
+		<version.commons.lang>3.14.0</version.commons.lang>
 	</properties>
 
 	<dependencies>
@@ -100,6 +100,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
 			<version>${version.commons.csv}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${version.commons.lang}</version>
 		</dependency>
 	</dependencies>
 

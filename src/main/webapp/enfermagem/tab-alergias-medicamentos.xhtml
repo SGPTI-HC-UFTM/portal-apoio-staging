@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel id="pnlAlergiasMedicamentos" styleClass="p-grid">
+		<div class="p-col-2">
+			<p:outputLabel for="alergias" value="Alergias:"/>
+		</div>
+        <div class="p-col-10">
+        	<p:selectOneRadio id="alergias" 
+				value="#{evolucoesEnfermagemController.evolucao.alergiaMedicamento.alergias}" unselectable="true">
+				<f:selectItem itemLabel="Não" itemValue="NA"/>
+        		<f:selectItem itemLabel="Sim" itemValue="SI"/>
+        		<f:selectItem itemLabel="Não documentado/relatado" itemValue="ND"/>
+        		<p:ajax event="change" update="pnlAlergiasMedicamentos"/>
+			</p:selectOneRadio>
+		</div>
+    	
+    	<p:outputPanel styleClass="p-col-2" 
+    		rendered="#{evolucoesEnfermagemController.evolucao.alergiaMedicamento.alergias == 'SI'}"></p:outputPanel>
+        <p:outputPanel styleClass="p-col-10"
+        	rendered="#{evolucoesEnfermagemController.evolucao.alergiaMedicamento.alergias == 'SI'}">
+            <p:outputLabel for="alergiasObs" value="Obs.:"/>
+			<br></br>
+        	<p:inputTextarea id="alergiasObs"
+        		maxlength="64"
+        		value="#{evolucoesEnfermagemController.evolucao.alergiaMedicamento.alergiasObs}"/>
+		</p:outputPanel>
+
+		<div class="p-col-2">
+			<p:outputLabel for="medicamentosVigilancia" value="Medicamentos Alta Vigilância:"/>
+		</div>
+        <div class="p-col-10">
+        	<p:inputTextarea id="medicamentosVigilancia"
+        		maxlength="250"
+        		value="#{evolucoesEnfermagemController.evolucao.alergiaMedicamento.medicamentosVigilancia}"/>
+		</div>
+			
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaAlergias"
+				icon="pi pi-save"
+				value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}"/>
+		</div>   
+	</p:outputPanel>
+</ui:composition>

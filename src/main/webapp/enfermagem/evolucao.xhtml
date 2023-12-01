@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h2>Evolução de Enfermagem</h2>
+
+		<h:form id="formEvolucaoEnfermagem">
+			<p:tabView id="tabView">
+				<p:tab id="tabInternacao" title="Internação">
+					<ui:include src="tab-internacao.xhtml" />
+				</p:tab>
+
+				<p:tab title="Dispositivos Invasivos" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+					<ui:include src="tab-dispositivos-invasivos.xhtml" />
+				</p:tab>
+
+				<p:tab title="Regulação Neurológica" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+					<ui:include src="tab-regulacao-neurologica.xhtml" />
+				</p:tab>
+
+				<p:tab title="Oxigenação" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+					<ui:include src="tab-oxigenacao.xhtml" />
+				</p:tab>
+
+				<p:tab title="Regulação Cardiovascular" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+					<ui:include src="tab-regulacao-cardiovascular.xhtml" />
+				</p:tab>
+
+				<p:tab title="Nutrição e Hidratação" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+					<ui:include src="tab-nutricao-hidratacao.xhtml" />
+				</p:tab>
+
+				<p:tab title="Eliminação" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+					<ui:include src="tab-eliminacao.xhtml" />
+				</p:tab>
+
+				<p:tab title="Regulação Térmica e Integridade Cutaneomucosa"
+					rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-regulacao-termica.xhtml" />
+				</p:tab>
+
+				<p:tab title="Comunicação e Percepção" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-comunicacao-percepcao.xhtml" />
+				</p:tab>
+
+				<p:tab title="Cuidado corporal e Sono e Repouso"
+					rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-cuidado-corporal.xhtml" />
+				</p:tab>
+
+				<p:tab title="Mobilidade" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-mobilidade.xhtml" />
+				</p:tab>
+
+				<p:tab title="Necessidades Psicossocial e Psicoespiritual"
+					rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-necessidades-psicossociais.xhtml" />
+				</p:tab>
+
+				<p:tab title="Alergias e Medicamentos" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-alergias-medicamentos.xhtml" />
+				</p:tab>
+
+				<p:tab title="Informações Complementares" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-informacoes-complementares.xhtml" />
+				</p:tab>
+
+				<p:tab title="Evolução" rendered="#{evolucoesEnfermagemController.evolucao != null}">
+
+					<ui:include src="tab-evolucao.xhtml" />
+				</p:tab>
+			</p:tabView>
+		</h:form>
+
+		<ui:include src="dlg-evolucao-existente.xhtml" />
+		<ui:include src="dlg-exporta-evolucao.xhtml" />
+	</ui:define>
+</ui:composition>

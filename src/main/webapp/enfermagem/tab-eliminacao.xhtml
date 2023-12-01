@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2">
+			<p:outputLabel for="balancoHidricoTotal"
+				value="Balanço hídrico total:" />
+		</div>
+		<div class="p-col-10">
+			<p:inputNumber id="balancoHidricoTotal" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.balancoHidricoTotal}" />
+			mL
+		</div>
+
+		<div class="p-col-2">1. Eliminação urinária:</div>
+		<div class="p-col-10">
+			<p:selectBooleanCheckbox id="miccaoEspontanea"
+				itemLabel="Micção espontânea em"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.miccaoEspontanea}" />
+
+			<p:inputText id="miccaoEspontaneaObs" style="margin-left:5px"
+				maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.miccaoEspontaneaObs}" />
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:selectBooleanCheckbox id="cateter" itemLabel="Cateter"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.cateter}" />
+
+			<p:outputLabel for="volume" value="Volume:" />
+			<p:inputNumber id="volume" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.volume}" />
+			mL em
+			<p:inputNumber id="volumeHoras" decimalPlaces="0"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.volumeHoras}" />
+			horas
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="padraoPreservado" value="Padrão:" />
+			<p:selectOneRadio id="padraoPreservado"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.padraoPreservado}" unselectable="true">
+
+				<f:selectItem itemLabel="Preservado" itemValue="true" />
+				<f:selectItem itemLabel="Alterado" itemValue="false" />
+			</p:selectOneRadio>
+
+			<p:outputLabel for="padraoCaracteristicas" value="(caract.):" />
+			<p:inputText id="padraoCaracteristicas" style="margin-left:5px"
+				maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.padraoCaracteristicas}" />
+		</div>
+
+		<div class="p-col-2">2. Eliminação intestinal:</div>
+		<div class="p-col-10">
+			<p:selectBooleanCheckbox id="eliminacaoEspontanea"
+				itemLabel="Espontânea em"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.eliminacaoEspontanea}" />
+
+			<p:inputText id="eliminacaoEspontaneaObs" style="margin-left:5px"
+				maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.eliminacaoEspontaneaObs}" />
+		</div>
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:selectBooleanCheckbox id="colostomia" itemLabel="Colostomia"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.colostomia}" />
+
+			<p:selectBooleanCheckbox id="ileostomia" itemLabel="Ileostomia"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.ileostomia}" />
+		</div>
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="" value="Padrão (caract./freq./vol.):" />
+			<p:inputText id="padraoEliminacao" style="margin-left:5px"
+				maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.padraoEliminacao}" />
+		</div>
+
+		<div class="p-col-2">3. Efluentes:</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="efluentes"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.efluentes}" unselectable="true">
+
+				<f:selectItem itemLabel="Não" itemValue="false" />
+				<f:selectItem itemLabel="Sim" itemValue="true" />
+			</p:selectOneRadio>
+
+			<p:outputLabel for="efluentesObs" value="(tipo, caract., vol.):" />
+			<p:inputText id="efluentesObs" style="margin-left:5px" maxlength="64"
+				value="#{evolucoesEnfermagemController.evolucao.eliminacao.efluentesObs}" />
+		</div>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaEliminacao" icon="pi pi-save"
+				value="Salvar" action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+</ui:composition>

@@ -1,0 +1,198 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel id="pnlDispositivosInvasivos">
+		<div class="ui-fluid p-formgrid p-grid">
+			<div class="p-field p-col-12 p-md-12">
+				<p:outputLabel for="possuiDispositivosInvasivos" value="Possui dispositivos invasivos?" />
+				<p:selectOneRadio id="possuiDispositivosInvasivos" value="#{evolucoesEnfermagemController
+										.evolucao
+										.dispositivoInvasivo
+										.indSemDipositivo}" unselectable="true">
+
+					<f:selectItem itemLabel="Não" itemValue="true" />
+					<f:selectItem itemLabel="Sim" itemValue="false" />
+
+					<p:ajax update="pnlDispositivosInvasivos" event="valueChange" global="false" />
+				</p:selectOneRadio>
+			</div>
+		</div>
+
+		<p:outputPanel styleClass="ui-fluid p-formgrid p-grid"
+			rendered="#{!evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indSemDipositivo}">
+			<div class="p-field-checkbox p-col-12 p-md-12">
+				<p:selectBooleanCheckbox id="indCateterVenosoPeriferico" value="#{evolucoesEnfermagemController
+						.evolucao
+						.dispositivoInvasivo
+						.indCateterVenosoPeriferico}" itemLabel="Cateter venoso periférico">
+
+					<p:ajax update="pnlDispositivosInvasivos" event="valueChange" global="false" />
+				</p:selectBooleanCheckbox>
+			</div>
+
+			<p:outputPanel styleClass="p-col-12 p-md-12"
+				rendered="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indCateterVenosoPeriferico}">
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field p-col-12 p-md-6">
+						<p:outputLabel for="dataCateterVenosoPeriferico">Data:</p:outputLabel>
+						<p:calendar id="dataCateterVenosoPeriferico" locale="pt_BR" pattern="dd/MM/yyyy" mask="true"
+							navigator="true"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.dataCateterVenosoPeriferico}" />
+					</div>
+
+					<div class="p-field p-col-12 p-md-6">
+						<p:outputLabel for="localCateterVenosoPeriferico">Local:</p:outputLabel>
+						<p:inputText id="localCateterVenosoPeriferico" maxlength="64" value="#{evolucoesEnfermagemController
+												.evolucao
+												.dispositivoInvasivo
+												.localCateterVenosoPeriferico}" />
+					</div>
+
+					<div class="p-field p-col-12 p-md-12">
+						<p:outputLabel for="obsCateterVenosoPeriferico">Observação:</p:outputLabel>
+						<p:inputText id="obsCateterVenosoPeriferico" maxlength="64" value="#{evolucoesEnfermagemController
+												.evolucao
+												.dispositivoInvasivo
+												.obsCateterVenosoPeriferico}" />
+					</div>
+				</div>
+			</p:outputPanel>
+
+			<div class="p-field p-col-12 p-md-12">
+				<p:selectBooleanCheckbox id="indCateterVenosoCentral" value="#{evolucoesEnfermagemController
+										.evolucao
+										.dispositivoInvasivo
+										.indCateterVenosoCentral}" itemLabel="Cateter venoso central">
+
+					<p:ajax update="pnlDispositivosInvasivos" event="valueChange" global="false" />
+				</p:selectBooleanCheckbox>
+			</div>
+
+			<p:outputPanel styleClass="p-col-12 p-md-12"
+				rendered="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indCateterVenosoCentral}">
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field p-col-12 p-md-6">
+						<p:outputLabel for="dataCateterVenosoCentral">Data:</p:outputLabel>
+						<p:calendar id="dataCateterVenosoCentral" locale="pt_BR" pattern="dd/MM/yyyy" mask="true"
+							navigator="true"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.dataCateterVenosoCentral}" />
+					</div>
+
+					<div class="p-field p-col-12 p-md-6">
+						<p:outputLabel for="tipoCateterVenosoCentral">Tipo/local:</p:outputLabel>
+						<p:inputText id="tipoCateterVenosoCentral" maxlength="64" value="#{evolucoesEnfermagemController
+								.evolucao
+								.dispositivoInvasivo
+									.tipoCateterVenosoCentral}" />
+					</div>
+
+					<div class="p-field p-col-12 p-md-12">
+						<p:outputLabel for="observacaoCateterVenosoCentral">Observação:</p:outputLabel>
+						<p:inputText id="observacaoCateterVenosoCentral" maxlength="64" value="#{evolucoesEnfermagemController
+								.evolucao
+								.dispositivoInvasivo
+								.observacaoCateterVenosoCentral}" />
+					</div>
+				</div>
+			</p:outputPanel>
+
+			<div class="p-field p-col-12 p-md-12">
+				<p:selectBooleanCheckbox id="indOutroCateter"
+					value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indOutroCateter}"
+					itemLabel="Cateter:">
+
+					<p:ajax update="pnlDispositivosInvasivos" event="valueChange" global="false" />
+				</p:selectBooleanCheckbox>
+			</div>
+
+			<p:outputPanel styleClass="p-col-12 p-md-12"
+				rendered="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indOutroCateter}">
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field-checkbox p-col-12 p-md-6">
+						<p:selectBooleanCheckbox id="indOutroCateterGastrico"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indOutroCateterGastrico}"
+							itemLabel="Gástrico" />
+					</div>
+
+					<div class="p-field-checkbox p-col-12 p-md-6">
+						<p:selectBooleanCheckbox id="indOutroCateterEnteral"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indOutroCateterEnteral}"
+							itemLabel="Enteral" />
+					</div>
+
+					<div class="p-field p-col-12 p-md-12">
+						<p:outputLabel for="observacaoOutroCateter">Observação:</p:outputLabel>
+						<p:inputText id="observacaoOutroCateter" maxlength="64"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.observacaoOutroCateter}" />
+					</div>
+				</div>
+			</p:outputPanel>
+
+			<div class="p-field p-col-12 p-md-12">
+				<p:selectBooleanCheckbox id="indCateterVesical"
+					value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indCateterVesical}"
+					itemLabel="Cateter vesical:">
+
+					<p:ajax update="pnlDispositivosInvasivos" event="valueChange" global="false" />
+				</p:selectBooleanCheckbox>
+			</div>
+
+			<p:outputPanel styleClass="p-col-12 p-md-12"
+				rendered="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indCateterVesical}">
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field-checkbox p-col-12 p-md-4">
+						<p:selectBooleanCheckbox id="indCateterVesicalDemora"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indCateterVesicalDemora}"
+							itemLabel="Demora" />
+					</div>
+
+					<div class="p-field-checkbox p-col-12 p-md-4">
+						<p:selectBooleanCheckbox id="indCateterVesicalIntermitente"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indCateterVesicalIntermitente}"
+							itemLabel="Intermitente" />
+					</div>
+
+					<div class="p-field-checkbox p-col-12 p-md-4">
+						<p:selectBooleanCheckbox id="indCateterVesicalCistostomia"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.indCateterVesicalCistostomia}"
+							itemLabel="Cistostomia" />
+					</div>
+
+					<div class="p-field p-col-12 p-md-12">
+						<p:outputLabel for="observacaoCateterVesical">Observação:</p:outputLabel>
+						<p:inputText id="observacaoCateterVesical" maxlength="64"
+							value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.observacaoCateterVesical}" />
+					</div>
+				</div>
+			</p:outputPanel>
+
+			<div class="p-field p-col-12 p-md-6">
+				<p:outputLabel for="observacaoCanulaTraqueal" value="Cânula traqueal:" />
+				<p:inputText id="observacaoCanulaTraqueal" maxlength="64"
+					value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.observacaoCanulaTraqueal}" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-6">
+				<p:outputLabel for="dispositivosOrtopedicos" value="Dispositivos Ortopédicos:" />
+				<p:inputText id="dispositivosOrtopedicos" maxlength="64"
+					value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.dispositivosOrtopedicos}" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-6">
+				<p:outputLabel for="drenos" value="Drenos:" />
+				<p:inputText id="drenos" maxlength="64"
+					value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.drenos}" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-6">
+				<p:outputLabel for="outros" value="Outros:" />
+				<p:inputText id="outros" maxlength="64"
+					value="#{evolucoesEnfermagemController.evolucao.dispositivoInvasivo.outros}" />
+			</div>
+		</p:outputPanel>
+
+		<p:commandButton id="btnSalvaDispositivosInvasivos" icon="pi pi-save" value="Salvar"
+			action="#{evolucoesEnfermagemController.salva}" />
+	</p:outputPanel>
+</ui:composition>

@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+    <style>
+        .table {
+            width: 100%;
+        }
+        th,
+        td {
+            border: 1px solid #495057;
+            padding: 0.8rem !important;
+        }
+        .legend {
+            font-weight: bold;
+        }
+    </style>
+
+    <p:dialog id="dlgEscalaRass" widgetVar="dlgEscalaRass" header="Escala de RASS" modal="true" width="80%">
+
+        <div style="height: 70vh; overflow-y: scroll" class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-col-12">
+
+                <p:selectOneRadio layout="custom" columns="1" id="selectRass"
+                    value="#{evolucoesEnfermagemController.escalaRass.classificacao}">
+                    <f:selectItem itemLabel="Combativo, violento, risco para a equipe" itemValue="Combativo" />
+                    <f:selectItem itemLabel="Conduta agressiva, puxa ou remove tubos ou cateteres, agressivo verbalmente"
+                        itemValue="Muito Agitado" />
+                    <f:selectItem itemLabel="Movimentos despropositados frequentes, briga com o ventilador" itemValue="Agitado" />
+                    <f:selectItem itemLabel="Intranquilo, ansioso, sem movimentos vigorosos ou agressivos" itemValue="Inquieto" />
+                    <f:selectItem itemLabel="Alerta, calmo" itemValue="Alerta e Calmo" />
+                    <f:selectItem
+                        itemLabel="Adormecido, facilmente despertável, mantém contacto visual por mais de 10 segundos"
+                        itemValue="Sonolento" />
+                    <f:selectItem
+                        itemLabel="Despertar precoce ao estimulo verbal, mantém contacto visual por menos de 10 segundos"
+                        itemValue="Sedação Leve" />
+                    <f:selectItem itemLabel="Movimentos e abertura ocular ao estimulo verbal, mas sem contato visual"
+                        itemValue="Sedação Moderada" />
+                    <f:selectItem
+                        itemLabel="Sem resposta ao estimulo verbal, mas apresenta movimentos ou abertura ocular ao toque (estímulo físico)"
+                        itemValue="Sedação Intensa" />
+                    <f:selectItem itemLabel="Sem resposta a estímulo verval ou físico" itemValue="Não Desperta" />
+                </p:selectOneRadio>
+    
+                <h:panelGrid columns="3" cellpadding="5" class="table">
+                    <p:radioButton id="ref1" for="selectRass" itemIndex="0" />
+                    <span class="legend">Combativo</span>
+                    <h:outputLabel for="ref1" value="Combativo, violento, risco para a equipe" />
+    
+                    <p:radioButton id="ref2" for="selectRass" itemIndex="1" />
+                    <span class="legend">Muito Agitado</span>
+                    <h:outputLabel for="ref2"
+                        value="Conduta agressiva, puxa ou remove tubos ou cateteres, agressivo verbalmente" />
+    
+                    <p:radioButton id="ref3" for="selectRass" itemIndex="2" />
+                    <span class="legend">Agitado</span>
+                    <h:outputLabel for="ref3" value="Movimentos despropositados frequentes, briga com o ventilador" />
+
+                    <p:radioButton id="ref4" for="selectRass" itemIndex="3" />
+                    <span class="legend">Inquieto</span>
+                    <h:outputLabel for="ref4" value="Intranquilo, ansioso, sem movimentos vigorosos ou agressivos" />
+                    
+                    <p:radioButton id="ref5" for="selectRass" itemIndex="4" />
+                    <span class="legend">Alerta e Calmo</span>
+                    <h:outputLabel for="ref5" value="Alerta, calmo" />
+                    
+                    <p:radioButton id="ref6" for="selectRass" itemIndex="5" />
+                    <span class="legend">Sonolento</span>
+                    <h:outputLabel for="ref6" value="Adormecido, facilmente despertável, mantém contacto visual por mais de 10 segundos" />
+
+                    <p:radioButton id="ref7" for="selectRass" itemIndex="6" />
+                    <span class="legend">Sedação Leve</span>
+                    <h:outputLabel for="ref7" value="Despertar precoce ao estimulo verbal, mantém contacto visual por menos de 10 segundos" />
+
+                    <p:radioButton id="ref8" for="selectRass" itemIndex="7" />
+                    <span class="legend">Sedação Moderada</span>
+                    <h:outputLabel for="ref8" value="Movimentos e abertura ocular ao estimulo verbal, mas sem contato visual" />
+
+                    <p:radioButton id="ref9" for="selectRass" itemIndex="8" />
+                    <span class="legend">Sedação Intensa</span>
+                    <h:outputLabel for="ref9" value="Sem resposta ao estimulo verbal, mas apresenta movimentos ou abertura ocular ao toque (estímulo físico)" />
+
+                    <p:radioButton id="ref10" for="selectRass" itemIndex="9" />
+                    <span class="legend">Não Desperta</span>
+                    <h:outputLabel for="ref10" value="Sem resposta a estímulo verval ou físico" />
+    
+                </h:panelGrid>
+            </div>
+
+
+            <div class="p-col-2" style="margin-top: 0.5rem;">
+                <p:commandButton icon="pi pi-play" value="Calcular Escore" process="@parent"
+                    update="formEvolucaoEnfermagem:tabView:rass"
+                    action="#{evolucoesEnfermagemController.calcularEscalaRass}" />
+            </div>
+        </div>
+
+    </p:dialog>
+
+</ui:composition>

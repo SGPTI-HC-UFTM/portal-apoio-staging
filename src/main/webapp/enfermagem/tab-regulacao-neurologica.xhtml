@@ -1,0 +1,206 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2">
+			<p:outputLabel for="glasgow" value="Glasgow:" />
+		</div>
+		<div class="p-col-10">
+			<p:inputText id="glasgow" value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.glasgow}" />
+			<button type="button" style="margin-top: 0.2rem;"
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+				onclick="PF('dlgEscalaGlasgow').show()">
+				<span class="ui-button-icon-left ui-icon ui-c pi pi-calendar"></span>
+				<span class="ui-button-text ui-c">Calcular Escore</span>
+			</button>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="rass" value="RASS:" />
+		</div>
+		<div class="p-col-10">
+			<p:inputText id="rass" maxlength="30" value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.rass}" />
+
+			<button type="button" style="margin-top: 0.2rem;"
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+				onclick="PF('dlgEscalaRass').show()">
+				<span class="ui-button-icon-left ui-icon ui-c pi pi-calendar"></span>
+				<span class="ui-button-text ui-c">Calcular Escore</span>
+			</button>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="nivelConsciencia" value="1. Nível de consciência:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="nivelConsciencia"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.nivelConsciencia}">
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Vigil" itemValue="VI" />
+				<f:selectItem itemLabel="Agitado" itemValue="AG" />
+				<f:selectItem itemLabel="Sonolento" itemValue="SO" />
+				<f:selectItem itemLabel="Obnubilado" itemValue="OB" />
+				<f:selectItem itemLabel="Torpor" itemValue="TO" />
+				<f:selectItem itemLabel="Comatoso" itemValue="CO" />
+				<f:selectItem itemLabel="Não Aplica" itemValue="NA" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="orientacao" value="2. Orientação:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="orientacao"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.orientacao}">
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Orientado" itemValue="OR" />
+				<f:selectItem itemLabel="Desorientado" itemValue="DE" />
+				<f:selectItem itemLabel="Não Mensurável" itemValue="NM" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:selectBooleanCheckbox id="orientacaoAlo"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.orientacaoAlo}" itemLabel="Alo" />
+
+			<p:selectBooleanCheckbox id="orientacaoAuto"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.orientacaoAuto}"
+				itemLabel="Auto" />
+
+			<p:outputLabel for="orientacaoObservacao" value="Obs:" style="margin-left:5px" />
+			<p:inputText id="orientacaoObservacao" maxlength="64" style="margin-left:5px" value="#{evolucoesEnfermagemController
+									.evolucao
+									.regulacaoNeurologica
+									.orientacaoObservacao}" />
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="sedacao" value="3. Sedação:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="sedacao"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.sedacao}">
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Combativo" itemValue="CO" />
+				<f:selectItem itemLabel="Muito agitado" itemValue="MA" />
+				<f:selectItem itemLabel="Agitado" itemValue="AG" />
+				<f:selectItem itemLabel="Inquieto" itemValue="IN" />
+				<f:selectItem itemLabel="Calmo" itemValue="CA" />
+				<f:selectItem itemLabel="Sedado" itemValue="SE" />
+				<f:selectItem itemLabel="Não Aplica" itemValue="NA" />
+				<p:ajax update="formEvolucaoEnfermagem:tabView:pnlNivelSedacao" />
+			</p:selectOneMenu>
+
+			<p:outputPanel id="pnlNivelSedacao">
+				<p:outputPanel rendered="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.sedacao == 'SE'}"
+					style="margin-top: 0.5rem;">
+
+					<p:selectBooleanCheckbox
+						value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.sedacaoLeve}"
+						itemLabel="Sedação Leve" />
+					<p:selectBooleanCheckbox
+						value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.sedacaoModerado}"
+						itemLabel="Sedação Moderado" />
+					<p:selectBooleanCheckbox
+						value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.sedacaoProfundo}"
+						itemLabel="Sedação Profundo" />
+
+				</p:outputPanel>
+			</p:outputPanel>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="pupilas" value="4. Pupilas:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneRadio id="pupilas"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.pupilas}">
+				<f:selectItem itemLabel="Preservada" itemValue="PR" />
+				<f:selectItem itemLabel="Alterada" itemValue="AL" />
+
+				<p:ajax update="formEvolucaoEnfermagem:tabView:panelOpcoesPupilas" />
+
+			</p:selectOneRadio>
+		</div>
+
+		<p:outputPanel id="panelOpcoesPupilas" class="p-col-12">
+			<p:outputPanel rendered="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.pupilas == 'AL'}">
+				<div class="p-grid">
+					<div class="p-col-2"></div>
+
+					<div class="p-col-10">
+						<p:outputLabel for="pupilasAnisocoricas1" value="Anisocóricas:" style="margin-left:5px" />
+						<p:inputText id="pupilasAnisocoricas1" style="margin-left:5px" maxlength="1" value="#{evolucoesEnfermagemController
+									.evolucao
+									.regulacaoNeurologica
+									.pupilasAnisocoricas1}" />
+						&gt;
+						<p:inputText id="pupilasAnisocoricas2" style="margin-left:5px" maxlength="1" value="#{evolucoesEnfermagemController
+									.evolucao
+									.regulacaoNeurologica
+									.pupilasAnisocoricas2}" />
+					</div>
+
+					<div class="p-col-2"></div>
+					<div class="p-col-10">
+						<p:selectBooleanCheckbox id="pupilasMidriaticas" value="#{evolucoesEnfermagemController
+									.evolucao
+									.regulacaoNeurologica
+									.pupilasMidriaticas}" itemLabel="Midriáticas" />
+						<p:selectBooleanCheckbox id="pupilasMioticas"
+							value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.pupilasMioticas}"
+							itemLabel="Mióticas" style="margin-left:5px" />
+						<p:selectBooleanCheckbox id="pupilasNaoReagentesLuz" value="#{evolucoesEnfermagemController
+									.evolucao
+									.regulacaoNeurologica
+									.pupilasNaoReagentesLuz}" itemLabel="Não reagente à luz" style="margin-left:5px" />
+					</div>
+
+				</div>
+			</p:outputPanel>
+		</p:outputPanel>
+
+
+		<div class="p-col-2">
+			<p:outputLabel for="aberturaOlhos" value="5. Abertura dos olhos:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="aberturaOlhos"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.aberturaOlhos}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Espontânea" itemValue="ES" />
+				<f:selectItem itemLabel="Ao comando verbal" itemValue="CV" />
+				<f:selectItem itemLabel="À dor" itemValue="AD" />
+				<f:selectItem itemLabel="Sem resposta" itemValue="SR" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="respostaMotora" value="6. Resposta Motora:" />
+		</div>
+		<div class="p-col-10">
+			<p:selectOneMenu id="respostaMotora"
+				value="#{evolucoesEnfermagemController.evolucao.regulacaoNeurologica.respostaMotora}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue="" />
+				<f:selectItem itemLabel="Comando verbal" itemValue="CV" />
+				<f:selectItem itemLabel="Localiza estímulo" itemValue="LE" />
+				<f:selectItem itemLabel="Retirada inespecífica" itemValue="RI" />
+				<f:selectItem itemLabel="Flexão anormal" itemValue="FA" />
+				<f:selectItem itemLabel="Extensão anormal" itemValue="EA" />
+				<f:selectItem itemLabel="Sem resposta" itemValue="SR" />
+			</p:selectOneMenu>
+		</div>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaRegulacaoNeurologica" icon="pi pi-save" value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+
+	<ui:include src="escalas/dlg-glasgow.xhtml" />
+	<ui:include src="escalas/dlg-rass.xhtml" />
+</ui:composition>

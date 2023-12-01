@@ -13,7 +13,7 @@ import net.ebserh.hctm.dto.aghu.indicadores.IndicadorPreceptoriaDto;
 import net.ebserh.hctm.exception.CustomRuntimeException;
 
 @Stateless
-public class EvolucoesEnfermagemService {
+public class AghuEvolucoesEnfermagemService {
 	
 	@Inject
 	private Logger logger;

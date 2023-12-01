@@ -1,0 +1,159 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	           			
+	<p:outputPanel id="pnlComunicacaoPercepcao" styleClass="p-grid">
+    	<div class="p-col-2">
+			<p:outputLabel for="fala" value="1. Fala:"/>
+		</div>
+        <div class="p-col-10">
+        	<p:selectOneMenu id="fala" 
+				value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.falaPreservada}">
+			
+				<f:selectItem itemLabel="Selecionar" itemValue=""/>
+				<f:selectItem itemLabel="Preservada" itemValue="PS"/>
+        		<f:selectItem itemLabel="Prejudicada" itemValue="PJ"/>
+        		<f:selectItem itemLabel="Não aplica" itemValue="NA"/>
+			</p:selectOneMenu>
+		</div>
+		
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="falaObs" value="Obs.:"/>
+        	<p:inputText id="falaObs"
+        		style="margin-left:5px"
+        		maxlength="64"
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.falaObs}"/>
+        </div>
+        
+        <div class="p-col-2">
+			<p:outputLabel for="acuidadeVisualPreservada" value="2. Acuidade Visual:"/>
+		</div>
+		 <div class="p-col-10">
+        	<p:selectOneMenu id="acuidadeVisualPreservada" 
+				value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeVisualPreservada}">
+
+				<f:selectItem itemLabel="Selecionar" itemValue=""/>
+				<f:selectItem itemLabel="Preservada" itemValue="PS"/>
+        		<f:selectItem itemLabel="Prejudicada" itemValue="PJ"/>
+        		<f:selectItem itemLabel="Não mensurável" itemValue="NM"/>
+        		<f:selectItem itemLabel="Não aplica" itemValue="NA"/>
+        		
+        		<p:ajax event="change" update="pnlComunicacaoPercepcao"/>
+			</p:selectOneMenu>
+		</div>
+		
+		<p:outputPanel styleClass="p-col-2" 
+			rendered="#{evolucoesEnfermagemController
+				.evolucao
+				.comunicacaoPercepcao
+				.acuidadeVisualPreservada
+				.equals('PJ')}">
+		</p:outputPanel>
+		<p:outputPanel styleClass="p-col-10"
+			rendered="#{evolucoesEnfermagemController
+				.evolucao
+				.comunicacaoPercepcao
+				.acuidadeVisualPreservada
+				.equals('PJ')}">
+				
+			<p:selectBooleanCheckbox id="acuidadeVisualPrejudicadaD"
+				itemLabel="D" 
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeVisualPrejudicadaD}"/>
+
+			<p:selectBooleanCheckbox id="acuidadeVisualPrejudicadaE"
+				itemLabel="E" 
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeVisualPrejudicadaE}"/>
+		</p:outputPanel>
+		
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="acuidadeVisualObs" value="Obs.:"/>
+        	<p:inputText id="acuidadeVisualObs"
+        		maxlength="64"
+        		style="margin-left:5px"
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeVisualObs}"/>
+		</div>
+		
+		<div class="p-col-2">
+			<p:outputLabel for="acuidadeVisualPreservada" value="3. Acuidade Auditiva:"/>
+		</div>
+		 <div class="p-col-10">
+        	<p:selectOneMenu id="acuidadeAuditivaPreservada" 
+				value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeAuditivaPreservada}">
+				
+				<f:selectItem itemLabel="Selecionar" itemValue=""/>
+				<f:selectItem itemLabel="Preservada" itemValue="PS"/>
+        		<f:selectItem itemLabel="Prejudicada" itemValue="PJ"/>
+        		<f:selectItem itemLabel="Não mensurável" itemValue="NM"/>
+        		<f:selectItem itemLabel="Não aplica" itemValue="NA"/>
+        		
+        		<p:ajax event="change" update="pnlComunicacaoPercepcao"/>
+			</p:selectOneMenu>
+		</div>
+		
+		<p:outputPanel styleClass="p-col-2" 
+			rendered="#{evolucoesEnfermagemController
+				.evolucao
+				.comunicacaoPercepcao
+				.acuidadeAuditivaPreservada
+				.equals('PJ')}">
+		</p:outputPanel>
+		<p:outputPanel styleClass="p-col-10"
+			rendered="#{evolucoesEnfermagemController
+				.evolucao
+				.comunicacaoPercepcao
+				.acuidadeAuditivaPreservada
+				.equals('PJ')}">
+				
+			<p:selectBooleanCheckbox id="acuidadeAuditivaPrejudicadaD"
+				itemLabel="D" 
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeAuditivaPrejudicadaD}"/>
+
+			<p:selectBooleanCheckbox id="acuidadeAuditivaPrejudicadaE"
+				itemLabel="E" 
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeAuditivaPrejudicadaE}"/>
+		</p:outputPanel>
+		
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="acuidadeAuditivaObs" value="Obs.:"/>
+        	<p:inputText id="acuidadeAuditivaObs"
+        		maxlength="64"
+        		style="margin-left:5px"
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.acuidadeAuditivaObs}"/>
+		</div>
+		
+		<div class="p-col-2">
+			<p:outputLabel for="dor" value="4. Dor:"/>
+		</div>
+		 <div class="p-col-10">
+        	<p:selectOneMenu id="dor" 
+				value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.dor}">
+				
+				<f:selectItem itemLabel="Selecionar" itemValue=""/>
+				<f:selectItem itemLabel="Ausente" itemValue="AU"/>
+        		<f:selectItem itemLabel="Presente" itemValue="PR"/>
+        		<f:selectItem itemLabel="Não mensurável" itemValue="NM"/>
+			</p:selectOneMenu>
+		</div>
+		
+		<div class="p-col-2"></div>
+		<div class="p-col-10">
+			<p:outputLabel for="dorObs" value="Obs.:"/>
+        	<p:inputText id="dorObs"
+        		maxlength="64"
+        		style="margin-left:5px"
+        		value="#{evolucoesEnfermagemController.evolucao.comunicacaoPercepcao.dorObs}"/>
+		</div>
+			
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaComunicacaoPercepcao"
+				icon="pi pi-save"
+				value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}"/>
+		</div>   
+	</p:outputPanel>
+</ui:composition>

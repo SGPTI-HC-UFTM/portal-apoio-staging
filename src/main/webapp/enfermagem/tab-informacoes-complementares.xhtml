@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="p-grid">
+		<div class="p-col-2">
+			<p:outputLabel for="informacoesComplementares" value="Outros dados de investigação (se houver): " />
+		</div>
+		<div class="p-col-10">
+			<p:inputTextarea id="informacoesComplementares" cols="30" rows="6" class="p-col-10"
+				value="#{evolucoesEnfermagemController.evolucao.informacoesComplementares}" />
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="procedimentosRealizados" value="Procedimentos realizados, orientações e resposta do paciente: " />
+		</div>
+		<div class="p-col-10">
+			<p:inputTextarea id="procedimentosRealizados" cols="30" rows="6" class="p-col-10"
+				value="#{evolucoesEnfermagemController.evolucao.procedimentosRealizados}" />
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="diagnosticosEnfermagem" value="Diagnósticos de enfermagem prioritários: " />
+		</div>
+		<div class="p-col-10">
+			<p:inputTextarea id="diagnosticosEnfermagem" cols="30" rows="6" class="p-col-10"
+				value="#{evolucoesEnfermagemController.evolucao.diagnosticosEnfermagem}" />
+		</div>
+
+		<div class="p-col-2">
+			<p:outputLabel for="condutas" value="Condutas: " />
+		</div>
+		<div class="p-col-10">
+			<p:inputTextarea id="condutas" cols="30" rows="6" class="p-col-10"
+				value="#{evolucoesEnfermagemController.evolucao.condutas}" />
+		</div>
+
+		<div class="p-col-12">
+			<p:commandButton id="btnSalvaInformacoesComplementares" icon="pi pi-save" value="Salvar"
+				action="#{evolucoesEnfermagemController.salva}" />
+		</div>
+	</div>
+</ui:composition>
