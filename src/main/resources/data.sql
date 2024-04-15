@@ -5,6 +5,10 @@ INSERT INTO agh.ain_leitos (lto_id) VALUES ('0110B');
 INSERT INTO agh.ain_leitos (lto_id) VALUES ('0120A'); 
 INSERT INTO agh.ain_leitos (lto_id) VALUES ('0120B');
 INSERT INTO agh.ain_internacoes(seq, dthr_internacao, ind_paciente_internado, pac_codigo, lto_lto_id) VALUES (1, '2023-02-01 08:00:00', 'S', 1, '0110A');
+INSERT INTO agh.agh_atendimentos(seq, origem, pac_codigo) VALUES (1, 'Teste', 1);
+INSERT INTO agh.agh_atendimentos(seq, origem, pac_codigo) VALUES (2, 'Teste2', 1);
+
+INSERT INTO agh.mpm_prescricao_dietas(seq, atd_seq, observacao) VALUES (1, 2, 'Deu Certo');
 
 INSERT INTO cirurgia.locais_origem (id, descricao) VALUES (1, 'SAA'); 
 INSERT INTO cirurgia.locais_origem (id, descricao) VALUES (2, 'UTI'); 

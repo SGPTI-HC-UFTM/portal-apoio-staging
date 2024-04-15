@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -65,12 +66,24 @@ public class PrescricaoDietaAghu implements Serializable {
     @JoinColumn(name = "atd_seq", insertable = false, updatable = false)
     private Atendimento atendimento;
 
-    @OneToMany(mappedBy = "prescricaoDieta")
+    @OneToMany(mappedBy = "prescricaoDieta", fetch = FetchType.EAGER)
     private List<ItemPrescricaoDietaAghu> itens;
 
     @Override
     public String toString() {
-        return "PrescricaoDieta [id=" + id + "]";
+
+        String resultado = "Item\n\n";
+
+            for (ItemPrescricaoDietaAghu i : itens) {
+
+                resultado = resultado + i.getTipoItemDieta().getDescricao() + " " + i.getNumVezes() + " vezes " 
+                +  i.getFrequencia() + " " + i.getTipoFrequenciaAprazamento().getDescricao() + " Quantidade: " + i.getQuantidade() +" \n";
+                
+            }
+
+        resultado = resultado + "\nObservação:\n" + this.observacao + "\n\nData Hora Inicio:\n" + this.dthrInicio + "\nData Hora Fim:\n" + this.dthrFim ;
+
+        return resultado;
     }
 
     @Override
