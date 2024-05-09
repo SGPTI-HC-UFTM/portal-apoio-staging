@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import net.ebserh.hctm.model.aghu.Atendimento;
 import net.ebserh.hctm.model.aghu.UnidadeFuncional;
 import net.ebserh.hctm.model.aghu.nutricao.TipoItemDieta;
 import net.ebserh.hctm.model.aghu.prescricoes.PrescricaoDietaAghu;
@@ -87,5 +88,19 @@ public class PrescricoesDietasAghuService {
 
         return entityManager.find(PrescricaoDietaAghu.class, id);
     }
+
+    public PrescricaoDietaAghu buscaPrescricaoPorAtendimento(Integer atdSeq) {
+
+        List<PrescricaoDietaAghu> prescricoes = entityManager.createQuery("select p "
+				+ "from PrescricaoDietaAghu p "
+                + "join p.atendimento a "
+                + "where a.seq = :atendimento " , PrescricaoDietaAghu.class).setParameter("atendimento", atdSeq).getResultList();
+
+            if (!prescricoes.isEmpty())
+                return prescricoes.get(0);
+
+        return null;
+    }
+
     
 }
