@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.PersistenceContext;
 
 import net.ebserh.hctm.model.aghu.faturamento.ItemProcedimentoHospitalar;
 import net.ebserh.hctm.model.aghu.faturamento.ItemProcedimentoHospitalarPK;
@@ -18,8 +18,7 @@ import net.ebserh.hctm.exception.CustomRuntimeException;
 @Stateless
 public class ProcedimentosService {
 
-    @Inject
-    private Logger logger;
+    private static final Logger logger = Logger.getAnonymousLogger();
 
     @PersistenceContext
     private EntityManager entityManager;

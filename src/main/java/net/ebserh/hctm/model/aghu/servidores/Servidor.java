@@ -2,33 +2,33 @@ package net.ebserh.hctm.model.aghu.servidores;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(schema = "agh", name = "rap_servidores")
 @NamedQuery(name = "Servidor.findAtivosByMatriculaContains", query = "SELECT s "
 		+ "FROM Servidor s "
 		+ "JOIN s.pessoa p "
-		+ "WHERE STR(s.id.matricula) LIKE CONCAT('%', :matricula, '%') "
+		+ "WHERE FUNCTION('STR', s.id.matricula) LIKE FUNCTION('CONCAT', '%', :matricula, '%') "
 		+ "AND s.situacao <> 'I' "
 		+ "ORDER BY p.nome")
 @NamedQuery(name = "Servidor.findAtivosByNomeContains", query = "SELECT s "
 		+ "FROM Servidor s "
 		+ "JOIN s.pessoa p "
-		+ "WHERE UPPER(p.nome) LIKE CONCAT('%', UPPER(:nome), '%') "
+		+ "WHERE FUNCTION('UPPER', p.nome) LIKE FUNCTION('CONCAT', '%', FUNCTION('UPPER', :nome), '%') "
 		+ "AND s.situacao <> 'I' "
 		+ "ORDER BY p.nome")
 @NamedQuery(name = "Servidor.findAtivosByMatriculaContainsNomeContains", query = "SELECT s "
 		+ "FROM Servidor s "
 		+ "JOIN s.pessoa p "
-		+ "WHERE STR(s.id.matricula) LIKE CONCAT('%', :matricula, '%') "
-		+ "AND UPPER(p.nome) LIKE CONCAT('%', UPPER(:nome), '%') "
+		+ "WHERE FUNCTION('STR', s.id.matricula) LIKE FUNCTION('CONCAT', '%', :matricula, '%') "
+		+ "AND FUNCTION('UPPER', p.nome) LIKE FUNCTION('CONCAT', '%', FUNCTION('UPPER', :nome), '%') "
 		+ "AND s.situacao <> 'I' "
 		+ "ORDER BY p.nome")
 @NamedQuery(name = "Servidor.findByCodigoPessoa", query = "SELECT s FROM Servidor s "

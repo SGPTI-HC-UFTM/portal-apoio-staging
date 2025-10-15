@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import net.ebserh.hctm.model.aghu.Atendimento;
 import net.ebserh.hctm.model.aghu.servidores.Servidor;
@@ -24,19 +24,19 @@ import net.ebserh.hctm.model.aghu.servidores.Servidor;
     query = "SELECT p " 
         + "FROM PrescricaoDietaAghu p " 
         + "JOIN p.atendimento a " 
-        + "WHERE DATE(p.dthrInicio) = :dataInicio " 
+        + "WHERE FUNCTION('DATE', p.dthrInicio) = :dataInicio "
         + "AND a.origem = 'I' " 
         + "ORDER BY p.dthrInicio")
 @NamedQuery(name = "PrescricaoDietaAghu.findByDataInicio",
     query = "SELECT p " 
         + "FROM PrescricaoDietaAghu p " 
-        + "WHERE DATE(p.dthrInicio) = :dataInicio " 
+        + "WHERE FUNCTION('DATE', p.dthrInicio) = :dataInicio "
         + "ORDER BY p.dthrInicio")
 @NamedQuery(name = "PrescricaoDietaAghu.findByDataInicioUnidadeFuncional",
     query = "SELECT p " 
         + "FROM PrescricaoDietaAghu p " 
         + "JOIN p.atendimento a " 
-        + "WHERE DATE(p.dthrInicio) = :dataInicio " 
+        + "WHERE FUNCTION('DATE', p.dthrInicio) = :dataInicio "
         + "AND a.unidadeFuncional = :unidadeFuncional "
         + "ORDER BY p.dthrInicio")
 public class PrescricaoDietaAghu implements Serializable {
@@ -63,7 +63,7 @@ public class PrescricaoDietaAghu implements Serializable {
     private Servidor servidor;
 
     @ManyToOne
-    @JoinColumn(name = "atd_seq", insertable = false, updatable = false)
+    @JoinColumn(name = "atd_seq")
     private Atendimento atendimento;
 
     @OneToMany(mappedBy = "prescricaoDieta", fetch = FetchType.EAGER)

@@ -1,15 +1,15 @@
 package net.ebserh.hctm.model.aghu.pacientes;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 import java.io.Serializable;
 
-import javax.persistence.EmbeddedId;
+import jakarta.persistence.EmbeddedId;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(schema = "agh",
@@ -22,19 +22,13 @@ public class BairroCepLogradouro implements Serializable {
 	private BairroCepLogradouroPK id;
 	
 	@ManyToOne
-	@JoinColumn(name = "bai_codigo", insertable = false, updatable = false)
+	@JoinColumn(name = "bai_codigo")
 	private Bairro bairro;
 	
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "clo_cep", 
-					referencedColumnName="cep", 
-					insertable=false, 
-					updatable=false),
-			@JoinColumn(name = "clo_lgr_codigo", 
-					referencedColumnName="lgr_codigo", 
-					insertable=false, 
-					updatable=false)
+			@JoinColumn(name = "clo_cep", referencedColumnName="cep"),
+			@JoinColumn(name = "clo_lgr_codigo", referencedColumnName="lgr_codigo"),
 	})
 	private CepLogradouro cepLogradouro;
 

@@ -4,19 +4,19 @@ package net.ebserh.hctm.model.cirurgias;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(schema = "cirurgia", name="log_alteracoes")
-@NamedQuery(name = "LogAlteracao.findBySolicitacao", query = "select l from LogAlteracao l where solicitacaoProcedimento = :solicitacao order by dtAlteracao desc")
+@NamedQuery(name = "LogAlteracao.findBySolicitacao", query = "select l from LogAlteracao l where l.solicitacaoProcedimento = :solicitacao order by l.dtAlteracao desc")
 public class LogAlteracao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

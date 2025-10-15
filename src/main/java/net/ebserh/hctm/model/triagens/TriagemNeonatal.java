@@ -1,15 +1,15 @@
 package net.ebserh.hctm.model.triagens;
 
-import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import net.ebserh.hctm.model.aghu.internacoes.Internacao;
 import net.ebserh.hctm.model.aghu.pacientes.Paciente;
@@ -48,13 +48,15 @@ public class TriagemNeonatal {
     private String nivelAssistenciaNutricional;
     private Integer escoreTotal;
 
-    
+    public TriagemNeonatal() {
+
+    }
 
     public TriagemNeonatal(Integer seq, Paciente paciente, Internacao internacao, String diagnosticos,
-            String comorbidades, String idadeCron, String idadeCorr, String ig, String alergiaIntoleranciaAlimentar,
-            PrescricaoDietaAghu prescricaoDieta, String idadeGestacional,
-            String doencaCondicaoClinica, String terapiaNutricional, String riscoNutricional,
-            String nivelAssistenciaNutricional, Integer escoreTotal) {
+                           String comorbidades, String idadeCron, String idadeCorr, String ig, String alergiaIntoleranciaAlimentar,
+                           PrescricaoDietaAghu prescricaoDieta, String idadeGestacional,
+                           String doencaCondicaoClinica, String terapiaNutricional, String riscoNutricional,
+                           String nivelAssistenciaNutricional, Integer escoreTotal) {
         this.seq = seq;
         this.paciente = paciente;
         this.internacao = internacao;

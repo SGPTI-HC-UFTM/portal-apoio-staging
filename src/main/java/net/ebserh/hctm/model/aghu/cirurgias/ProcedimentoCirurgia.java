@@ -2,15 +2,15 @@ package net.ebserh.hctm.model.aghu.cirurgias;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(schema = "agh", name = "mbc_proc_esp_por_cirurgias")
@@ -18,7 +18,7 @@ import javax.persistence.Transient;
     query = "SELECT p "
         + "FROM ProcedimentoCirurgia p "
         + "JOIN p.cirurgia c "
-        + "WHERE DATE(c.data) = :dataReferencia "
+        + "WHERE FUNCTION('DATE', c.data) = :dataReferencia "
         + "AND p.responsabilidade = 'AGND' "
         + "ORDER BY c.data, p.especialidadeProcedimentoCirurgia.procedimentoCirurgico.descricao")
 public class ProcedimentoCirurgia implements Serializable {
@@ -26,17 +26,17 @@ public class ProcedimentoCirurgia implements Serializable {
     @EmbeddedId
     private ProcedimentoCirurgiaId id;
 
-    @Column(name = "ind_resp_proc", insertable = false, updatable = false)
+    @Column(name = "ind_resp_proc")
     private String responsabilidade;
 
     @ManyToOne
-    @JoinColumn(name = "crg_seq", insertable = false, updatable = false)
+    @JoinColumn(name = "crg_seq")
     private Cirurgia cirurgia;
 
     @ManyToOne
     @JoinColumns({
-        @JoinColumn(name = "epr_pci_seq", referencedColumnName = "pci_seq", insertable = false, updatable = false),
-        @JoinColumn(name = "epr_esp_seq", referencedColumnName = "esp_seq", insertable = false, updatable = false)})
+        @JoinColumn(name = "epr_pci_seq", referencedColumnName = "pci_seq"),
+        @JoinColumn(name = "epr_esp_seq", referencedColumnName = "esp_seq")})
     private EspecialidadeProcedimentoCirurgia especialidadeProcedimentoCirurgia;
 
     @Transient

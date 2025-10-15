@@ -2,11 +2,11 @@ package net.ebserh.hctm.model.aghu.faturamento;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(schema = "agh", name = "fat_itens_proced_hospitalar")
@@ -21,14 +21,14 @@ import javax.persistence.Table;
         + "FROM ItemProcedimentoHospitalar i "
         + "WHERE i.codTabela = :codTabela")
 @NamedQuery(name = "ItemProcedimentoHospitalar.findByDescricao", query = "SELECT i FROM ItemProcedimentoHospitalar i "
-        + "WHERE descricao LIKE concat('%', :descricao, '%') "
+        + "WHERE i.descricao LIKE concat('%', :descricao, '%') "
         + "ORDER BY i.descricao")
 @NamedQuery(name = "ItemProcedimentoHospitalar.findByCodigo", query = "SELECT i FROM ItemProcedimentoHospitalar i "
         + "WHERE i.codTabela = :codigo")
 @NamedQuery(name = "ItemProcedimentoHospitalar.findByPhoSeqAndSeq", query = "SELECT iph "
         + "FROM ItemProcedimentoHospitalar iph "
-        + "WHERE iph.id.phoSeq = :phoSeq "
-        + "AND iph.id.seq = :seq")
+        + "WHERE iph.itemProcedimentoHospitalarPK.phoSeq = :phoSeq "
+        + "AND iph.itemProcedimentoHospitalarPK.seq = :seq")
 public class ItemProcedimentoHospitalar implements Serializable {
 
     @EmbeddedId

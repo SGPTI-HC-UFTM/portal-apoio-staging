@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.primefaces.PrimeFaces;
 
@@ -29,8 +29,7 @@ public class EvolucoesEnfermagemController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private Logger logger;
+	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@Inject
 	private InternacoesService internacoesService;

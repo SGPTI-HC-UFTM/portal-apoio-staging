@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.primefaces.PrimeFaces;
 
@@ -23,8 +23,7 @@ public class AvisosController implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private Logger logger;
+	private static final Logger logger = Logger.getAnonymousLogger();
 	
 	@Inject
 	private AvisosService avisosService;

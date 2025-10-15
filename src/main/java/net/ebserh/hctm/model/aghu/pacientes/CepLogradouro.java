@@ -1,11 +1,11 @@
 package net.ebserh.hctm.model.aghu.pacientes;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "agh.aip_cep_logradouros")
@@ -15,10 +15,10 @@ public class CepLogradouro {
 	private CepLogradouroPK cepLogradouroPk;
 	
 	@ManyToOne
-	@JoinColumn(name = "lgr_codigo", insertable = false, updatable = false)
+	@JoinColumn(name = "lgr_codigo")
 	private Logradouro logradouro;
 	
-	@Column(name = "cep", insertable = false, updatable = false)
+	@Column(name = "cep")
 	private Integer cep;
 
 	public CepLogradouroPK getCepLogradouroPk() {

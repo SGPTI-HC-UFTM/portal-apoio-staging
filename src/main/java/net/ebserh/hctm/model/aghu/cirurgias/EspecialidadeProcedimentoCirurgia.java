@@ -2,11 +2,11 @@ package net.ebserh.hctm.model.aghu.cirurgias;
 
 import java.io.Serializable;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import net.ebserh.hctm.model.aghu.Especialidade;
 
@@ -18,7 +18,7 @@ public class EspecialidadeProcedimentoCirurgia implements Serializable {
     private EspecialidadeProcedimentoCirurgiaId id;
 
     @ManyToOne
-    @JoinColumn(name = "pci_seq", insertable = false, updatable = false)
+    @JoinColumn(name = "pci_seq")
     private ProcedimentoCirurgico procedimentoCirurgico;
 
     @ManyToOne

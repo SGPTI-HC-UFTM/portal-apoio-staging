@@ -3,16 +3,16 @@ package net.ebserh.hctm.model.cirurgias;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import net.ebserh.hctm.model.aghu.Cid;
 import net.ebserh.hctm.model.aghu.faturamento.ItemProcedimentoHospitalar;
@@ -31,7 +31,7 @@ import net.ebserh.hctm.model.aghu.pacientes.Paciente;
 @NamedQuery(name = "SolicitacaoProcedimento.findByProntuario", 
 	query = "SELECT sp FROM SolicitacaoProcedimento sp "
 		+ "WHERE sp.prontuario = :prontuario "
-		+ "ORDER BY dtCadastroSolicitacao")
+		+ "ORDER BY sp.dtCadastroSolicitacao")
 @NamedQuery(name = "SolicitacaoProcedimento.findSolicitacoes", 
 	query = "SELECT sp "
 		+ "FROM SolicitacaoProcedimento sp "
@@ -39,13 +39,13 @@ import net.ebserh.hctm.model.aghu.pacientes.Paciente;
 		+ "AND sp.procedimentoSeq = :pseq "
 		+ "AND sp.procedimentoPhoSeq = :phoseq "
 		+ "AND sp.status.descricao = 'AGUARDANDO REALIZAÇÃO' "
-		+ "ORDER BY sp.prioridade.id DESC, dtCadastroSolicitacao")
+		+ "ORDER BY sp.prioridade.id DESC, sp.dtCadastroSolicitacao")
 @NamedQuery(name = "SolicitacaoProcedimento.listaPorEspecialidade", 
 	query = "SELECT sp "
 		+ "FROM SolicitacaoProcedimento sp "
 		+ "WHERE sp.especialidade = :especialidade "
 		+ "AND sp.status.descricao = 'AGUARDANDO REALIZAÇÃO' "
-		+ "ORDER BY sp.prioridade.id DESC, dtCadastroSolicitacao")
+		+ "ORDER BY sp.prioridade.id DESC, sp.dtCadastroSolicitacao")
 @NamedQuery(name = "SolicitacaoProcedimento.listaAguardandoRealizacao", 
 	query = "SELECT sp "
 		+ "FROM SolicitacaoProcedimento sp "
@@ -57,14 +57,14 @@ import net.ebserh.hctm.model.aghu.pacientes.Paciente;
 		+ "AND sp.status.descricao = 'AGUARDANDO REALIZAÇÃO' "
 		+ "AND sp.procedimentoSeq = null "
 		+ "AND sp.procedimentoPhoSeq = null "
-		+ "ORDER BY sp.prioridade.id DESC, dtCadastroSolicitacao")
+		+ "ORDER BY sp.prioridade.id DESC, sp.dtCadastroSolicitacao")
 @NamedQuery(name = "SolicitacaoProcedimento.listaPorProcedimento", 
 	query = "SELECT sp "
 		+ "FROM SolicitacaoProcedimento sp "
 		+ "WHERE sp.procedimentoSeq = :pseq "
 		+ "AND sp.procedimentoPhoSeq = :phoseq "
 		+ "AND sp.status.descricao = 'AGUARDANDO REALIZAÇÃO' "
-		+ "ORDER BY sp.prioridade.id DESC, dtCadastroSolicitacao")
+		+ "ORDER BY sp.prioridade.id DESC, sp.dtCadastroSolicitacao")
 public class SolicitacaoProcedimento implements Serializable {
 
 	@Id

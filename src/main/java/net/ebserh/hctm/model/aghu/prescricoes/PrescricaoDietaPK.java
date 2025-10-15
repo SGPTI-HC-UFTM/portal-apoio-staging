@@ -2,8 +2,8 @@ package net.ebserh.hctm.model.aghu.prescricoes;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class PrescricaoDietaPK implements Serializable {
@@ -11,7 +11,7 @@ public class PrescricaoDietaPK implements Serializable {
     @Column(name = "atd_seq", insertable = false, updatable = false)
     private Integer atdSeq;
 
-    @Column(name = "seq", insertable = false, updatable = false)
+    @Column(name = "seq")
     private Integer seq;
 
     @Override
