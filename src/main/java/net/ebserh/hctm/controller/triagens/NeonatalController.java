@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 
 import net.ebserh.hctm.exception.CustomRuntimeException;
@@ -26,8 +26,7 @@ import net.ebserh.hctm.util.FacesUtils;
 @ViewScoped
 public class NeonatalController implements Serializable{
 
-    @Inject
-    private Logger logger;
+    private static final Logger logger = Logger.getAnonymousLogger();
 
     @Inject
     private InternacoesService internacoesService;

@@ -2,10 +2,10 @@ package net.ebserh.hctm.model.aghu.cirurgias;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(schema = "agh", name = "mbc_procedimento_cirurgicos")

@@ -4,9 +4,9 @@ import java.math.BigInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import net.ebserh.hctm.dto.aghu.indicadores.IndicadorPreceptoriaDto;
 import net.ebserh.hctm.exception.CustomRuntimeException;

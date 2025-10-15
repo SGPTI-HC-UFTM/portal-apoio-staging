@@ -6,10 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import net.ebserh.hctm.exception.CustomRuntimeException;
 import net.ebserh.hctm.model.aghu.faturamento.ItemProcedimentoHospitalar;
@@ -20,8 +20,7 @@ import net.ebserh.hctm.util.FacesUtils;
 @RequestScoped
 public class AghuProcedimentosController {
 
-    @Inject
-    private Logger logger;
+    private static final Logger logger = Logger.getAnonymousLogger();
 
     @Inject
     private ProcedimentosService procedimentosService;

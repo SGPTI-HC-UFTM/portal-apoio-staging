@@ -2,13 +2,13 @@ package net.ebserh.hctm.model.aghu.prescricoes;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import net.ebserh.hctm.model.aghu.nutricao.TipoItemDieta;
 
@@ -31,8 +31,8 @@ public class ItemPrescricaoDietaAghu implements Serializable {
 
     @ManyToOne
     @JoinColumns({
-        @JoinColumn(name = "pdt_atd_seq", referencedColumnName = "atd_seq", insertable = false, updatable = false),
-        @JoinColumn(name = "pdt_seq", referencedColumnName = "seq", insertable = false, updatable = false)
+        @JoinColumn(name = "pdt_atd_seq", referencedColumnName = "atd_seq"),
+        @JoinColumn(name = "pdt_seq", referencedColumnName = "seq")
     }) 
     private PrescricaoDietaAghu prescricaoDieta;
 
@@ -41,7 +41,7 @@ public class ItemPrescricaoDietaAghu implements Serializable {
     private TipoFrequenciaAprazamento tipoFrequenciaAprazamento;
 
     @ManyToOne
-    @JoinColumn(name = "tid_seq", insertable = false, updatable = false)
+    @JoinColumn(name = "tid_seq")
     private TipoItemDieta tipoItemDieta;
 
     @Override

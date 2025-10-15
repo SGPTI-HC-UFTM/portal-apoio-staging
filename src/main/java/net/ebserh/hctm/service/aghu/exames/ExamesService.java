@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import net.ebserh.hctm.dto.aghu.exames.ExameFaturamentoDto;
 import net.ebserh.hctm.dto.aghu.exames.ProfissionalExecutanteDto;
@@ -223,8 +223,7 @@ public class ExamesService {
 			+ "LEFT JOIN agh.rap_pessoa_tipo_informacoes rpti2 ON rpf.codigo = rpti2.pes_codigo AND rpti2.tii_seq = 7 "
 			+ "WHERE regexp_replace(rq.nro_reg_conselho, '[^0-9]+', '', 'g') IN :crms";
 
-	@Inject
-	private Logger logger;
+	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@PersistenceContext
 	private EntityManager entityManager;

@@ -5,18 +5,18 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedNativeQuery;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import net.ebserh.hctm.model.aghu.Cid;
 import net.ebserh.hctm.model.aghu.Especialidade;
@@ -35,35 +35,35 @@ import net.ebserh.hctm.model.aghu.pacientes.Paciente;
 	query = "SELECT COUNT(DISTINCT p) "
 		+ "FROM Internacao i "
 		+ "JOIN i.paciente p "
-		+ "WHERE MONTH(i.dthrInternacao) = :mes "
-		+ "AND YEAR(i.dthrInternacao) = :ano")
+		+ "WHERE FUNCTION('MONTH', i.dthrInternacao) = :mes "
+		+ "AND FUNCTION('YEAR', i.dthrInternacao) = :ano")
 @NamedQuery(name = "Internacao.countInternacoesBySexoAnoMes",
 	query = "SELECT COUNT(DISTINCT i) "
 		+ "FROM Internacao i "
 		+ "JOIN i.paciente p "
-		+ "WHERE MONTH(i.dthrInternacao) = :mes "
-		+ "AND YEAR(i.dthrInternacao) = :ano "
+		+ "WHERE FUNCTION('MONTH', i.dthrInternacao) = :mes "
+		+ "AND FUNCTION('YEAR', i.dthrInternacao) = :ano "
 		+ "AND p.sexo = :sexo")
 @NamedQuery(name = "Internacao.countObitosBySexoAnoMes",
 	query = "SELECT COUNT(DISTINCT i) "
 		+ "FROM Internacao i "
 		+ "JOIN i.paciente p "
-		+ "WHERE MONTH(i.dthrAltaMedica) = :mes "
-		+ "AND YEAR(i.dthrAltaMedica) = :ano "
+		+ "WHERE FUNCTION('MONTH', i.dthrAltaMedica) = :mes "
+		+ "AND FUNCTION('YEAR', i.dthrAltaMedica) = :ano "
 		+ "AND p.sexo = :sexo "
 		+ "AND i.tipoAltaMedica.descricao IN ('"
 		+ TipoAltaMedica.OBITO + "', '" + TipoAltaMedica.OBITO_MAIS_24H + "', '" + TipoAltaMedica.OBITO_MENOS_24H + "')")
 @NamedQuery(name = "Internacao.countAltasByAnoMes",
 	query = "SELECT COUNT(DISTINCT i) "
 		+ "FROM Internacao i "
-		+ "WHERE MONTH(i.dthrAltaMedica) = :mes "
-		+ "AND YEAR(i.dthrAltaMedica) = :ano")
+		+ "WHERE FUNCTION('MONTH', i.dthrAltaMedica) = :mes "
+		+ "AND FUNCTION('YEAR', i.dthrAltaMedica) = :ano")
 @NamedQuery(name = "Internacao.countAltasByDescricaoAnoMes",
 	query = "SELECT COUNT(DISTINCT i) "
 		+ "FROM Internacao i "
 		+ "JOIN i.tipoAltaMedica t "
-		+ "WHERE MONTH(i.dthrAltaMedica) = :mes "
-		+ "AND YEAR(i.dthrAltaMedica) = :ano "
+		+ "WHERE FUNCTION('MONTH', i.dthrAltaMedica) = :mes "
+		+ "AND FUNCTION('YEAR', i.dthrAltaMedica) = :ano "
 		+ "AND t.descricao = :descricao")
 @NamedNativeQuery(name = "Internacao.topInternacoesPorCid",
 	query = "SELECT " 

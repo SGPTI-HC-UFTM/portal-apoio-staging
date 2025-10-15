@@ -1,0 +1,3 @@
+CREATE SCHEMA agh;
+
+CREATE SCHEMA apoio;

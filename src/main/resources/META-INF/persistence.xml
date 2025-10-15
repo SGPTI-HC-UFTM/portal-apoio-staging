@@ -4,9 +4,18 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-        
 
+    <!-- H2 -->
+    <persistence-unit name="portalApoioPU" transaction-type="JTA">
+        <jta-data-source>portalApoioDS</jta-data-source>
+        <properties>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create" />
+            <property name="jakarta.persistence.schema-generation.create-database-schemas" value="true" />
+        </properties>
+    </persistence-unit>
 
+    <!-- Postgresql -->
+    <!--
     <persistence-unit name="portalApoioPU">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>portalApoioDS</jta-data-source>
@@ -15,5 +24,5 @@
 				value="create" />
 		</properties>
 	</persistence-unit>
-
+	-->
 </persistence>

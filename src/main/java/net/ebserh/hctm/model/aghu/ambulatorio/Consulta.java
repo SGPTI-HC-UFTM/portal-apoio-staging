@@ -3,15 +3,15 @@ package net.ebserh.hctm.model.aghu.ambulatorio;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import net.ebserh.hctm.model.aghu.pacientes.Paciente;
 import net.ebserh.hctm.model.aghu.servidores.Servidor;
@@ -25,9 +25,9 @@ import net.ebserh.hctm.model.aghu.servidores.Servidor;
             "join c.paciente p " + 
             "where c.situacaoConsulta = 'M'" + 
             "and uf.seq = :ufSeq " + 
-            "and year(c.dthrConsulta) = :ano " + 
-            "and month(c.dthrConsulta) = :mes " + 
-            "and day(c.dthrConsulta) = :dia " + 
+            "and function('year', c.dthrConsulta) = :ano " +
+            "and function('month', c.dthrConsulta) = :mes " +
+            "and function('day', c.dthrConsulta) = :dia " +
             "order by p.prontuario")
 @NamedQuery(name = "Consulta.findByUfAndEspecialidade",
         query = "select c from Consulta  c " + 
@@ -36,9 +36,9 @@ import net.ebserh.hctm.model.aghu.servidores.Servidor;
             "join c.paciente p " + 
             "where c.situacaoConsulta = 'M' " + 
             "and uf.seq = :ufSeq " + 
-            "and year(c.dthrConsulta) = :ano " + 
-            "and month(c.dthrConsulta) = :mes " + 
-            "and day(c.dthrConsulta) = :dia " + 
+            "and function('year', c.dthrConsulta) = :ano " +
+            "and function('month', c.dthrConsulta) = :mes " +
+            "and function('day', c.dthrConsulta) = :dia " +
             "and c.grade.especialidade.seq = :especialidadeSeq " + 
             "order by p.prontuario")
 @NamedQuery(name = "Consulta.findProntuariosDiaria",
@@ -50,9 +50,9 @@ import net.ebserh.hctm.model.aghu.servidores.Servidor;
             "left join g.equipe e " + 
             "left join s.pessoa pe " + 
             "where c.situacaoConsulta = 'M' " + 
-            "and year(c.dthrConsulta) = :ano " + 
-            "and month(c.dthrConsulta) = :mes " + 
-            "and day(c.dthrConsulta) = :dia " + 
+            "and function('year', c.dthrConsulta) = :ano " +
+            "and function('month', c.dthrConsulta) = :mes " +
+            "and function('day', c.dthrConsulta) = :dia " +
             "and p.prontuario is not null " + 
             "order by p.prontuario")
 @NamedQuery(name = "Consulta.findByProntuario",
@@ -78,14 +78,14 @@ import net.ebserh.hctm.model.aghu.servidores.Servidor;
             "FROM Consulta c " +
             "WHERE c.situacaoConsulta = 'G' " +
             "AND c.grade = :grade " + 
-            "AND DATE(c.dthrConsulta) BETWEEN :dataInicial AND :dataFinal " +
+            "AND FUNCTION('DATE', c.dthrConsulta) BETWEEN :dataInicial AND :dataFinal " +
             "ORDER BY c.dthrConsulta")
 @NamedQuery(name = "Consulta.findGeradasByEspecialidadeAndDthrConsultaBetween",
         query = "SELECT c " +
             "FROM Consulta c " +
             "WHERE c.situacaoConsulta = 'G' " +
             "AND c.grade.especialidade = :especialidade " + 
-            "AND DATE(c.dthrConsulta) BETWEEN :dataInicial AND :dataFinal " +
+            "AND FUNCTION('DATE', c.dthrConsulta) BETWEEN :dataInicial AND :dataFinal " +
             "ORDER BY c.dthrConsulta")
 @NamedQuery(name = "Consulta.findGeradasByCondicaoAtendimentoAndEspecialidadeAndDthrConsultaBetween",
         query = "SELECT c " +
@@ -94,13 +94,13 @@ import net.ebserh.hctm.model.aghu.servidores.Servidor;
             "WHERE g.especialidade = :especialidade " + 
             "AND c.condicaoAtendimento = :condicaoAtendimento " + 
             "AND c.situacaoConsulta = 'G' " +
-            "AND DATE(c.dthrConsulta) BETWEEN :dataInicial AND :dataFinal " +
+            "AND FUNCTION('DATE', c.dthrConsulta) BETWEEN :dataInicial AND :dataFinal " +
             "ORDER BY c.dthrConsulta")
 @NamedQuery(name = "Consulta.findByData",
         query = "SELECT c "
-            + "FROM Consulta c " 
+            + "FROM Consulta c "
             + "WHERE c.situacaoConsulta = 'M' " 
-            + "AND DATE(c.dthrConsulta) = :dataReferencia " 
+            + "AND FUNCTION('DATE', c.dthrConsulta) = :dataReferencia "
             + "ORDER BY c.grade.equipe.nome, c.paciente.prontuario")
 public class Consulta implements Serializable {
 

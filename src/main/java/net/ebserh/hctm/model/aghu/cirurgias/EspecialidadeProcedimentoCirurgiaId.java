@@ -2,8 +2,8 @@ package net.ebserh.hctm.model.aghu.cirurgias;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class EspecialidadeProcedimentoCirurgiaId implements Serializable {
@@ -11,7 +11,7 @@ public class EspecialidadeProcedimentoCirurgiaId implements Serializable {
     @Column(name = "pci_seq", insertable = false, updatable = false)
     private Integer pciSeq;
 
-    @Column(name = "esp_seq", insertable = false, updatable = false)
+    @Column(name = "esp_seq")
     private Integer espSeq;
 
     @Override

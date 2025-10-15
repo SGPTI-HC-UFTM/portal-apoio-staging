@@ -2,11 +2,11 @@ package net.ebserh.hctm.model.aghu;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(schema = "agh", name = "agh_cids")
@@ -22,8 +22,8 @@ import javax.persistence.Table;
 @NamedQuery(name = "Cid.findByDescricao", 
 	query = "SELECT c "
 		+ "from Cid c "
-		+ "WHERE descricao like concat(:descricao, '%') "
-		+ "ORDER BY descricao")
+		+ "WHERE c.descricao like concat(:descricao, '%') "
+		+ "ORDER BY c.descricao")
 @NamedQuery(name = "Cid.findByCodigo", 
 	query = "SELECT c "
 		+ "FROM Cid c "

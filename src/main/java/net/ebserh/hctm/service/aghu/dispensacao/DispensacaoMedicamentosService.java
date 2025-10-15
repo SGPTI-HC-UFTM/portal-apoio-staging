@@ -3,18 +3,17 @@ package net.ebserh.hctm.service.aghu.dispensacao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import net.ebserh.hctm.exception.CustomRuntimeException;
 
 @Stateless
 public class DispensacaoMedicamentosService {
 	
-	@Inject
-	private Logger logger;
+	private static final Logger logger = Logger.getAnonymousLogger();
 	
 	@PersistenceContext
     private EntityManager entityManager;

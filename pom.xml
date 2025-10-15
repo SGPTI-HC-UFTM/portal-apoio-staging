@@ -6,26 +6,28 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.fmatt</groupId>
+	<groupId>net.ebserh.hctm</groupId>
 	<artifactId>portal-apoio-staging</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<war.maven.plugin.version>3.2.2</war.maven.plugin.version>
 		<wildfly.maven.plugin.version>2.0.2.Final</wildfly.maven.plugin.version>
-		<version.jakartaee>8.0.0</version.jakartaee>
-		<version.omnifaces>3.13</version.omnifaces>
-		<version.primefaces>11.0.0</version.primefaces>
+		<version.jakartaee>10.0.0</version.jakartaee>
+		<version.omnifaces>4.6.5</version.omnifaces>
+		<version.primefaces>13.0.10</version.primefaces>
 		<version.primeflex>2.0.0</version.primeflex>
 		<version.apache.poi>5.2.2</version.apache.poi>
 		<version.itextpdf>5.5.13.2</version.itextpdf>
 		<version.commons>2.11.0</version.commons>
 		<version.commons.csv>1.9.0</version.commons.csv>
 		<version.commons.lang>3.14.0</version.commons.lang>
+        <version.derby>10.15.2.0</version.derby>
+        <version.liberty>3.11.1</version.liberty>
 	</properties>
 
 	<dependencies>
@@ -40,6 +42,7 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>${version.primefaces}</version>
+            <classifier>jakarta</classifier>
 		</dependency>
 
 		<dependency>
@@ -107,10 +110,29 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${version.commons.lang}</version>
 		</dependency>
+
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${version.derby}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyshared</artifactId>
+            <version>${version.derby}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbytools</artifactId>
+            <version>${version.derby}</version>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
-		<finalName>portal-apoio-staging</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -122,6 +144,35 @@
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>${wildfly.maven.plugin.version}</version>
 			</plugin>
-		</plugins>
+
+            <plugin>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>${version.liberty}</version>
+                <configuration>
+                    <copyDependencies>
+                        <dependencyGroup>
+                            <location>derby</location>
+
+                            <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
+                            <dependency>
+                                <groupId>org.apache.derby</groupId>
+                                <artifactId>derby</artifactId>
+                            </dependency>
+
+                            <dependency>
+                                <groupId>org.apache.derby</groupId>
+                                <artifactId>derbyshared</artifactId>
+                            </dependency>
+
+                            <dependency>
+                                <groupId>org.apache.derby</groupId>
+                                <artifactId>derbytools</artifactId>
+                            </dependency>
+                        </dependencyGroup>
+                    </copyDependencies>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 </project>
