@@ -20,7 +20,7 @@
 		<version.jakartaee>10.0.0</version.jakartaee>
 		<version.omnifaces>4.6.5</version.omnifaces>
 		<version.primefaces>13.0.10</version.primefaces>
-		<version.primeflex>2.0.0</version.primeflex>
+		<version.primeflex>3.3.1</version.primeflex>
 		<version.apache.poi>5.2.2</version.apache.poi>
 		<version.itextpdf>5.5.13.2</version.itextpdf>
 		<version.commons>2.11.0</version.commons>

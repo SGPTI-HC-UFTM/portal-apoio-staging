@@ -10,7 +10,7 @@
 	<title>
 		<ui:insert name="title">Portal de Apoio</ui:insert>
 	</title>
-	<h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css" />
+	<h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
 	<h:outputStylesheet library="css" name="template.css" />
 	<h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" />
 	<link type="image/x-icon" rel="shortcut icon" href="#{resource['images/favicon.ico']}" />
@@ -63,28 +63,28 @@
 			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
 			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 		</p:confirmDialog>
+    </h:form>
 
-		<p:outputPanel styleClass="header-bar" rendered="#{request.userPrincipal == null}">&#160;</p:outputPanel>
+    <p:outputPanel styleClass="header-bar" rendered="#{request.userPrincipal == null}">&#160;</p:outputPanel>
 
-		<p:outputPanel styleClass="p-grid header-bar" style="padding:.5em" rendered="#{request.userPrincipal != null}">
-			<div class="p-col-3" style="color:white; font-weight:bold; padding: 1em">
-				<span>Novo Portal de Apoio</span>
-			</div>
+    <p:outputPanel styleClass="grid header-bar" style="padding:.5em" rendered="#{request.userPrincipal != null}">
+        <div class="col-3" style="color:white; font-weight:bold; padding: 1em">
+            <span>Novo Portal de Apoio</span>
+        </div>
 
-			<div class="p-col-9" style="color:white; text-align:right">
-				<span style="margin-right:.75em">#{request.userPrincipal.name}</span> |
-				<span>
-					<h:form prependId="false" style="text-align: center">
+        <div class="col-8" style="color:white; text-align:right">
+            <span style="margin-right:.75em">#{request.userPrincipal.name}</span> |
+        </div>
 
-						<p:commandButton id="logout" action="#{authController.logout}" icon="pi pi-sign-out"
-							styleClass="ui-button-flat" ajax="false" value="Sair" />
-					</h:form>
-				</span>
-			</div>
-		</p:outputPanel>
-	</h:form>
+        <div class="col-1">
+            <h:form prependId="false" style="text-align: center">
+                <p:commandButton id="logout" action="#{authController.logout}" icon="pi pi-sign-out"
+                    styleClass="ui-button-flat" ajax="false" value="Sair" />
+            </h:form>
+        </div>
+    </p:outputPanel>
 
-	<div class="p-grid content">
+	<div class="grid content">
 		<div class="p-col-fixed barra-lateral" style="width:220px">
 			<div style="text-align:center">
 				<a target="_blank" href="http://www.uftm.edu.br/paginas/hospitalclinicas/cod/11/t/APRESENTACAO+DO+HC">
@@ -94,7 +94,7 @@
 			</div>
 
 			<h:form id="formMenu">
-				<p:tieredMenu>
+				<p:tieredMenu rendered="#{request.userPrincipal != null}">
 					<p:menuitem icon="pi pi-home" value="Principal" outcome="/index.jsf" />
 
 					<p:submenu icon="pi pi-heart" label="Cirurgias">
@@ -120,16 +120,16 @@
 			</h:form>
 		</div>
 
-		<div class="p-col content-main">
+		<div class="col content-main">
 			<ui:insert name="content">Novo Portal de Apoio</ui:insert>
 		</div>
 	</div>
 
-	<div class="p-grid p-nogutter footer">
-		<div class="p-col-2">
+	<div class="grid grid-nogutter footer">
+		<div class="col-2">
 			<p:graphicImage library="images" name="sgpti-qr.png" width="40" height="40" alt="SETISD" />
 		</div>
-		<div class="p-col-8" style="font-family: mono; font-size: 11px; text-align:center">
+		<div class="col-8" style="font-family: mono; font-size: 11px; text-align:center">
 
 			<span>Copyright © 2013 - 2025 SETISD - Setor de Tecnologia da Informação e Saúde Digital - HC/UFTM - Filial
 				Ebserh</span>
