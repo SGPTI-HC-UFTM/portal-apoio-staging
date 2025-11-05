@@ -52,10 +52,9 @@
                         <div class="col-10">
                             <p:focus />
                             <p:inputText id="username"
-                                         value="#{authController.user}"
+                                         value="#{authController.username}"
                                          size="20"
-                                         required="true"
-                                         label="Usuário" />
+                                         required="true" />
                         </div>
 
                         <div class="col-2">
@@ -76,6 +75,10 @@
                                              ajax="false"
                                              styleClass="ui-button-secondary"
                                              action="#{authController.login}" />
+                        </div>
+
+                        <div class="col-12">
+                            <p:commandButton id="btnLogin2" value="Teste" action="#{authController.teste}" />
                         </div>
                     </div>
                 </h:form>

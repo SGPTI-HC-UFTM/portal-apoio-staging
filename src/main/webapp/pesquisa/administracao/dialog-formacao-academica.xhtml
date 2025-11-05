@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dialogFormacaoAcademica"
+			  header="Formação Acadêmica"
+			  widgetVar="dialogFormacaoAcademica"
+			  width="80%"
+			  height="600px"
+			  appendTo="@(body)"
+			  modal="true">
+		<h:form id="formFormacaoAcademica">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-12">
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome"
+								 value="#{formacoesAcademicasController.formacaoAcademica.nome}" />
+				</div>
+
+				<div class="field col-2">
+					<p:commandButton id="btnSalva"
+									 icon="pi pi-save"
+									 action="#{formacoesAcademicasController.salva}"
+									 update="formFormacoesAcademicas"
+									 value="Salvar" />
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>

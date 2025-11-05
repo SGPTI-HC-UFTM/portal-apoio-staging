@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dialogProgramaPosGraduacao"
+			  header="Programa de Pós Graduação"
+			  widgetVar="dialogProgramaPosGraduacao"
+			  width="80%"
+			  height="600px"
+			  appendTo="@(body)"
+			  modal="true">
+		<h:form id="formProgramaPosGraduacao">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-12">
+					<p:outputLabel for="descricao" value="Descrição:" />
+					<p:inputText id="descricao"
+								 value="#{programasPosGraduacaoController.programaPosGraduacao.descricao}" />
+				</div>
+
+				<div class="field col-2">
+					<p:commandButton id="btnSalva"
+									 icon="pi pi-save"
+									 action="#{programasPosGraduacaoController.salva}"
+									 update="formProgramasPosGraduacao"
+									 value="Salvar" />
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>

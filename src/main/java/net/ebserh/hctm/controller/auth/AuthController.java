@@ -26,6 +26,13 @@ public class AuthController implements Serializable {
 
     private String password;
 
+    public void teste() {
+        if (username.trim().equalsIgnoreCase("admin") && password.equals("123456"))
+            FacesUtils.showInfo("Seja bem vindo!");
+        else
+            FacesUtils.showError("Usuário/senha inválidos");
+    }
+
     public String login() {
         LOGGER.severe("DBG: processando autenticação");
 

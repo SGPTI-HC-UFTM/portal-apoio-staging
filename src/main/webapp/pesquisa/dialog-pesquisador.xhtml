@@ -1,0 +1,161 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+				xmlns:o="http://omnifaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<p:dialog id="dialogPesquisador"
+			  header="Cadastro de Pesquisador"
+			  widgetVar="dialogPesquisador"
+			  width="80%"
+			  height="700px"
+			  appendTo="@(body)"
+			  modal="true">
+		<h:form id="formPesquisador">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-12">
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" value="#{pesquisadoresController.pesquisador.nome}" required="true" />
+				</div>
+
+				<div class="field col-12">
+					<p:outputLabel for="lattes" value="Link currículo Lattes:" />
+					<p:inputText id="lattes" value="#{pesquisadoresController.pesquisador.lattes}" />
+				</div>
+
+				<div class="field col-12">
+					<p:outputLabel for="orcid" value="Orcid:" />
+					<p:inputText id="orcid" value="#{pesquisadoresController.pesquisador.orcid}" />
+				</div>
+
+				<div class="field col-12">
+					<p:outputLabel for="instituicao" value="Instituição:" />
+					<p:autoComplete id="instituicao"
+									value="#{pesquisadoresController.pesquisador.instituicao}"
+									completeMethod="#{instituicoesController.completaInstituicao}"
+									var="instituicao"
+									itemLabel="#{instituicao.nome}"
+									itemValue="#{instituicao}"
+									forceSelection="true"
+									scrollHeight="250">
+
+						<o:converter converterId="omnifaces.ListIndexConverter"
+									 list="#{instituicoesController.instituicoes}" />
+					</p:autoComplete>
+				</div>
+
+				<div class="field col-12">
+					<p:outputLabel for="profissao" value="Profissão:" />
+					<p:autoComplete id="profissao"
+									value="#{pesquisadoresController.pesquisador.cbo}"
+									completeMethod="#{aghuCbosController.completaCbo}"
+									var="cbo"
+									itemLabel="#{cbo.descricao}"
+									itemValue="#{cbo}"
+									forceSelection="true"
+									scrollHeight="250">
+
+						<o:converter converterId="omnifaces.ListIndexConverter"
+									 list="#{aghuCbosController.cbos}" />
+					</p:autoComplete>
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="formacao" value="Formação acadêmica:" />
+					<p:autoComplete id="formacao"
+									value="#{pesquisadoresController.pesquisador.formacaoAcademica}"
+									completeMethod="#{formacoesAcademicasController.completaFormacaoAcademica}"
+									var="formacao"
+									itemLabel="#{formacao.nome}"
+									itemValue="#{formacao}"
+									forceSelection="true"
+									scrollHeight="250">
+
+						<o:converter converterId="omnifaces.ListIndexConverter"
+									 list="#{formacoesAcademicasController.formacoes}" />
+					</p:autoComplete>
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="nivel" value="Nível:" />
+					<p:autoComplete id="nivel"
+									value="#{pesquisadoresController.pesquisador.nivelFormacao}"
+									completeMethod="#{niveisFormacaoController.completaNivelFormacao}"
+									var="nivel"
+									itemLabel="#{nivel.nivel}"
+									itemValue="#{nivel}"
+									forceSelection="true"
+									scrollHeight="250">
+
+						<o:converter converterId="omnifaces.ListIndexConverter"
+									 list="#{niveisFormacaoController.niveisFormacao}" />
+					</p:autoComplete>
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="linhaPesquisa" value="Linha de pesquisa:" />
+					<p:autoComplete id="linhaPesquisa"
+									value="#{pesquisadoresController.pesquisador.linhaPesquisa}"
+									completeMethod="#{linhasPesquisaController.completaLinhaPesquisa}"
+									var="linha"
+									itemLabel="#{linha.descricao}"
+									itemValue="#{linha}"
+									forceSelection="true"
+									scrollHeight="250">
+
+						<o:converter converterId="omnifaces.ListIndexConverter"
+									 list="#{linhasPesquisaController.linhasPesquisa}" />
+					</p:autoComplete>
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="bolsa" value="Bolsa de produtividade:" />
+					<p:selectOneMenu id="bolsa"
+									 value="#{pesquisadoresController.pesquisador.bolsaProdutividadeCnpq}"
+									 converter="omnifaces.SelectItemsConverter">
+
+						<f:selectItem itemLabel="Nenhuma" itemValue="#{null}" />
+						<f:selectItems value="#{bolsasProdutividadeCnpqController.bolsas}" var="b"
+									   itemLabel="#{b.descricao}" itemValue="#{b}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="field col-12">
+					<p:outputLabel for="programa" value="Orientação em programa de pós-graduação:" />
+					<p:selectOneMenu id="programa"
+									 value="#{pesquisadoresController.pesquisador.programaPosGraduacao}"
+									 converter="omnifaces.SelectItemsConverter">
+
+						<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
+						<f:selectItems value="#{programasPosGraduacaoController.programasPosGraduacao}" var="p"
+									   itemLabel="#{p.descricao}" itemValue="#{p}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="telefone" value="Telefone:" />
+					<p:inputText id="telefone" maxlength="20" value="#{pesquisadoresController.pesquisador.telefone}" />
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="ramal" value="Ramal:" />
+					<p:inputNumber id="ramal" decimalPlaces="0" thousandSeparator=""
+								   value="#{pesquisadoresController.pesquisador.ramal}" />
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="email" value="E-mail:" />
+					<p:inputText id="email" maxlength="100" value="#{pesquisadoresController.pesquisador.eMail}" />
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="emailAlternativo" value="E-mail (alternativo):" />
+					<p:inputText id="emailAlternativo" value="#{pesquisadoresController.pesquisador.eMailAlternativo}" />
+				</div>
+
+				<div class="field col-2">
+					<p:commandButton id="btnSalvar" value="Salvar" icon="pi pi-save"
+									 action="#{pesquisadoresController.salva}" update="@form" />
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>
