@@ -1,0 +1,88 @@
+<ui:composition template="/templates/default.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Portal de Apoio</ui:define>
+
+    <ui:define name="content">
+        <h:panelGroup rendered="#{request.userPrincipal != null}">
+            <h2>Usuário já autenticado no sistema.</h2>
+
+            <p:link outcome="/index" value="Página principal" />
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{request.userPrincipal == null}">
+            <div class="login-panel">
+                <h2>Acesse o sistema</h2>
+                <hr />
+
+                <h:form id="login-form" prependId="false" style="margin-top: 20px">
+                    <h:panelGroup layout="block"
+                                  rendered="#{param['expired'] or flash['org.omnifaces.view_expired'] eq true}"
+                                  styleClass="erro-login-mensagem"
+                                  style="margin-bottom:5px">
+
+                        <h:outputText value="Sua sessão expirou: faça o login novamente." />
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block"
+                                  rendered="#{param['error']}"
+                                  styleClass="erro-login-mensagem"
+                                  style="margin-bottom:5px">
+
+                        <h:outputText value="Usuário/senha inválidos." />
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block"
+                                  rendered="#{param['logout']}"
+                                  styleClass="ok-login-mensagem"
+                                  style="margin-bottom:5px">
+
+                        <h:outputText value="Logout efetuado com sucesso!" />
+                    </h:panelGroup>
+
+                    <div class="grid">
+                        <div class="col-2">
+                            <p:outputLabel for="username"
+                                           value="Usuário:" />
+                        </div>
+                        <div class="col-10">
+                            <p:focus />
+                            <p:inputText id="username"
+                                         value="#{authController.username}"
+                                         size="20"
+                                         required="true" />
+                        </div>
+
+                        <div class="col-2">
+                            <p:outputLabel for="password"
+                                           value="Senha:" />
+                        </div>
+                        <div class="col-10">
+                            <p:password id="password"
+                                        value="#{authController.password}"
+                                        size="20"
+                                        required="true"
+                                        label="Senha" />
+                        </div>
+
+                        <div class="col-12">
+                            <p:commandButton id="btnLogin"
+                                             value="Login"
+                                             ajax="false"
+                                             styleClass="ui-button-secondary"
+                                             action="#{authController.login}" />
+                        </div>
+
+                        <div class="col-12">
+                            <p:commandButton id="btnLogin2" value="Teste" action="#{authController.teste}" />
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

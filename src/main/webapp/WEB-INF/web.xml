@@ -2,9 +2,9 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" version="3.0">
+	id="portal-apoio-staging" version="3.0">
 
-	<display-name>Primefaces Picklist</display-name>
+	<display-name>Portal de Apoio - Staging</display-name>
 
 	<welcome-file-list>
 		<welcome-file>index.jsf</welcome-file>
@@ -14,4 +14,92 @@
 		<param-name>jakarta.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
+
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/erros/acesso-negado.jsf</location>
+    </error-page>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/erros/nao-encontrada.jsf</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/erros/erro-interno.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>jakarta.faces.application.ViewExpiredException</exception-type>
+        <location>/login.jsf?expired=true</location>
+    </error-page>
+
+    <mime-mapping>
+        <extension>jsp</extension>
+        <mime-type>application/xml</mime-type>
+    </mime-mapping>
+
+    <mime-mapping>
+        <extension>ico</extension>
+        <mime-type>image/x-icon</mime-type>
+    </mime-mapping>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>testRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.jsf</form-login-page>
+            <form-error-page>/login.jsf?error=true</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>DEFAULT</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint/>
+    </security-constraint>
+
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>ANON</web-resource-name>
+            <url-pattern>/jakarta.faces.resource/*</url-pattern>
+            <url-pattern>/erros/acesso-negado.jsf</url-pattern>
+            <url-pattern>/erros/erro-interno.jsf</url-pattern>
+            <url-pattern>/erros/nao-encontrada.jsf</url-pattern>
+            <url-pattern>/login.jsf</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>INDEX</web-resource-name>
+            <url-pattern>/</url-pattern>
+            <url-pattern>/index.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>**</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>PESQUISA_ADMIN</web-resource-name>
+            <url-pattern>/pesquisa/administracao/bolsas-produtividade-cnpq.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PESQUISA_ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-role>
+        <role-name>PESQUISA_ADMIN</role-name>
+    </security-role>
 </web-app>

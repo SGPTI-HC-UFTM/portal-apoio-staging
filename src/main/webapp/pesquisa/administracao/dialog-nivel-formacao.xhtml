@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dialogNivelFormacao"
+			  header="Nível de Formação"
+			  widgetVar="dialogNivelFormacao"
+			  width="80%"
+			  height="600px"
+			  appendTo="@(body)"
+			  modal="true">
+		<h:form id="formNivelFormacao">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-12">
+					<p:outputLabel for="nivel" value="Nível:" />
+					<p:inputText id="nivel"
+								 value="#{niveisFormacaoController.nivelFormacao.nivel}" />
+				</div>
+
+				<div class="field col-2">
+					<p:commandButton id="btnSalva"
+									 icon="pi pi-save"
+									 action="#{niveisFormacaoController.salva}"
+									 update="formNiveisFormacao"
+									 value="Salvar" />
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>
