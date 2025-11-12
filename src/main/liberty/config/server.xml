@@ -43,7 +43,7 @@
 
     <applicationMonitor dropinsEnabled="false" />
 
-    <webApplication location="portal-apoio-staging.war" contextRoot="/portal-apoio-staging">
+    <webApplication location="portal-apoio-stg.war" contextRoot="/portal-apoio-stg">
         <application-bnd>
             <security-role name="PESQUISA_ADMIN">
                 <user name="admin" />

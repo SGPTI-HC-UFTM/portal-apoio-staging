@@ -1,3 +1,9 @@
+-- AUTH
+INSERT INTO auth.grupos (grupo) VALUES ('ADMIN');
+INSERT INTO auth.usuarios (login, password) VALUES ('admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
+INSERT INTO auth.usuarios_grupos (usuario_id, grupo_id) VALUES (1, 1);
+
+
 -- AGHU
 INSERT INTO agh.aip_pacientes (codigo, prontuario, nome) VALUES (1, 123, 'FULANO DE TAL');
 INSERT INTO agh.ain_leitos (lto_id) VALUES ('0110A');

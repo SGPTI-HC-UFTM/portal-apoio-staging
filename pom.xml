@@ -28,6 +28,7 @@
 		<version.commons.lang>3.14.0</version.commons.lang>
         <version.derby>10.15.2.0</version.derby>
         <version.liberty>3.11.1</version.liberty>
+        <version.postgresql.jdbc>42.7.4</version.postgresql.jdbc>
 	</properties>
 
 	<dependencies>
@@ -129,10 +130,16 @@
             <version>${version.derby}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${version.postgresql.jdbc}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>portal-apoio-stg</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -170,9 +177,47 @@
                                 <artifactId>derbytools</artifactId>
                             </dependency>
                         </dependencyGroup>
+
+                        <dependencyGroup>
+                            <location>postgresql</location>
+                            <dependency>
+                                <groupId>org.postgresql</groupId>
+                                <artifactId>postgresql</artifactId>
+                            </dependency>
+                        </dependencyGroup>
                     </copyDependencies>
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 	</build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <database.action>create</database.action>
+                <create.database.schemas>true</create.database.schemas>
+                <create.script.source>create.sql</create.script.source>
+                <sql.load.script.source>auth-data.sql</sql.load.script.source>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <database.action>none</database.action>
+                <create.database.schemas>false</create.database.schemas>
+                <sql.load.script.source>null</sql.load.script.source>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 </project>

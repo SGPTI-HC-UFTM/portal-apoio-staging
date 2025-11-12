@@ -9,8 +9,12 @@
     <persistence-unit name="portalApoioPU" transaction-type="JTA">
         <jta-data-source>portalApoioDS</jta-data-source>
         <properties>
-            <property name="jakarta.persistence.schema-generation.database.action" value="create" />
-            <property name="jakarta.persistence.schema-generation.create-database-schemas" value="true" />
+            <property name="jakarta.persistence.schema-generation.database.action" value="${database.action}" />
+            <property name="jakarta.persistence.schema-generation.create-database-schemas"
+                      value="${create.database.schemas}" />
+            <property name="jakarta.persistence.schema-generation.create-script-source"
+                      value="${create.script.source}" />
+            <property name="jakarta.persistence.sql-load-script-source" value="${sql.load.script.source}" />
         </properties>
     </persistence-unit>
 

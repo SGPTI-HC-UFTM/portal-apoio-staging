@@ -49,15 +49,6 @@
         <mime-type>image/x-icon</mime-type>
     </mime-mapping>
 
-    <login-config>
-        <auth-method>FORM</auth-method>
-        <realm-name>testRealm</realm-name>
-        <form-login-config>
-            <form-login-page>/login.jsf</form-login-page>
-            <form-error-page>/login.jsf?error=true</form-error-page>
-        </form-login-config>
-    </login-config>
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>DEFAULT</web-resource-name>
@@ -65,7 +56,6 @@
         </web-resource-collection>
         <auth-constraint/>
     </security-constraint>
-
 
     <security-constraint>
         <web-resource-collection>
