@@ -118,6 +118,8 @@
                                 request.isUserInRole('PESQUISA_ADMIN')}">
                         <p:submenu label="Administração" rendered="#{request.isUserInRole('PESQUISA_ADMIN')}">
                             <p:menuitem value="Bolsas" outcome="/pesquisa/administracao/bolsas-produtividade-cnpq" />
+                            <p:menuitem value="Fontes financiadoras"
+                                        outcome="/pesquisa/administracao/fontes-financiadoras" />
                             <p:menuitem value="Formações" outcome="/pesquisa/administracao/formacoes-academicas" />
                             <p:menuitem value="Instituições" outcome="/pesquisa/administracao/instituicoes" />
                             <p:menuitem value="Linhas de pesquisa" outcome="/pesquisa/administracao/linhas-pesquisa" />

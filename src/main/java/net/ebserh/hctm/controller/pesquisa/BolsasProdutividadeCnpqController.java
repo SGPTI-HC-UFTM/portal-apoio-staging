@@ -1,8 +1,6 @@
 package net.ebserh.hctm.controller.pesquisa;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import net.ebserh.hctm.model.pesquisa.BolsaProdutividadeCnpq;
 //import net.ebserh.hctm.service.pesquisa.PesquisasService;
@@ -12,14 +10,13 @@ import org.primefaces.PrimeFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Named
 @ViewScoped
 public class BolsasProdutividadeCnpqController implements Serializable {
 
-    private static final Logger logger = Logger.getAnonymousLogger();
+    private static final Logger LOGGER = Logger.getAnonymousLogger();
 
     //@Inject
     //private PesquisasService pesquisasService;
@@ -55,6 +52,10 @@ public class BolsasProdutividadeCnpqController implements Serializable {
     }
 
     public void salva() {
+        LOGGER.severe("DBG Antes: " + bolsas.size());
+        bolsas.add(bolsaProdutividadeCnpq);
+        LOGGER.severe("DBG Depois: " + bolsas.size());
+        FacesUtils.showInfo("Dados salvos com sucesso!");
     /*
         if (bolsaProdutividadeCnpq == null) {
             FacesUtils.showError("É necessário informar os dados da bolsa.");
