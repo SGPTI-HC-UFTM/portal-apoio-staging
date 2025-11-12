@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dialogFonteFinanciadora"
+			  header="Fonte Financiadora"
+			  widgetVar="dialogFonteFinanciadora"
+			  width="80%"
+			  height="600px"
+			  appendTo="@(body)"
+			  modal="true">
+		<h:form id="formDialogFonteFinanciadora">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-12">
+					<p:outputLabel for="descricao" value="Descrição:" />
+					<p:inputText id="descricao"
+								 value="#{fontesFinanciadorasController.fonteFinanciadora.descricao}" />
+				</div>
+
+                <div class="field col-12">
+                    <p:outputLabel for="ativa" value="Ativa:"/>
+                    <p:selectOneRadio id="ativa"
+                                      value="#{fontesFinanciadorasController.fonteFinanciadora.ativa}">
+                        <f:selectItem itemLabel="Não" itemValue="#{false}"/>
+                        <f:selectItem itemLabel="Sim" itemValue="#{true}"/>
+                    </p:selectOneRadio>
+                </div>
+
+                <div class="field col-2">
+					<p:commandButton id="btnSalva"
+									 icon="pi pi-save"
+									 action="#{fontesFinanciadorasController.salva}"
+									 update="formFontesFinanciadoras"
+									 value="Salvar" />
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>
