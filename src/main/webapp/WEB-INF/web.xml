@@ -93,7 +93,10 @@
         <web-resource-collection>
             <web-resource-name>PESQUISA_ADMIN</web-resource-name>
             <url-pattern>/pesquisa/administracao/bolsas-produtividade-cnpq.jsf</url-pattern>
+            <url-pattern>/pesquisa/administracao/cbos.jsf</url-pattern>
             <url-pattern>/pesquisa/administracao/fontes-financiadoras.jsf</url-pattern>
+            <url-pattern>/pesquisa/administracao/orgaos-financiadores.jsf</url-pattern>
+            <url-pattern>/pesquisa/administracao/status-projeto.jsf</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>PESQUISA_ADMIN</role-name>
