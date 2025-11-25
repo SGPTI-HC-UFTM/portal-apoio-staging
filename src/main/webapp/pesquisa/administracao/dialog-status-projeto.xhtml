@@ -11,8 +11,22 @@
 			  height="600px"
 			  appendTo="@(body)"
 			  modal="true">
+		<h:form id="formDialogStatusProjeto">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-12">
+					<p:outputLabel for="descricao" value="Descrição:" />
+					<p:inputText id="descricao" value="#{statusProjetoController.statusProjeto.descricao}"/>
+				</div>
 
-        <h2>Em construção...</h2>
+				<div class="field col-2">
+					<p:commandButton id="btnSalva" icon="pi pi-save"
+						action="#{statusProjetoController.salvaStatus}"
+						update="formStatusProjeto"
+						value="Salvar" />
+				</div>
+			</div>
+		</h:form>
+
 
 	</p:dialog>
 </ui:composition>

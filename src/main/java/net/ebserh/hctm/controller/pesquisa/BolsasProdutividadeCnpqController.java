@@ -22,7 +22,7 @@ public class BolsasProdutividadeCnpqController implements Serializable {
     //private PesquisasService pesquisasService;
 
     private List<BolsaProdutividadeCnpq> bolsas = new ArrayList<>();
-
+    private Boolean adicionar = true;
     private BolsaProdutividadeCnpq bolsaProdutividadeCnpq;
 
     /*
@@ -46,14 +46,17 @@ public class BolsasProdutividadeCnpqController implements Serializable {
             FacesUtils.showError("É necessário selecionar um registro para edição.");
             return;
         }
-
+        adicionar = false;
         this.bolsaProdutividadeCnpq = bolsaProdutividadeCnpq;
         PrimeFaces.current().executeScript("PF('dialogBolsaProdutividade').show()");
     }
 
     public void salva() {
         LOGGER.severe("DBG Antes: " + bolsas.size());
-        bolsas.add(bolsaProdutividadeCnpq);
+        if(adicionar == true){
+            bolsas.add(bolsaProdutividadeCnpq);
+        }
+        adicionar = true;
         LOGGER.severe("DBG Depois: " + bolsas.size());
         FacesUtils.showInfo("Dados salvos com sucesso!");
     /*

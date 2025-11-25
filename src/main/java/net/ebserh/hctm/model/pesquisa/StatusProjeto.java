@@ -1,5 +1,6 @@
 package net.ebserh.hctm.model.pesquisa;
 
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
@@ -7,7 +8,7 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 @Entity
 public class StatusProjeto extends AbstractEntity {
 
-    @Size(max = 30)
+    @Size(max = 100)
     private String descricao;
 
     public String getDescricao() {
