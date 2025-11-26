@@ -1,12 +1,17 @@
 package net.ebserh.hctm.util;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;
+import net.ebserh.hctm.exception.CustomRuntimeException;
 
 public class FacesUtils {
+
+    private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	public static String getCurrentUserLogin() {
 		return FacesContext
@@ -91,5 +96,14 @@ public class FacesUtils {
 			cartaoSusStr.substring(7, 11),
 			cartaoSusStr.substring(11));
 	}
+
+    public static void processaExcecao(Exception exception, String message) {
+        if (exception.getClass().equals(CustomRuntimeException.class)) {
+            showError(exception.getMessage());
+        } else {
+            Logger.getAnonymousLogger().log(Level.SEVERE, exception.getMessage(), exception);
+            showError(message);
+        }
+    }
 
 }

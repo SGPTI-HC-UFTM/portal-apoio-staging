@@ -1,15 +1,19 @@
 package net.ebserh.hctm.controller.pesquisa;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import net.ebserh.hctm.model.pesquisa.BolsaProdutividadeCnpq;
 //import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.service.pesquisa.BolsasProdutividadeService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Named
@@ -18,23 +22,23 @@ public class BolsasProdutividadeCnpqController implements Serializable {
 
     private static final Logger LOGGER = Logger.getAnonymousLogger();
 
-    //@Inject
-    //private PesquisasService pesquisasService;
+    @Inject
+    private BolsasProdutividadeService bolsasProdutividadeService;
 
     private List<BolsaProdutividadeCnpq> bolsas = new ArrayList<>();
+
     private Boolean adicionar = true;
+
     private BolsaProdutividadeCnpq bolsaProdutividadeCnpq;
 
-    /*
     @PostConstruct
     public void init() {
         try {
-            bolsas = pesquisasService.buscaBolsas();
+            bolsas = bolsasProdutividadeService.buscaBolsas();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
-    */
 
     public void openDialogNova() {
         bolsaProdutividadeCnpq = new BolsaProdutividadeCnpq();
@@ -52,28 +56,19 @@ public class BolsasProdutividadeCnpqController implements Serializable {
     }
 
     public void salva() {
-        LOGGER.severe("DBG Antes: " + bolsas.size());
-        if(adicionar == true){
-            bolsas.add(bolsaProdutividadeCnpq);
-        }
-        adicionar = true;
-        LOGGER.severe("DBG Depois: " + bolsas.size());
-        FacesUtils.showInfo("Dados salvos com sucesso!");
-    /*
         if (bolsaProdutividadeCnpq == null) {
             FacesUtils.showError("É necessário informar os dados da bolsa.");
             return;
         }
 
         try {
-            pesquisasService.salvaBolsaProdutividade(bolsaProdutividadeCnpq);
-            bolsas = pesquisasService.buscaBolsas();
+            bolsasProdutividadeService.salvaBolsaProdutividade(bolsaProdutividadeCnpq);
+            bolsas = bolsasProdutividadeService.buscaBolsas();
             PrimeFaces.current().executeScript("PF('dialogBolsaProdutividade').hide()");
-            FacesUtils.showInfo("Bolsa salva com sucesso!");
+            FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, logger, "Ocorreu um erro ao salvar a bolsa.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os dados.");
         }
-    */
     }
 
     public List<BolsaProdutividadeCnpq> getBolsas() {
