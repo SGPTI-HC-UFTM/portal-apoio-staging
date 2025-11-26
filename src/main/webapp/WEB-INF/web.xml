@@ -49,6 +49,7 @@
         <mime-type>image/x-icon</mime-type>
     </mime-mapping>
 
+    <!--
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>DEFAULT</web-resource-name>
@@ -56,6 +57,7 @@
         </web-resource-collection>
         <auth-constraint/>
     </security-constraint>
+    -->
 
     <security-constraint>
         <web-resource-collection>
@@ -91,5 +93,9 @@
 
     <security-role>
         <role-name>PESQUISA_ADMIN</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>ADMIN</role-name>
     </security-role>
 </web-app>

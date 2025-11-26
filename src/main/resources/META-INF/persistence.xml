@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
-        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <persistence-unit name="portalApoioPU" transaction-type="JTA">
+        <jta-data-source>portalApoioDS</jta-data-source>
+        <properties>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create" />
+            <property name="jakarta.persistence.schema-generation.create-database-schemas" value="true" />
+            <property name="jakarta.persistence.sql-load-script-source" value="inserts.sql" />
+            <property name="eclipselink.target-database" value="PostgreSQL" />
+        </properties>
+    </persistence-unit>
 
     <!-- H2 -->
+    <!--
     <persistence-unit name="portalApoioPU" transaction-type="JTA">
         <jta-data-source>portalApoioDS</jta-data-source>
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="${database.action}" />
             <property name="jakarta.persistence.schema-generation.create-database-schemas"
                       value="${create.database.schemas}" />
+            <property name="jakarta.persistence.schema-generation.create-source" value="script"/>
             <property name="jakarta.persistence.schema-generation.create-script-source"
                       value="${create.script.source}" />
             <property name="jakarta.persistence.sql-load-script-source" value="${sql.load.script.source}" />
+            <property name="jakarta.persistence.sql-load-script-source.delimiter" value=";" />
         </properties>
     </persistence-unit>
+    -->
 
     <!-- Postgresql -->
     <!--

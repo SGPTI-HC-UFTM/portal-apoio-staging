@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.ejb.SessionContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -64,8 +67,15 @@ public class AuthController implements Serializable {
                     AuthenticationParameters.withParams().credential(
                             new UsernamePasswordCredential(trimmedUsername, new Password(password))));
 
+
             switch (authenticationStatus) {
-                case SUCCESS -> facesContext.getExternalContext().redirect("index.jsf?faces-redirect=true");
+                case SUCCESS -> {
+                    LOGGER.severe("DBG: success");
+                    LOGGER.severe("DBG 1: " + request.isUserInRole("ADMIN"));
+                    LOGGER.severe("DBG 2: " + securityContext.isCallerInRole("ADMIN"));
+                    facesContext.responseComplete();
+                    facesContext.getExternalContext().redirect("index.jsf?faces-redirect=true");
+                }
                 case SEND_CONTINUE -> facesContext.responseComplete();
                 case SEND_FAILURE -> {
                     return;

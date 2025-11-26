@@ -10,6 +10,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import jakarta.security.enterprise.SecurityContext;
 import org.primefaces.PrimeFaces;
 
 import net.ebserh.hctm.exception.CustomRuntimeException;
@@ -27,6 +28,9 @@ public class AvisosController implements Serializable {
 	
 	@Inject
 	private AvisosService avisosService;
+
+    @Inject
+    SecurityContext securityContext;
 	
 	private String textoPesquisa;
 	
@@ -40,7 +44,12 @@ public class AvisosController implements Serializable {
 	public void init() {
 		avisos = avisosService.buscaTodos();
 		avisosDia = avisosService.buscaAvisosDia();
+        logger.severe("DBG 10: " + securityContext.isCallerInRole("ADMIN"));
 	}
+
+    public Boolean userInRole() {
+        return securityContext.isCallerInRole("ADMIN");
+    }
 	
 	public List<Aviso> getAvisosDia() {
 		return avisosDia;
