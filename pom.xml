@@ -112,27 +112,14 @@
 		</dependency>
 
         <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>${version.derby}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyshared</artifactId>
-            <version>${version.derby}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>${version.derby}</version>
-            <scope>provided</scope>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.4.240</version>
         </dependency>
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>portal-apoio-stg</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -152,27 +139,45 @@
                 <configuration>
                     <copyDependencies>
                         <dependencyGroup>
-                            <location>derby</location>
-
-                            <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
+                            <location>h2</location>
+                            <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
                             <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derby</artifactId>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derbyshared</artifactId>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derbytools</artifactId>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
                             </dependency>
                         </dependencyGroup>
                     </copyDependencies>
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 	</build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <database.action>create</database.action>
+                <create.database.schemas>true</create.database.schemas>
+                <sql.load.script.source>inserts.sql</sql.load.script.source>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <database.action>none</database.action>
+                <create.database.schemas>false</create.database.schemas>
+                <sql.load.script.source>null</sql.load.script.source>
+            </properties>
+        </profile>
+    </profiles>
 </project>

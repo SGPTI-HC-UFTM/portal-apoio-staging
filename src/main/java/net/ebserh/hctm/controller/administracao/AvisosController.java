@@ -10,6 +10,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import jakarta.security.enterprise.SecurityContext;
 import org.primefaces.PrimeFaces;
 
 import net.ebserh.hctm.exception.CustomRuntimeException;
@@ -21,12 +22,13 @@ import net.ebserh.hctm.util.FacesUtils;
 @ViewScoped
 public class AvisosController implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger logger = Logger.getAnonymousLogger();
 	
 	@Inject
 	private AvisosService avisosService;
+
+    @Inject
+    SecurityContext securityContext;
 	
 	private String textoPesquisa;
 	
@@ -41,6 +43,10 @@ public class AvisosController implements Serializable {
 		avisos = avisosService.buscaTodos();
 		avisosDia = avisosService.buscaAvisosDia();
 	}
+
+    public Boolean userInRole() {
+        return securityContext.isCallerInRole("ADMIN");
+    }
 	
 	public List<Aviso> getAvisosDia() {
 		return avisosDia;
@@ -93,9 +99,6 @@ public class AvisosController implements Serializable {
 		}
 	}
 
-	/*
-	 * Auto-generated
-	 */
 	public List<Aviso> getAvisos() {
 		return avisos;
 	}
@@ -120,15 +123,4 @@ public class AvisosController implements Serializable {
 		this.textoPesquisa = textoPesquisa;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aviso == null) ? 0 : aviso.hashCode());
-		result = prime * result + ((avisos == null) ? 0 : avisos.hashCode());
-		result = prime * result + ((avisosService == null) ? 0 : avisosService.hashCode());
-		result = prime * result + ((logger == null) ? 0 : logger.hashCode());
-		result = prime * result + ((textoPesquisa == null) ? 0 : textoPesquisa.hashCode());
-		return result;
-	}
 }

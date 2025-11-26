@@ -5,7 +5,6 @@
         <feature>xmlBinding-4.0</feature>
         <feature>bells-1.0</feature>
         <feature>microProfile-6.0</feature>
-        <feature>jdbc-4.2</feature>
     </featureManager>
 
     <!-- Configuração HTTP -->
@@ -15,39 +14,16 @@
     <httpEndpoint host="*" httpPort="${http.port}"
                   httpsPort="${https.port}" id="defaultHttpEndpoint" />
 
-    <!--
     <library id="h2">
         <fileset dir="${server.config.dir}/h2/" includes="*.jar" />
     </library>
-    -->
 
-    <library id="derby">
-        <fileset dir="${server.config.dir}/derby/" includes="*.jar" />
-    </library>
-
-    <!--
     <dataSource jndiName="portalApoioDS">
         <jdbcDriver libraryRef="h2" />
-        <properties url="jdbc:h2:~/testdb;DB_CLOSE_DELAY=-1" user="sa" password="sa" /> </dataSource>
-    -->
-
-    <dataSource id="portalApoioDS" jndiName="portalApoioDS">
-        <jdbcDriver libraryRef="derby" />
-        <properties.derby.embedded databaseName="DefaultDB" createDatabase="create" />
+        <properties url="jdbc:h2:mem:testdb;MODE=PostgreSQL" user="sa" password="sa" />
     </dataSource>
-
-    <!-- Autenticação -->
-    <basicRegistry id="basic" realm="BasicRealm">
-        <user name="admin" password="admin" />
-    </basicRegistry>
 
     <applicationMonitor dropinsEnabled="false" />
 
-    <webApplication location="portal-apoio-staging.war" contextRoot="/portal-apoio-staging">
-        <application-bnd>
-            <security-role name="PESQUISA_ADMIN">
-                <user name="admin" />
-            </security-role>
-        </application-bnd>
-    </webApplication>
+    <webApplication location="portal-apoio-stg.war" contextRoot="/portal-apoio-stg" />
 </server>
