@@ -1,6 +1,5 @@
 package net.ebserh.hctm.config;
 
-import jakarta.annotation.security.DeclareRoles;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.annotation.FacesConfig;
 import jakarta.security.enterprise.authentication.mechanism.http.CustomFormAuthenticationMechanismDefinition;
@@ -26,7 +25,6 @@ import net.ebserh.hctm.util.Base64Sha256PasswordHash;
 )
 @FacesConfig
 @ApplicationScoped
-@DeclareRoles("ADMIN")
 public class ApplicationConfig {
 
 }

@@ -5,11 +5,7 @@
         <feature>xmlBinding-4.0</feature>
         <feature>bells-1.0</feature>
         <feature>microProfile-6.0</feature>
-        <feature>jdbc-4.2</feature>
-        <feature>appSecurity-5.0</feature>
     </featureManager>
-
-    <logging traceSpecification="com.ibm.ws.security.*=finest:com.ibm.ws.appSecurity.*=finest" />
 
     <!-- Configuração HTTP -->
     <variable name="http.port" defaultValue="9080" />
@@ -22,58 +18,12 @@
         <fileset dir="${server.config.dir}/h2/" includes="*.jar" />
     </library>
 
-    <!--
-    <library id="derby">
-        <fileset dir="${server.config.dir}/derby/" includes="*.jar" />
-    </library>
-    -->
-
-
-    <!-- Configuração Hibernate -->
-    <bell libraryRef="hibernate"/>
-
-    <library id="hibernate">
-        <fileset dir="${server.config.dir}/hibernate/" includes="*.jar"/>
-    </library>
-
-    <!-- Configuração datasources -->
-    <library id="jdbcLib">
-        <fileset dir="jdbc" includes="*.jar" />
-    </library>
-
-    <jdbcDriver id="postgresqlDriver" libraryRef="jdbcLib"/>
-
-
     <dataSource jndiName="portalApoioDS">
         <jdbcDriver libraryRef="h2" />
         <properties url="jdbc:h2:mem:testdb;MODE=PostgreSQL" user="sa" password="sa" />
     </dataSource>
 
-    <!--
-    <dataSource id="portalApoioDS" jndiName="portalApoioDS">
-        <jdbcDriver libraryRef="derby" />
-        <properties.derby.embedded databaseName="DefaultDB" createDatabase="create" />
-    </dataSource>
-    -->
-
-
-    <!-- Autenticação -->
-    <!--
-    <basicRegistry id="basic" realm="BasicRealm">
-        <user name="admin" password="admin" />
-    </basicRegistry>
-    -->
-
     <applicationMonitor dropinsEnabled="false" />
 
-    <webApplication location="portal-apoio-stg.war" contextRoot="/portal-apoio-stg">
-        <application-bnd>
-            <security-role name="PESQUISA_ADMIN">
-                <user name="admin" />
-            </security-role>
-            <security-role name="ADMIN">
-                <user name="admin" />
-            </security-role>
-        </application-bnd>
-    </webApplication>
+    <webApplication location="portal-apoio-stg.war" contextRoot="/portal-apoio-stg" />
 </server>

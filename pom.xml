@@ -28,7 +28,6 @@
 		<version.commons.lang>3.14.0</version.commons.lang>
         <version.derby>10.15.2.0</version.derby>
         <version.liberty>3.11.1</version.liberty>
-        <version.postgresql.jdbc>42.7.4</version.postgresql.jdbc>
 	</properties>
 
 	<dependencies>
@@ -113,32 +112,6 @@
 		</dependency>
 
         <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>${version.derby}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyshared</artifactId>
-            <version>${version.derby}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>${version.derby}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${version.postgresql.jdbc}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.4.240</version>
@@ -173,103 +146,6 @@
                                 <artifactId>h2</artifactId>
                             </dependency>
                         </dependencyGroup>
-
-                        <dependencyGroup>
-                            <location>jdbc</location>
-                            <dependency>
-                                <groupId>org.postgresql</groupId>
-                                <artifactId>postgresql</artifactId>
-                                <version>42.7.4</version>
-                            </dependency>
-                        </dependencyGroup>
-
-                        <dependencyGroup>
-                            <location>log4j</location>
-                            <dependency>
-                                <groupId>org.apache.logging.log4j</groupId>
-                                <artifactId>log4j-core</artifactId>
-                                <version>2.24.3</version>
-                            </dependency>
-                        </dependencyGroup>
-
-                        <dependencyGroup>
-                            <location>hibernate</location>
-                            <dependency>
-                                <groupId>org.hibernate.orm</groupId>
-                                <artifactId>hibernate-core</artifactId>
-                                <version>6.4.4.Final</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.jboss.logging</groupId>
-                                <artifactId>jboss-logging</artifactId>
-                                <version>3.5.0.Final</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.hibernate.common</groupId>
-                                <artifactId>hibernate-commons-annotations</artifactId>
-                                <version>6.0.6.Final</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>com.fasterxml</groupId>
-                                <artifactId>classmate</artifactId>
-                                <version>1.5.1</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>io.smallrye</groupId>
-                                <artifactId>jandex</artifactId>
-                                <version>3.1.2</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>net.bytebuddy</groupId>
-                                <artifactId>byte-buddy</artifactId>
-                                <version>1.14.11</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.hibernate.orm</groupId>
-                                <artifactId>hibernate-envers</artifactId>
-                                <version>6.4.4.Final</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.antlr</groupId>
-                                <artifactId>antlr4-runtime</artifactId>
-                                <version>4.13.0</version>
-                            </dependency>
-                        </dependencyGroup>
-
-                        <dependencyGroup>
-                            <location>derby</location>
-
-                            <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
-                            <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derby</artifactId>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derbyshared</artifactId>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derbytools</artifactId>
-                            </dependency>
-                        </dependencyGroup>
-
-                        <dependencyGroup>
-                            <location>postgresql</location>
-                            <dependency>
-                                <groupId>org.postgresql</groupId>
-                                <artifactId>postgresql</artifactId>
-                            </dependency>
-                        </dependencyGroup>
                     </copyDependencies>
                 </configuration>
             </plugin>
@@ -289,9 +165,11 @@
             <properties>
                 <database.action>create</database.action>
                 <create.database.schemas>true</create.database.schemas>
-                <create.script.source>create.sql</create.script.source>
-                <sql.load.script.source>auth-data.sql</sql.load.script.source>
+                <sql.load.script.source>inserts.sql</sql.load.script.source>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
         <profile>
             <id>prod</id>
@@ -300,9 +178,6 @@
                 <create.database.schemas>false</create.database.schemas>
                 <sql.load.script.source>null</sql.load.script.source>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
     </profiles>
 </project>

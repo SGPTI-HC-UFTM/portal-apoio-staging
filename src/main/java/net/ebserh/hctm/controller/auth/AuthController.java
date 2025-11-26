@@ -1,14 +1,10 @@
 package net.ebserh.hctm.controller.auth;
 
-import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jakarta.annotation.Resource;
-import jakarta.annotation.security.DeclareRoles;
-import jakarta.ejb.SessionContext;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.security.enterprise.AuthenticationStatus;
@@ -19,12 +15,13 @@ import jakarta.security.enterprise.credential.UsernamePasswordCredential;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import net.ebserh.hctm.util.FacesUtils;
 import org.apache.commons.lang3.StringUtils;
 
 @Named
-@ViewScoped
-public class AuthController implements Serializable {
+@RequestScoped
+public class AuthController {
 
     private static final Logger LOGGER = Logger.getAnonymousLogger();
 
@@ -34,20 +31,13 @@ public class AuthController implements Serializable {
     @Inject
     private SecurityContext securityContext;
 
+    @NotNull
     private String username;
 
+    @NotNull
     private String password;
 
-    public void teste() {
-        if (username.trim().equalsIgnoreCase("admin") && password.equals("123456"))
-            FacesUtils.showInfo("Seja bem vindo!");
-        else
-            FacesUtils.showError("Usuário/senha inválidos");
-    }
-
     public void login() {
-        LOGGER.severe("DBG: processando autenticação");
-
         if (StringUtils.isBlank(username)) {
             FacesUtils.showError("É necessário informar o usuário.");
             return;
@@ -69,19 +59,10 @@ public class AuthController implements Serializable {
 
 
             switch (authenticationStatus) {
-                case SUCCESS -> {
-                    LOGGER.severe("DBG: success");
-                    LOGGER.severe("DBG 1: " + request.isUserInRole("ADMIN"));
-                    LOGGER.severe("DBG 2: " + securityContext.isCallerInRole("ADMIN"));
-                    facesContext.responseComplete();
-                    facesContext.getExternalContext().redirect("index.jsf?faces-redirect=true");
-                }
+                case SUCCESS -> facesContext.getExternalContext().redirect("index.jsf?faces-redirect=true");
                 case SEND_CONTINUE -> facesContext.responseComplete();
-                case SEND_FAILURE -> {
-                    return;
-                }
-                default -> LOGGER.severe("Erro ao autenticar usuário. Status = " +
-                        String.valueOf(authenticationStatus) + ".");
+                case SEND_FAILURE -> { }
+                default -> LOGGER.severe("Erro ao autenticar usuário. Status = " + authenticationStatus + ".");
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
