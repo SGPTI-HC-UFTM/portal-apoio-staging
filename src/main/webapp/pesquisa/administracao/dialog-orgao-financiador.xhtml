@@ -4,15 +4,30 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:dialog id="dialogCbo"
-			  header="CBO"
-			  widgetVar="dialogCbo"
+	<p:dialog id="dialogOrgaoFinanciador"
+			  header="Órgão Financiador"
+			  widgetVar="dialogOrgaoFinanciador"
 			  width="80%"
 			  height="600px"
 			  appendTo="@(body)"
 			  modal="true">
 
-        <h2>Em construção...</h2>
+        <h:form id="formDialogOrgaosFinanciadores">
+            <div class="ui-fluid formgrid grid">
+                <div class="field col-12">
+                    <p:outputLabel for="descricao" value="Nome:" />
+                    <p:inputText id="descricao"
+                                 value="#{orgaosFinanciadoresController.orgaoFinanciador.descricao}" />
+                </div>
 
+                <div class="field col-2">
+                    <p:commandButton id="btnSalva"
+                                     icon="pi pi-save"
+                                     action="#{orgaosFinanciadoresController.salva}"
+                                     update="formOrgaosFinanciadores"
+                                     value="Salvar" />
+                </div>
+            </div>
+        </h:form>
 	</p:dialog>
 </ui:composition>
