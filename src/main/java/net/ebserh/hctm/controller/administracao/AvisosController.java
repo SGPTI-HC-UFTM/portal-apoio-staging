@@ -22,8 +22,6 @@ import net.ebserh.hctm.util.FacesUtils;
 @ViewScoped
 public class AvisosController implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger logger = Logger.getAnonymousLogger();
 	
 	@Inject
@@ -44,7 +42,6 @@ public class AvisosController implements Serializable {
 	public void init() {
 		avisos = avisosService.buscaTodos();
 		avisosDia = avisosService.buscaAvisosDia();
-        logger.severe("DBG 10: " + securityContext.isCallerInRole("ADMIN"));
 	}
 
     public Boolean userInRole() {
@@ -102,9 +99,6 @@ public class AvisosController implements Serializable {
 		}
 	}
 
-	/*
-	 * Auto-generated
-	 */
 	public List<Aviso> getAvisos() {
 		return avisos;
 	}
@@ -129,15 +123,4 @@ public class AvisosController implements Serializable {
 		this.textoPesquisa = textoPesquisa;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aviso == null) ? 0 : aviso.hashCode());
-		result = prime * result + ((avisos == null) ? 0 : avisos.hashCode());
-		result = prime * result + ((avisosService == null) ? 0 : avisosService.hashCode());
-		result = prime * result + ((logger == null) ? 0 : logger.hashCode());
-		result = prime * result + ((textoPesquisa == null) ? 0 : textoPesquisa.hashCode());
-		return result;
-	}
 }

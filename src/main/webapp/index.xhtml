@@ -5,10 +5,14 @@
 
 	<ui:define name="title">Portal de Apoio</ui:define>
 
-
 	<ui:define name="content">
-        <h1>#{avisosController.userInRole()}</h1>
-		<h1>Portal de Apoio</h1>
+        <style>
+            .ui-widget-content ul {
+                padding-inline-start: 0px !important;
+            }
+        </style>
+
+        <h1>Portal de Apoio</h1>
 		<div class="grid">
 			<div class="col-12 md:col-8">
 				<div class="grid">
@@ -17,12 +21,12 @@
 							<div>
 								<h2>Principal</h2>
 								<span>
-									<p:link outcome="/index" value="Acessar"></p:link>
-									<i class="pi pi-link pi-angle-double-right"></i>
+									<p:link outcome="/index" value="Acessar" />
+									<i class="pi pi-link pi-angle-double-right" />
 								</span>
 							</div>
 							<div>
-								<span class="ui-dashicon pi pi-home"></span>
+								<span class="ui-dashicon pi pi-home" />
 							</div>
 						</div>
 					</p:outputPanel>
@@ -31,11 +35,6 @@
 			</div>
 			<div class="col-12 md:col-4">
 
-				<style>
-					.ui-widget-content ul {
-						padding-inline-start: 0px !important;
-					}
-				</style>
 
 				<div class="ui-panel ui-widget ui-widget-content ui-corner-all">
 					<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
