@@ -1,10 +1,20 @@
 package net.ebserh.hctm.model.pesquisa;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
+@Table(schema = "pesquisa", name = "cbos")
+@NamedQuery(name = "Cbo.findAll", query = """
+SELECT
+    c
+FROM
+    Cbo c
+ORDER BY
+    c.descricao""")
 public class Cbo extends AbstractEntity {
 
     @Size(max = 200)
