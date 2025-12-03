@@ -8,7 +8,7 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "orgaos_financiadores")
-@NamedQuery(name = "StatusProjeto.findAll", query = """
+@NamedQuery(name = "OrgaoFinanciador.findAll", query = """
 SELECT
     o
 FROM
