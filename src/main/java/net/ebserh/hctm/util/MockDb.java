@@ -38,10 +38,16 @@ public class MockDb {
         cbo1.setDescricao("ANALISTA DE TI");
         cbosCadastrados.add(cbo1);
 
-        OrgaoFinanciador o1 = new OrgaoFinanciador();
-        o1.setId(1);
-        o1.setDescricao("CAPES");
-        orgaosFinanciadoresCadastrados.add(o1);
+        // Órgãos financiadores:
+        OrgaoFinanciador orgao1 = new OrgaoFinanciador();
+        orgao1.setId(1);
+        orgao1.setDescricao("CAPES");
+        orgaosFinanciadoresCadastrados.add(orgao1);
+
+        OrgaoFinanciador orgao2 = new OrgaoFinanciador();
+        orgao2.setId(1);
+        orgao2.setDescricao("FAPEMIG");
+        orgaosFinanciadoresCadastrados.add(orgao2);
 
         StatusProjeto s1 = new StatusProjeto();
         s1.setId(1);
