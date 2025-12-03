@@ -1,6 +1,5 @@
 package net.ebserh.hctm.model.pesquisa;
 
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
