@@ -8,10 +8,13 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "bolsas_produtividade_cnpq")
-@NamedQuery(name = "BolsaProdutividadeCnpq.findAll",
-        query = "SELECT b "
-            + "FROM BolsaProdutividadeCnpq b "
-            + "ORDER BY b.descricao")
+@NamedQuery(name = "BolsaProdutividadeCnpq.findAll", query = """
+SELECT
+    b
+FROM
+    BolsaProdutividadeCnpq b
+ORDER BY
+    b.descricao""")
 public class BolsaProdutividadeCnpq extends AbstractEntity {
 
     @Size(max = 10)
