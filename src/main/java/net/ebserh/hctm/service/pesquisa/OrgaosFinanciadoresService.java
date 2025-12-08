@@ -1,25 +1,17 @@
 package net.ebserh.hctm.service.pesquisa;
 
 import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
-import net.ebserh.hctm.exception.CustomRuntimeException;
-import net.ebserh.hctm.model.pesquisa.OrgaoFinanciador;
-import net.ebserh.hctm.util.MockDb;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.logging.Logger;
 
 @Stateless
 public class OrgaosFinanciadoresService {
 
-    @Inject
-    private MockDb mockDb;
+    private static final Logger LOGGER = Logger.getAnonymousLogger();
 
-    public List<OrgaoFinanciador> buscaOrgaos() {
-        return mockDb.getOrgaosFinanciadoresCadastrados();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public void salvaOrgaoFinanciador(OrgaoFinanciador orgaoFinanciador) {
-        throw new CustomRuntimeException("Em construção...");
-    }
 }
