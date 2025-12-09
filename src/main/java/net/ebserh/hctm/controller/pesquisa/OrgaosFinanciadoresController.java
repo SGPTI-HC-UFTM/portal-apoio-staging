@@ -43,17 +43,17 @@ public class OrgaosFinanciadoresController implements Serializable {
 
     public void editaOrgao(OrgaoFinanciador orgaoFinanciador) {
         if (orgaoFinanciador == null) {
-            FacesUtils.showError("É necessário selecionar um registro para edição.");
+            FacesUtils.showError("É necessário selecionar um registro para edição!");
             return;
         }
-
         this.orgaoFinanciador = orgaoFinanciador;
         PrimeFaces.current().executeScript("PF('dialogOrgaoFinanciador').show()");
     }
 
     public void salva() {
         if (orgaoFinanciador == null) {
-            FacesUtils.showError("É necessário informar os dados da bolsa!");
+            FacesUtils.showError("É necessário informar os dados do órgão!");
+            return;
         }
 
         try {
