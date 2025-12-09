@@ -3,6 +3,8 @@ package net.ebserh.hctm.service.pesquisa;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import net.ebserh.hctm.exception.CustomRuntimeException;
 import net.ebserh.hctm.model.pesquisa.BolsaProdutividadeCnpq;
@@ -41,10 +43,32 @@ public class BolsasProdutividadeService {
             throw new CustomRuntimeException("É necessário informar a descrição da bolsa.");
 
         try {
+            // Verifica duplicidade de registros
+            try {
+                BolsaProdutividadeCnpq bolsaExistente = entityManager
+                        .createNamedQuery("BolsaProdutividadeCnpq.findByDescricao", BolsaProdutividadeCnpq.class)
+                        .setParameter("descricao", bolsaProdutividadeCnpq.getDescricao())
+                        .getSingleResult();
+
+                if (!bolsaExistente.getId().equals(bolsaProdutividadeCnpq.getId()))
+                    throw new CustomRuntimeException("Já existe uma bolsa cadastrada com esta descrição.");
+            } catch (CustomRuntimeException e) {
+                throw e;
+            } catch (NoResultException e) {
+                // Ok, não há duplicidade
+            } catch (NonUniqueResultException e) {
+                throw new CustomRuntimeException("Mais de uma bolsa previamente cadastrada com a descrição informada.");
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                throw new CustomRuntimeException("Ocorreu um erro ao verificar a duplicidade de registros.");
+            }
+
             if (Objects.isNull(bolsaProdutividadeCnpq.getId()))
                 entityManager.persist(bolsaProdutividadeCnpq);
             else
                 entityManager.merge(bolsaProdutividadeCnpq);
+        } catch (CustomRuntimeException e) {
+            throw e;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da bolsa.");

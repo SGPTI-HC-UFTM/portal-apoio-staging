@@ -67,6 +67,7 @@ public class BolsasProdutividadeCnpqController implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogBolsaProdutividade').hide()");
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
+            bolsas = bolsasProdutividadeService.buscaBolsas();
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os dados.");
         }
     }
