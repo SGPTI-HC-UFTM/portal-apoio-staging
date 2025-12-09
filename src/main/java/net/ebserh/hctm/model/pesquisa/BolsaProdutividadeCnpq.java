@@ -15,6 +15,13 @@ FROM
     BolsaProdutividadeCnpq b
 ORDER BY
     b.descricao""")
+@NamedQuery(name = "BolsaProdutividadeCnpq.findByDescricao", query = """
+SELECT
+    b
+FROM
+    BolsaProdutividadeCnpq b
+WHERE
+    b.descricao = :descricao""")
 public class BolsaProdutividadeCnpq extends AbstractEntity {
 
     @Size(max = 10)
