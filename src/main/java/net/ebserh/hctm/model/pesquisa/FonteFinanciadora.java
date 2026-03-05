@@ -7,6 +7,21 @@ import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
+@Table(schema = "pesquisa", name = "fontes_financiadoras")
+@NamedQuery(name = "FonteFinanciadora.findAll", query = """
+SELECT
+    f
+FROM
+    FonteFinanciadora f
+ORDER BY
+    f.descricao""")
+@NamedQuery(name = "FonteFinanciadora.findByDescricao", query = """
+SELECT
+    f
+FROM
+    FonteFinanciadora f
+WHERE
+    UPPER(f.descricao) = :descricao""")
 public class FonteFinanciadora extends AbstractEntity {
 
     @Size(max = 100)
