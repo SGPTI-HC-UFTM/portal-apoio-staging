@@ -4,8 +4,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-//import net.ebserh.hctm.model.pesquisa.Instituicao;
-//import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.model.pesquisa.Instituicao;
+import net.ebserh.hctm.service.pesquisa.InstituicoesService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
@@ -14,29 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
 public class InstituicoesController implements Serializable {
 
-    /*
-    @Inject
-    private Logger logger;
+    private static final Logger LOGGER = Logger.getAnonymousLogger();
 
     @Inject
-    private PesquisasService pesquisasService;
-
-    private List<Instituicao> instituicoes = new ArrayList<>();
+    private InstituicoesService instituicoesService;
 
     private Instituicao instituicao;
+
+    private List<Instituicao> instituicoes = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         try {
-            instituicoes = pesquisasService.buscaInstituicoes();
+            instituicoes = instituicoesService.buscaInstituicoes();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -62,37 +59,28 @@ public class InstituicoesController implements Serializable {
         }
 
         try {
-            pesquisasService.salvaInstituicao(instituicao);
-            instituicoes = pesquisasService.buscaInstituicoes();
+            instituicoesService.salvaInstituicao(instituicao);
+            instituicoes = instituicoesService.buscaInstituicoes();
             PrimeFaces.current().executeScript("PF('dialogInstituicao').hide()");
             FacesUtils.showInfo("Instituição salva com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, logger, "Ocorreu um erro ao salvar a instituição.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar a instituição.");
         }
-    }
-
-    public List<Instituicao> completaInstituicao(String query) {
-        return instituicoes.stream()
-                .filter(i -> i.getNome().toLowerCase().contains(query.toLowerCase()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Instituicao> getInstituicoes() {
-        return instituicoes;
-    }
-
-    public void setInstituicoes(List<Instituicao> instituicoes) {
-        this.instituicoes = instituicoes;
-    }
-
-    public Instituicao getInstituicao() {
-        return instituicao;
     }
 
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
     }
 
-     */
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
 
+    public void setInstituicoes(List<Instituicao> instituicoes) {
+        this.instituicoes = instituicoes;
+    }
+
+    public List<Instituicao> getInstituicoes() {
+        return instituicoes;
+    }
 }
