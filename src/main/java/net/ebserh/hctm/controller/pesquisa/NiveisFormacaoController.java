@@ -43,7 +43,7 @@ public class NiveisFormacaoController implements Serializable {
         PrimeFaces.current().executeScript("PF('dialogNivelFormacao').show()");
     }
 
-    public void editaNivel(NivelFormacao nivelFormacao) {
+    public void editaNivelFormacao(NivelFormacao nivelFormacao) {
         if (nivelFormacao == null) {
             FacesUtils.showError("É necessário selecionar um registro para edição!");
             return;
