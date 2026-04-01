@@ -4,9 +4,9 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-//import net.ebserh.hctm.model.pesquisa.LinhaPesquisa;
+import net.ebserh.hctm.model.pesquisa.LinhaPesquisa;
 //import net.ebserh.hctm.model.pesquisa.NivelFormacao;
-//import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
@@ -15,15 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
+
 
 @Named
 @ViewScoped
 public class LinhasPesquisaController implements Serializable {
 
-    /*
-    @Inject
-    private Logger logger;
+    private static final Logger LOGGER = Logger.getAnonymousLogger();
+    
 
     @Inject
     private PesquisasService pesquisasService;
@@ -37,7 +36,7 @@ public class LinhasPesquisaController implements Serializable {
         try {
             linhasPesquisa = pesquisasService.buscaLinhasPesquisa();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -66,18 +65,18 @@ public class LinhasPesquisaController implements Serializable {
             pesquisasService.salvaLinhaPesquisa(linhaPesquisa);
             linhasPesquisa = pesquisasService.buscaLinhasPesquisa();
             PrimeFaces.current().executeScript("PF('dialogLinhaPesquisa').hide()");
-            FacesUtils.showInfo("Linha de pesquisa salva com sucesso!");
+            FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, logger, "Ocorreu um erro ao salvar a linha de pesquisa.");
+            FacesUtils.processaExcecao(e,  "Ocorreu um erro ao salvar a linha de pesquisa.");
         }
     }
-
+    /* 
     public List<LinhaPesquisa> completaLinhaPesquisa(String query) {
         return linhasPesquisa.stream()
                 .filter(l -> l.getDescricao().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
     }
-
+    */
     public List<LinhaPesquisa> getLinhasPesquisa() {
         return linhasPesquisa;
     }
@@ -94,5 +93,4 @@ public class LinhasPesquisaController implements Serializable {
         this.linhaPesquisa = linhaPesquisa;
     }
 
-     */
 }
