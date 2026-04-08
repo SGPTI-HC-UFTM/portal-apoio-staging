@@ -3,24 +3,18 @@ package net.ebserh.hctm.controller.pesquisa;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-//import net.ebserh.hctm.model.pesquisa.Pesquisador;
-//import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.model.pesquisa.Pesquisador;
+import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.util.FacesUtils;
-//import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PrimeFaces;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Named
 @ViewScoped
 public class PesquisadoresController implements Serializable {
-
-    /*
-
-    @Inject
-    private Logger logger;
 
     @Inject
     private PesquisasService pesquisasService;
@@ -54,9 +48,10 @@ public class PesquisadoresController implements Serializable {
 
         try {
             pesquisasService.salvaPesquisador(pesquisador);
+            PrimeFaces.current().executeScript("PF('dialogPesquisador').hide()");
             FacesUtils.showInfo("Pesquisador salvo com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, logger, "Ocorreu um erro ao salvar o pesquisador.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o pesquisador.");
         }
     }
 
@@ -69,7 +64,7 @@ public class PesquisadoresController implements Serializable {
         try {
             pesquisadores = pesquisasService.buscaPesquisadoresPorNome(nome);
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, logger, "Ocorreu um erro ao pesquisar os pesquisadores.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao pesquisar os pesquisadores.");
         }
     }
 
@@ -96,7 +91,5 @@ public class PesquisadoresController implements Serializable {
     public void setPesquisador(Pesquisador pesquisador) {
         this.pesquisador = pesquisador;
     }
-
-     */
 
 }
