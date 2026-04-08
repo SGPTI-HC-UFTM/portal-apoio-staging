@@ -6,6 +6,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 //import net.ebserh.hctm.model.pesquisa.ProgramaPosGraduacao;
 //import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.model.pesquisa.ProgramaPosGraduacao;
+import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
@@ -19,10 +21,7 @@ import java.util.logging.Logger;
 @ViewScoped
 public class ProgramasPosGraduacaoController implements Serializable {
 
-    /*
-
-    @Inject
-    private Logger logger;
+    private final static Logger LOGGER = Logger.getAnonymousLogger();
 
     @Inject
     private PesquisasService pesquisasService;
@@ -36,7 +35,7 @@ public class ProgramasPosGraduacaoController implements Serializable {
         try {
             programasPosGraduacao = pesquisasService.buscaProgramasPosGraduacao();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -67,7 +66,7 @@ public class ProgramasPosGraduacaoController implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogProgramaPosGraduacao').hide()");
             FacesUtils.showInfo("Programa de pós graduação salvo com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, logger, "Ocorreu um erro ao salvar o programa de pós graduação.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o programa de pós graduação.");
         }
     }
 
@@ -86,7 +85,5 @@ public class ProgramasPosGraduacaoController implements Serializable {
     public void setProgramaPosGraduacao(ProgramaPosGraduacao programaPosGraduacao) {
         this.programaPosGraduacao = programaPosGraduacao;
     }
-
-     */
 
 }

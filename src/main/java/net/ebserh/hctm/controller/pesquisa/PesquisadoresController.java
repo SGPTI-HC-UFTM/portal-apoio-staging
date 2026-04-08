@@ -48,6 +48,7 @@ public class PesquisadoresController implements Serializable {
 
         try {
             pesquisasService.salvaPesquisador(pesquisador);
+            PrimeFaces.current().executeScript("PF('dialogPesquisador').hide()");
             FacesUtils.showInfo("Pesquisador salvo com sucesso!");
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o pesquisador.");

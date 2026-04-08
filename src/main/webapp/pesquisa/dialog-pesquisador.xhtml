@@ -42,22 +42,6 @@
 					</p:autoComplete>
 				</div>
 
-				<div class="field col-12">
-					<p:outputLabel for="profissao" value="Profissão:" />
-					<p:autoComplete id="profissao"
-									value="#{pesquisadoresController.pesquisador.cbo}"
-									completeMethod="#{aghuCbosController.completaCbo}"
-									var="cbo"
-									itemLabel="#{cbo.descricao}"
-									itemValue="#{cbo}"
-									forceSelection="true"
-									scrollHeight="250">
-
-						<o:converter converterId="omnifaces.ListIndexConverter"
-									 list="#{aghuCbosController.cbos}" />
-					</p:autoComplete>
-				</div>
-
 				<div class="field col-6">
 					<p:outputLabel for="formacao" value="Formação acadêmica:" />
 					<p:autoComplete id="formacao"
