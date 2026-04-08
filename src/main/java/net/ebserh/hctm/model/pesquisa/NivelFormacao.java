@@ -8,21 +8,23 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "niveis_formacao")
-@NamedQuery(name = "NivelFormacao.findAll",
-        query = "SELECT n "
-                + "FROM NivelFormacao n "
-                + "ORDER BY n.nivel")
+@NamedQuery(name = "NivelFormacao.findAll", query = """
+SELECT
+    o
+FROM
+    NivelFormacao o
+ORDER BY
+    o.descricao""")
 public class NivelFormacao extends AbstractEntity {
 
-    @Size(max = 30)
-    private String nivel;
+    @Size(max = 100)
+    private String descricao;
 
     public String getNivel() {
-        return nivel;
+        return descricao;
     }
 
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
+    public void setNivel(String descricao) {
+        this.descricao = descricao;
     }
-
 }

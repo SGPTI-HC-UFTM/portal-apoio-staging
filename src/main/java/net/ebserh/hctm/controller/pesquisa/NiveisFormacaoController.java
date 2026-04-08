@@ -6,6 +6,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 //import net.ebserh.hctm.model.pesquisa.NivelFormacao;
 //import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.model.pesquisa.NivelFormacao;
+import net.ebserh.hctm.service.pesquisa.NiveisFormacaoService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
@@ -20,23 +22,19 @@ import java.util.stream.Collectors;
 @ViewScoped
 public class NiveisFormacaoController implements Serializable {
 
-    /*
-    @Inject
-    private Logger logger;
+    private static final Logger LOGGER = Logger.getAnonymousLogger();
 
     @Inject
-    private PesquisasService pesquisasService;
-
-    private List<NivelFormacao> niveisFormacao = new ArrayList<>();
-
+    private NiveisFormacaoService niveisFormacaoService;
+    private List<NivelFormacao> niveis = new ArrayList<>();
     private NivelFormacao nivelFormacao;
 
     @PostConstruct
     public void init() {
         try {
-            niveisFormacao = pesquisasService.buscaNiveisFormacao();
+            niveis = niveisFormacaoService.buscaNiveis();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -47,42 +45,40 @@ public class NiveisFormacaoController implements Serializable {
 
     public void editaNivelFormacao(NivelFormacao nivelFormacao) {
         if (nivelFormacao == null) {
-            FacesUtils.showError("É necessário selecionar um registro para edição.");
+            FacesUtils.showError("É necessário selecionar um registro para edição!");
             return;
         }
-
         this.nivelFormacao = nivelFormacao;
         PrimeFaces.current().executeScript("PF('dialogNivelFormacao').show()");
     }
 
     public void salva() {
         if (nivelFormacao == null) {
-            FacesUtils.showError("É necessário informar os dados do nível de formação.");
+            FacesUtils.showError("É necessário informar a descrição do nível de formação!");
             return;
         }
-
         try {
-            pesquisasService.salvaNivelFormacao(nivelFormacao);
-            niveisFormacao = pesquisasService.buscaNiveisFormacao();
+            niveisFormacaoService.salvaNivelFormacao(nivelFormacao);
+            niveis = niveisFormacaoService.buscaNiveis();
             PrimeFaces.current().executeScript("PF('dialogNivelFormacao').hide()");
-            FacesUtils.showInfo("Linha de formação salva com sucesso!");
+            FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, logger, "Ocorreu um erro ao salvar o nível de formação.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os dados!");
         }
     }
 
     public List<NivelFormacao> completaNivelFormacao(String query) {
-        return niveisFormacao.stream()
+        return niveis.stream()
                 .filter(n -> n.getNivel().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
-    public List<NivelFormacao> getNiveisFormacao() {
-        return niveisFormacao;
+    public List<NivelFormacao> getNiveis() {
+        return niveis;
     }
 
-    public void setNiveisFormacao(List<NivelFormacao> niveisFormacao) {
-        this.niveisFormacao = niveisFormacao;
+    public void setNiveis(List<NivelFormacao> niveis) {
+        this.niveis = niveis;
     }
 
     public NivelFormacao getNivelFormacao() {
@@ -92,7 +88,4 @@ public class NiveisFormacaoController implements Serializable {
     public void setNivelFormacao(NivelFormacao nivelFormacao) {
         this.nivelFormacao = nivelFormacao;
     }
-
-     */
-
 }

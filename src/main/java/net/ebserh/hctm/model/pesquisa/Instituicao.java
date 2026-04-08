@@ -8,10 +8,20 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "instituicoes")
-@NamedQuery(name = "Instituicao.findAll",
-        query = "SELECT i "
-                + "FROM Instituicao i "
-                + "ORDER BY i.nome")
+@NamedQuery(name = "Instituicao.findAll", query = """
+SELECT
+    i
+FROM
+    Instituicao i
+ORDER BY
+    i.nome""")
+@NamedQuery(name = "Instituicao.findByNome", query = """
+SELECT
+    i
+FROM
+    Instituicao i
+WHERE
+    i.nome = :nome""")
 public class Instituicao extends AbstractEntity {
 
     @Size(max = 100)
@@ -24,5 +34,4 @@ public class Instituicao extends AbstractEntity {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 }

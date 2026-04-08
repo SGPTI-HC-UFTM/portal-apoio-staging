@@ -8,13 +8,24 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "linhas_pesquisa")
-@NamedQuery(name = "LinhaPesquisa.findAll",
-        query = "SELECT l "
-                + "FROM LinhaPesquisa l "
-                + "ORDER BY l.descricao")
+@NamedQuery(name = "LinhaPesquisa.findAll", query = """
+SELECT
+    l
+FROM
+    LinhaPesquisa l
+ORDER BY
+    l.descricao""")
+
+@NamedQuery(name = "LinhaPesquisa.findByDescricao", query = """
+SELECT
+    l
+FROM
+    LinhaPesquisa l
+WHERE
+    UPPER(l.descricao) = :descricao""")
 public class LinhaPesquisa extends AbstractEntity {
 
-    @Size(max = 200)
+    @Size(max = 100)
     private String descricao;
 
     public String getDescricao() {
