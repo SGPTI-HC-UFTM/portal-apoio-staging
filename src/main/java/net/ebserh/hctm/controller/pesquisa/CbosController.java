@@ -60,7 +60,7 @@ public class CbosController implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogCbo').hide()");
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os dados.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o cbo.");
         }
     }
 

@@ -21,7 +21,8 @@ SELECT
 FROM
     BolsaProdutividadeCnpq b
 WHERE
-    b.descricao = :descricao""")
+    function('TRANSLATE', function('UPPER', b.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class BolsaProdutividadeCnpq extends AbstractEntity {
 
     @Size(max = 10)

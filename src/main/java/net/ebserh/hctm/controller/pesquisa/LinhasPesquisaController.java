@@ -5,8 +5,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import net.ebserh.hctm.model.pesquisa.LinhaPesquisa;
-//import net.ebserh.hctm.model.pesquisa.NivelFormacao;
-import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.service.pesquisa.LinhasPesquisaService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
@@ -16,16 +15,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 @Named
 @ViewScoped
 public class LinhasPesquisaController implements Serializable {
 
     private static final Logger LOGGER = Logger.getAnonymousLogger();
-    
 
     @Inject
-    private PesquisasService pesquisasService;
+    private LinhasPesquisaService linhasPesquisaService;
 
     private List<LinhaPesquisa> linhasPesquisa = new ArrayList<>();
 
@@ -34,7 +31,7 @@ public class LinhasPesquisaController implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            linhasPesquisa = pesquisasService.buscaLinhasPesquisa();
+            linhasPesquisa = linhasPesquisaService.buscaLinhasPesquisa();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -62,8 +59,8 @@ public class LinhasPesquisaController implements Serializable {
         }
 
         try {
-            pesquisasService.salvaLinhaPesquisa(linhaPesquisa);
-            linhasPesquisa = pesquisasService.buscaLinhasPesquisa();
+            linhasPesquisaService.salvaLinhaPesquisa(linhaPesquisa);
+            linhasPesquisa = linhasPesquisaService.buscaLinhasPesquisa();
             PrimeFaces.current().executeScript("PF('dialogLinhaPesquisa').hide()");
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {

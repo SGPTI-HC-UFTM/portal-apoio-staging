@@ -4,8 +4,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-//import net.ebserh.hctm.model.pesquisa.NivelFormacao;
-//import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.model.pesquisa.NivelFormacao;
 import net.ebserh.hctm.service.pesquisa.NiveisFormacaoService;
 import net.ebserh.hctm.util.FacesUtils;

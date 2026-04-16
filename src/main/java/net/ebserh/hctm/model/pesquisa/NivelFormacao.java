@@ -15,6 +15,14 @@ FROM
     NivelFormacao o
 ORDER BY
     o.descricao""")
+@NamedQuery(name = "NivelFormacao.findByDescricao", query = """
+SELECT
+    o
+FROM
+    NivelFormacao o
+WHERE
+    function('TRANSLATE', function('UPPER', o.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class NivelFormacao extends AbstractEntity {
 
     @Size(max = 100)
