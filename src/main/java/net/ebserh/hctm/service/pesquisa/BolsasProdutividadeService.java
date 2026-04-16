@@ -1,14 +1,12 @@
 package net.ebserh.hctm.service.pesquisa;
 
 import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import net.ebserh.hctm.exception.CustomRuntimeException;
 import net.ebserh.hctm.model.pesquisa.BolsaProdutividadeCnpq;
-import net.ebserh.hctm.util.MockDb;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -43,6 +41,8 @@ public class BolsasProdutividadeService {
             throw new CustomRuntimeException("É necessário informar a descrição da bolsa.");
 
         try {
+            // Impede a entrada de string com espaço no inicio ou no fim
+            bolsaProdutividadeCnpq.setDescricao(StringUtils.trim(bolsaProdutividadeCnpq.getDescricao()));
             // Verifica duplicidade de registros
             try {
                 BolsaProdutividadeCnpq bolsaExistente = entityManager

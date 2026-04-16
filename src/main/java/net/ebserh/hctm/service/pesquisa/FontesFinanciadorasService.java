@@ -41,6 +41,8 @@ public class FontesFinanciadorasService {
             throw new CustomRuntimeException("É necessário informar a descrição da fonte financiadora.");
 
         try {
+            // Impede entrada de string com espaco no inicio ou no fim
+            fonteFinanciadora.setDescricao(StringUtils.trim(fonteFinanciadora.getDescricao()));
             // Verifica duplicidade de registros
             try {
                 FonteFinanciadora fonteExistente = entityManager
@@ -70,7 +72,7 @@ public class FontesFinanciadorasService {
             throw e;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da bolsa.");
+            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da fonte financiadora.");
         }
     }
 

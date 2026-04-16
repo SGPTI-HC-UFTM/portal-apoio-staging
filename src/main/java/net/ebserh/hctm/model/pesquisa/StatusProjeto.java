@@ -15,6 +15,14 @@ FROM
     StatusProjeto s
 ORDER BY
     s.descricao""")
+@NamedQuery(name = "StatusProjeto.findByDescricao", query = """
+SELECT
+    s
+FROM
+    StatusProjeto s
+WHERE
+    function('TRANSLATE', function('UPPER', s.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class StatusProjeto extends AbstractEntity {
 
     @Size(max = 100)

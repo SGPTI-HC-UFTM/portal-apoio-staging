@@ -4,10 +4,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-//import net.ebserh.hctm.model.pesquisa.ProgramaPosGraduacao;
-//import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.model.pesquisa.ProgramaPosGraduacao;
-import net.ebserh.hctm.service.pesquisa.PesquisasService;
+import net.ebserh.hctm.service.pesquisa.ProgramaPosGraduacaoService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
@@ -24,7 +22,7 @@ public class ProgramasPosGraduacaoController implements Serializable {
     private final static Logger LOGGER = Logger.getAnonymousLogger();
 
     @Inject
-    private PesquisasService pesquisasService;
+    private ProgramaPosGraduacaoService programaPosGraduacaoService;
 
     private List<ProgramaPosGraduacao> programasPosGraduacao = new ArrayList<>();
 
@@ -33,7 +31,7 @@ public class ProgramasPosGraduacaoController implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            programasPosGraduacao = pesquisasService.buscaProgramasPosGraduacao();
+            programasPosGraduacao = programaPosGraduacaoService.buscaProgramasPosGraduacao();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -56,13 +54,13 @@ public class ProgramasPosGraduacaoController implements Serializable {
 
     public void salva() {
         if (programaPosGraduacao == null) {
-            FacesUtils.showError("É necessário informar os dados do nível de formação.");
+            FacesUtils.showError("É necessário informar os dados do programa de pós graduação.");
             return;
         }
 
         try {
-            pesquisasService.salvaProgramaPosGraduacao(programaPosGraduacao);
-            programasPosGraduacao = pesquisasService.buscaProgramasPosGraduacao();
+            programaPosGraduacaoService.salvaProgramaPosGraduacao(programaPosGraduacao);
+            programasPosGraduacao = programaPosGraduacaoService.buscaProgramasPosGraduacao();
             PrimeFaces.current().executeScript("PF('dialogProgramaPosGraduacao').hide()");
             FacesUtils.showInfo("Programa de pós graduação salvo com sucesso!");
         } catch (Exception e) {

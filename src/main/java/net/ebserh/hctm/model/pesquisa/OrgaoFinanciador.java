@@ -15,6 +15,14 @@ FROM
     OrgaoFinanciador o
 ORDER BY
     o.descricao""")
+@NamedQuery(name = "OrgaoFinanciador.findByDescricao", query = """
+SELECT
+    o
+FROM
+    OrgaoFinanciador o
+WHERE
+    function('TRANSLATE', function('UPPER', o.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class OrgaoFinanciador extends AbstractEntity {
 
     @Size(max = 100)
