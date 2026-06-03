@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
@@ -67,13 +68,13 @@ public class LinhasPesquisaController implements Serializable {
             FacesUtils.processaExcecao(e,  "Ocorreu um erro ao salvar a linha de pesquisa.");
         }
     }
-    /* 
+
     public List<LinhaPesquisa> completaLinhaPesquisa(String query) {
         return linhasPesquisa.stream()
                 .filter(l -> l.getDescricao().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
     }
-    */
+
     public List<LinhaPesquisa> getLinhasPesquisa() {
         return linhasPesquisa;
     }
