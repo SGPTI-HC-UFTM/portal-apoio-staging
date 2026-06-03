@@ -4,7 +4,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.Positive;
 import net.ebserh.hctm.model.pesquisa.OrgaoFinanciador;
 import net.ebserh.hctm.service.pesquisa.OrgaosFinanciadoresService;
 import net.ebserh.hctm.util.FacesUtils;
@@ -62,7 +61,7 @@ public class OrgaosFinanciadoresController implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogOrgaoFinanciador').hide()");
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
-            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os dados!");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o orgao financiador!");
         }
     }
 

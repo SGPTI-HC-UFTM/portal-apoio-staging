@@ -41,6 +41,8 @@ public class FormacoesAcademicasService {
             throw new CustomRuntimeException("É necessário informar a descrição da formação.");
 
         try {
+            // Impede a entrada de string com espaço no inicio ou no fim
+            formacaoAcademica.setNome(StringUtils.trim(formacaoAcademica.getNome()));
             // Verifica duplicidade de registros
             try {
                 FormacaoAcademica formacaoExistente = entityManager
@@ -69,7 +71,7 @@ public class FormacoesAcademicasService {
             throw e;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da bolsa.");
+            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da formação.");
         }
     }
 

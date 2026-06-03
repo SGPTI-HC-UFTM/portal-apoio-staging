@@ -21,7 +21,8 @@ SELECT
 FROM
     FormacaoAcademica f
 WHERE
-    f.nome = :nome""")
+    function('TRANSLATE', function('UPPER', f.nome),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :nome),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class FormacaoAcademica extends AbstractEntity {
 
     @Size(max = 50)

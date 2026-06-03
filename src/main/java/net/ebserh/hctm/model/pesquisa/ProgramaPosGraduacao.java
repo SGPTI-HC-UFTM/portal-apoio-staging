@@ -8,10 +8,21 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "programas_pos_graduacao")
-@NamedQuery(name = "ProgramaPosGraduacao.findAll",
-        query = "SELECT p "
-                + "FROM ProgramaPosGraduacao p "
-                + "ORDER BY p.descricao")
+@NamedQuery(name = "ProgramaPosGraduacao.findAll", query = """
+SELECT
+    p
+FROM
+    ProgramaPosGraduacao p
+ORDER BY
+    p.descricao""")
+@NamedQuery(name = "ProgramaPosGraduacao.findByDescricao", query = """
+SELECT
+    p
+FROM
+    ProgramaPosGraduacao p
+WHERE
+    function('TRANSLATE', function('UPPER', p.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class ProgramaPosGraduacao extends AbstractEntity {
 
     @Size(max = 100)

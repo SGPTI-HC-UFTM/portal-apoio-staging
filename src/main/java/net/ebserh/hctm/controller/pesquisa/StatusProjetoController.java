@@ -22,7 +22,6 @@ public class StatusProjetoController implements Serializable {
     private static final Logger LOGGER = Logger.getAnonymousLogger();
 
     @Inject
-    //private Boolean adicionar = true;
     private StatusProjetoService statusProjetoService;
 
     private List<StatusProjeto> status = new ArrayList<>();
@@ -66,7 +65,7 @@ public class StatusProjetoController implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogStatusProjeto').hide()");
             FacesUtils.showInfo("Dados salvos com sucesso!");
         }catch(Exception e){
-            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os dados.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o status de projeto");
         }
     }
 

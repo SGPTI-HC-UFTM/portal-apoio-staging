@@ -5,7 +5,6 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import net.ebserh.hctm.model.pesquisa.BolsaProdutividadeCnpq;
-//import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.service.pesquisa.BolsasProdutividadeService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
@@ -26,8 +25,6 @@ public class BolsasProdutividadeCnpqController implements Serializable {
     private BolsasProdutividadeService bolsasProdutividadeService;
 
     private List<BolsaProdutividadeCnpq> bolsas = new ArrayList<>();
-
-    private Boolean adicionar = true;
 
     private BolsaProdutividadeCnpq bolsaProdutividadeCnpq;
 
@@ -50,7 +47,6 @@ public class BolsasProdutividadeCnpqController implements Serializable {
             FacesUtils.showError("É necessário selecionar um registro para edição.");
             return;
         }
-        adicionar = false;
         this.bolsaProdutividadeCnpq = bolsaProdutividadeCnpq;
         PrimeFaces.current().executeScript("PF('dialogBolsaProdutividade').show()");
     }
@@ -67,8 +63,7 @@ public class BolsasProdutividadeCnpqController implements Serializable {
             PrimeFaces.current().executeScript("PF('dialogBolsaProdutividade').hide()");
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
-            bolsas = bolsasProdutividadeService.buscaBolsas();
-            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os dados.");
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os a bolsa.");
         }
     }
 
@@ -87,6 +82,5 @@ public class BolsasProdutividadeCnpqController implements Serializable {
     public void setBolsaProdutividadeCnpq(BolsaProdutividadeCnpq bolsaProdutividadeCnpq) {
         this.bolsaProdutividadeCnpq = bolsaProdutividadeCnpq;
     }
-
 
 }

@@ -29,18 +29,20 @@ public class InstituicoesService {
                     .getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new CustomRuntimeException("Ocorreu um erro ao buscar as formações acadêmicas.");
+            throw new CustomRuntimeException("Ocorreu um erro ao buscar as instituições.");
         }
     }
 
     public void salvaInstituicao(Instituicao instituicao) {
         if (Objects.isNull(instituicao))
-            throw new CustomRuntimeException("É necessário informar os dados da instituicao.");
+            throw new CustomRuntimeException("É necessário informar os dados da instituição.");
 
         if (StringUtils.isBlank(instituicao.getNome()))
-            throw new CustomRuntimeException("É necessário informar a descrição da instituicao.");
+            throw new CustomRuntimeException("É necessário informar a descrição da instituição.");
 
         try {
+            // Impede a entrada de string com espaço no inicio ou no fim
+            instituicao.setNome(StringUtils.trim(instituicao.getNome()));
             // Verifica duplicidade de registros
             try {
                 Instituicao instituicaoExistente = entityManager
@@ -49,13 +51,13 @@ public class InstituicoesService {
                         .getSingleResult();
 
                 if (!instituicaoExistente.getId().equals(instituicao.getId()))
-                    throw new CustomRuntimeException("Já existe uma instituicao cadastrada com este nome.");
+                    throw new CustomRuntimeException("Já existe uma instituição cadastrada com este nome.");
             } catch (CustomRuntimeException e) {
                 throw e;
             } catch (NoResultException e) {
                 // Ok, não há duplicidade
             } catch (NonUniqueResultException e) {
-                throw new CustomRuntimeException("Mais de uma instituicao previamente cadastrada com o nome informado.");
+                throw new CustomRuntimeException("Mais de uma instituição previamente cadastrada com o nome informado.");
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 throw new CustomRuntimeException("Ocorreu um erro ao verificar a duplicidade de registros.");
@@ -69,7 +71,7 @@ public class InstituicoesService {
             throw e;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da instituicao.");
+            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da instituição.");
         }
     }
 }

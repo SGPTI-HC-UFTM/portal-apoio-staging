@@ -21,7 +21,8 @@ SELECT
 FROM
     FonteFinanciadora f
 WHERE
-    UPPER(f.descricao) = :descricao""")
+    function('TRANSLATE', function('UPPER', f.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class FonteFinanciadora extends AbstractEntity {
 
     @Size(max = 100)

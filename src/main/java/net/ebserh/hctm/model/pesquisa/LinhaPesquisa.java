@@ -22,7 +22,8 @@ SELECT
 FROM
     LinhaPesquisa l
 WHERE
-    UPPER(l.descricao) = :descricao""")
+    function('TRANSLATE', function('UPPER', l.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class LinhaPesquisa extends AbstractEntity {
 
     @Size(max = 100)

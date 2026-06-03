@@ -21,7 +21,8 @@ SELECT
 FROM
     Instituicao i
 WHERE
-    i.nome = :nome""")
+    function('TRANSLATE', function('UPPER', i.nome),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :nome),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class Instituicao extends AbstractEntity {
 
     @Size(max = 100)
