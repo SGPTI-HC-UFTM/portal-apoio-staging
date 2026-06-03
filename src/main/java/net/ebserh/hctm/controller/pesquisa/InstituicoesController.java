@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
@@ -66,6 +67,12 @@ public class InstituicoesController implements Serializable {
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar a instituição.");
         }
+    }
+
+    public List<Instituicao> completaInstituicao(String query) {
+        return instituicoes.stream()
+                .filter(i -> i.getNome().toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     public void setInstituicao(Instituicao instituicao) {
