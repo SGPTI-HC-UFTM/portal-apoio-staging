@@ -23,7 +23,7 @@
 
 				<div class="field col-12">
 					<p:outputLabel for="orcid" value="Orcid:" />
-					<p:inputText id="orcid" value="#{pesquisadoresController.pesquisador.orcid}" />
+					<p:inputText id="orcid" value="#{pesquisadoresController.pesquisador.orcid}" maxlength="50" />
 				</div>
 
 				<div class="field col-12">
@@ -35,6 +35,7 @@
 									itemLabel="#{instituicao.nome}"
 									itemValue="#{instituicao}"
 									forceSelection="true"
+									minQueryLength="3"
 									scrollHeight="250">
 
 						<o:converter converterId="omnifaces.ListIndexConverter"
@@ -51,6 +52,7 @@
 									itemLabel="#{formacao.nome}"
 									itemValue="#{formacao}"
 									forceSelection="true"
+									minQueryLength="3"
 									scrollHeight="250">
 
 						<o:converter converterId="omnifaces.ListIndexConverter"
@@ -67,10 +69,11 @@
 									itemLabel="#{nivel.nivel}"
 									itemValue="#{nivel}"
 									forceSelection="true"
+									minQueryLength="3"
 									scrollHeight="250">
 
 						<o:converter converterId="omnifaces.ListIndexConverter"
-									 list="#{niveisFormacaoController.niveisFormacao}" />
+									 list="#{niveisFormacaoController.niveis}" />
 					</p:autoComplete>
 				</div>
 

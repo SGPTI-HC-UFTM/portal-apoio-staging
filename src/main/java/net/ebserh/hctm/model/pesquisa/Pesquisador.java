@@ -19,7 +19,7 @@ public class Pesquisador  extends AbstractEntity {
     @Size(max = 200)
     private String lattes;
 
-    @Size(max = 20)
+    @Size(max = 50)
     private String orcid;
 
     @Size(max = 20)
