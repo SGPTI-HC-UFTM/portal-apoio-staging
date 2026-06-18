@@ -1,0 +1,1 @@
+INSERT INTO auth.grupos (grupo) VALUES ('PESQUISA_USUARIO'), ('PESQUISA ADMIN');
