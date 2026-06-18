@@ -135,6 +135,11 @@
                     <p:submenu icon="pi pi-pencil" label="Triagem">
 						<p:menuitem value="Neonatal - FARNNeo" outcome="/triagens/neonatal-farnneo" />
 					</p:submenu>
+
+					<p:submenu icon="pi pi-cog" label="Administração" rendered="#{request.isUserInRole('ADMIN')}">
+						<p:menuitem value="Gestão de acesso" outcome="/administracao/acesso/gestao" />
+						<p:menuitem value="Grupos" outcome="/administracao/acesso/grupos" />
+					</p:submenu>
 				</p:tieredMenu>
 			</h:form>
 		</div>
