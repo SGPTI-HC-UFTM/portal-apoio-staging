@@ -1,13 +1,16 @@
-package net.ebserh.hctm.service.administracao;
+package net.ebserh.hctm.service.auth;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import net.ebserh.hctm.exception.CustomRuntimeException;
 import net.ebserh.hctm.model.auth.Grupo;
+import net.ebserh.hctm.model.auth.Usuario;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,5 +64,38 @@ public class GruposService {
 			throw new CustomRuntimeException("Ocorreu um erro ao salvar o grupo.");
 		}
 	}
+
+	public List<Grupo> buscaGruposPorUsuario(Usuario usuario) {
+		if (usuario == null)
+			throw new CustomRuntimeException("É necessário informar um usuário.");
+
+		try {
+			Usuario usuarioSelecionado = entityManager.find(Usuario.class, usuario.getId());
+			if (usuarioSelecionado != null)
+				return usuarioSelecionado.getGrupos();
+
+			return new ArrayList<>();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os grupos do usuário.");
+		}
+	}
+
+	public Grupo buscaPorNome(String nome) {
+		try {
+			return entityManager
+					.createNamedQuery("Grupo.findByGrupo", Grupo.class)
+					.setParameter("nome", nome.toUpperCase())
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} catch (NonUniqueResultException e) {
+			throw new CustomRuntimeException("Mais de um grupo encontrado com o nome informado.");
+		} catch (Exception e) {
+			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os grupos.");
+		}
+	}
+
+
 
 }
