@@ -5,7 +5,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import net.ebserh.hctm.model.auth.Grupo;
-import net.ebserh.hctm.service.administracao.GruposService;
+import net.ebserh.hctm.service.auth.GruposService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 

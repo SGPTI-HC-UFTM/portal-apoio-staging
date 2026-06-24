@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/templates/default.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-	
+<ui:composition template="/templates/default.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
 	<ui:define name="content">
 		<h2>Gestão de Acesso</h2>
 		
@@ -21,8 +18,8 @@
 				</div>
 
 				<div class="field col-2">
-					<p:commandButton id="btnImportar" icon="pi pi-plus" value="Novo" update="formUsuario"
-						action="#{acessoController.openDialogNovoUsuario}" style="margin-left: 10px" />
+					<p:commandButton id="btnNovo" icon="pi pi-plus" value="Novo" update="formUsuario"
+					                 action="#{acessoController.openDialogNovoUsuario}" />
 				</div>
 			</div>
 			
@@ -36,19 +33,11 @@
                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
                 rowsPerPageTemplate="5,10,20"
                 rendered="#{not empty acessoController.usuarios}">
-				
-            	<p:column headerText="Nome" 
-            		field="nome" 
-            		style="text-align:center; width:15%"/>
-            	
+
             	<p:column headerText="Login" 
             		field="login" 
             		style="text-align:center; width:15%"/>
-            	
-            	<p:column headerText="Setor" 
-            		field="setor.nome" 
-            		style="text-align:center; width:30%"/>
-            	
+
             	<p:column headerText="Ações" style="text-align:center; width:10%">
             		<p:commandButton id="btnEditar"
             			title="Editar"
@@ -56,19 +45,10 @@
             			process="@this"
             			update="formUsuario"
             			action="#{acessoController.openDialogUsuario(usuario)}" />
-            		
-            		<p:commandButton id="btnPerfis"
-            			style="margin-left: 10px"
-            			title="Gerenciar perfis"
-            			icon="pi pi-users"
-            			process="@this"
-            			update="formDialogPerfis"
-            			action="#{acessoController.openDialogPerfis(usuario)}" />
             	</p:column>
         	</p:dataTable>
 		</h:form>
 		
-		<ui:include src="dialog-perfis.xhtml" />
 		<ui:include src="dialog-usuario.xhtml" />
 	</ui:define>
 </ui:composition>

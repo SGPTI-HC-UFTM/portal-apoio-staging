@@ -2,13 +2,19 @@ package net.ebserh.hctm.model.auth;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import net.ebserh.hctm.model.aghu.Cid;
 import net.ebserh.hctm.model.util.AbstractEntity;
 
 import java.util.List;
 
 @Entity
 @Table(schema = "auth", name = "usuarios")
+@NamedQuery(name = "Usuario.findByLogin", query = """
+SELECT
+    u
+FROM
+    Usuario u
+WHERE
+    UPPER(u.login) LIKE :login""")
 public class Usuario extends AbstractEntity {
 
     @Size(max = 256)
