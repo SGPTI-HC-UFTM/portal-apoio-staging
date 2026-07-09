@@ -14,14 +14,31 @@
     <httpEndpoint host="*" httpPort="${http.port}"
                   httpsPort="${https.port}" id="defaultHttpEndpoint" />
 
+    <httpSession invalidateOnUnauthorizedSessionRequestException="true" />
+
     <library id="h2">
         <fileset dir="${server.config.dir}/h2/" includes="*.jar" />
     </library>
+
+    <!--
+    <library id="jdbcLib">
+        <fileset dir="jdbc" includes="*.jar" />
+    </library>
+
+    <jdbcDriver id="postgresqlDriver" libraryRef="jdbcLib"/>
+    -->
 
     <dataSource jndiName="portalApoioDS">
         <jdbcDriver libraryRef="h2" />
         <properties url="jdbc:h2:mem:testdb;MODE=PostgreSQL" user="sa" password="sa" />
     </dataSource>
+
+    <!--
+    <dataSource id="portalApoioDS" jndiName="portalApoioDS" jdbcDriverRef="postgresqlDriver">
+        <properties serverName="localhost" portNumber="5432"
+                    databaseName="tmp" user="postgres" password="123456" />
+    </dataSource>
+    -->
 
     <applicationMonitor dropinsEnabled="false" />
 

@@ -130,8 +130,14 @@ public class AcessoController implements Serializable {
 			FacesUtils.showError("É necessário informar o login do usuário.");
 			return;
 		}
+
+		if (grupos.getTarget().isEmpty()) {
+			FacesUtils.showError("É necessário selecionar pelo menos um grupo para o usuário.");
+			return;
+		}
 		
 		try {
+			usuario.setGrupos(new ArrayList<>(grupos.getTarget()));
 			usuariosService.salva(usuario);
 			PrimeFaces.current().executeScript("PF('dlgUsuario').hide()");
 			FacesUtils.showInfo("Usuário salvo com sucesso!");
