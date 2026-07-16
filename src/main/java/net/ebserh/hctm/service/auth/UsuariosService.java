@@ -15,7 +15,6 @@ import jakarta.persistence.criteria.Root;
 import net.ebserh.hctm.exception.CustomRuntimeException;
 import net.ebserh.hctm.model.auth.Grupo;
 import net.ebserh.hctm.model.auth.Usuario;
-import net.ebserh.hctm.model.auth.UsuarioGrupo;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -164,11 +163,10 @@ public class UsuariosService {
 	}
 
 	public void salva(Usuario usuario) {
-		LOGGER.severe("DBG 1: salva");
 		if (usuario.getLogin() == null || usuario.getLogin().isBlank())
 			throw new CustomRuntimeException("É necessário informar o login do usuário.");
 
-		Usuario usuarioExistente = null;
+		Usuario usuarioExistente;
 		try {
 			usuarioExistente = entityManager
 					.createNamedQuery("Usuario.findByLogin", Usuario.class)
@@ -188,31 +186,13 @@ public class UsuariosService {
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os usuários existentes.");
 		}
 
-		LOGGER.severe("DBG 2: sem conflito de usuário existente");
 		try {
 			usuario.setLogin(usuario.getLogin().toLowerCase());
 			if (usuario.getId() != null) {
-				LOGGER.severe("DBG 3: merge");
 				entityManager.merge(usuario);
 			} else {
-				LOGGER.severe("DBG 4: persist");
 				entityManager.persist(usuario);
 			}
-
-			LOGGER.severe("DBG 5: ok");
-
-			/*
-			for (Grupo g : usuario.getGrupos()) {
-				LOGGER.severe("DBG 6: salvando grupo");
-				UsuarioGrupo ug = new UsuarioGrupo();
-				ug.setUsuario(usuario);
-				ug.setGrupo(g);
-
-				entityManager.persist(ug);
-			}
-
-			LOGGER.severe("DBG 7: grupos salvos");
-			 */
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao salvar o usuário.");

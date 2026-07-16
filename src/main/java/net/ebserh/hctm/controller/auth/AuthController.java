@@ -59,9 +59,11 @@ public class AuthController {
 
 
             switch (authenticationStatus) {
-                case SUCCESS -> facesContext.getExternalContext().redirect("index.jsf?faces-redirect=true");
-                case SEND_CONTINUE -> facesContext.responseComplete();
-                case SEND_FAILURE -> { }
+                case SUCCESS -> {
+                    facesContext.getExternalContext().redirect("index.jsf?faces-redirect=true");
+                    facesContext.responseComplete();
+                }
+                case SEND_CONTINUE, SEND_FAILURE -> facesContext.responseComplete();
                 default -> LOGGER.severe("Erro ao autenticar usuário. Status = " + authenticationStatus + ".");
             }
         } catch (Exception e) {

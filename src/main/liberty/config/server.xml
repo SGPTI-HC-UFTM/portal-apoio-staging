@@ -14,7 +14,15 @@
     <httpEndpoint host="*" httpPort="${http.port}"
                   httpsPort="${https.port}" id="defaultHttpEndpoint" />
 
-    <httpSession invalidateOnUnauthorizedSessionRequestException="true" />
+    <httpSession invalidationTimeout="60m" invalidateOnUnauthorizedSessionRequestException="true" />
+
+    <webAppSecurity postParamSaveMethod="session" />
+
+    <authCache timeout="60m" initialSize="100" maxSize="50000" />
+
+    <ltpa expiration="8h" />
+
+    <transaction totalTranLifetimeTimeout="600s" propogatedOrBMTTranLifetimeTimeout="600s" />
 
     <library id="h2">
         <fileset dir="${server.config.dir}/h2/" includes="*.jar" />
