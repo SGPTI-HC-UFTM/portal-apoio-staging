@@ -9,6 +9,7 @@ import net.ebserh.hctm.model.auth.Grupo;
 import net.ebserh.hctm.model.auth.Usuario;
 import net.ebserh.hctm.service.auth.GruposService;
 import net.ebserh.hctm.service.auth.UsuariosService;
+import net.ebserh.hctm.util.Base64Sha256PasswordHash;
 import net.ebserh.hctm.util.FacesUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PrimeFaces;
@@ -17,6 +18,7 @@ import org.primefaces.model.DualListModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +26,7 @@ import java.util.logging.Logger;
 @ViewScoped
 public class AcessoController implements Serializable {
 	
-	private final static Logger logger = Logger.getAnonymousLogger();
+	private final static Logger LOGGER = Logger.getAnonymousLogger();
 	
 	@Inject
 	private UsuariosService usuariosService;
@@ -50,7 +52,7 @@ public class AcessoController implements Serializable {
 			List<Grupo> grupos = gruposService.buscaTodos();
 			this.grupos = new DualListModel<>(grupos, new ArrayList<>());
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Ocorreu um erro ao carregar os grupos disponíveis.", e);
+			LOGGER.log(Level.SEVERE, "Ocorreu um erro ao carregar os grupos disponíveis.", e);
 		}
 	}
 	
@@ -72,14 +74,20 @@ public class AcessoController implements Serializable {
 		} catch (CustomRuntimeException e) {
 			FacesUtils.showError(e.getMessage());
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			FacesUtils.showError("Ocorreu um erro ao pesquisar os usuários.");
 		}
 	}
 
 	public void openDialogNovoUsuario() {
-		usuario = new Usuario();
-		PrimeFaces.current().executeScript("PF('dlgUsuario').show()");
+		try {
+			usuario = new Usuario();
+			List<Grupo> grupos = gruposService.buscaTodos();
+			this.grupos = new DualListModel<>(grupos, new ArrayList<>());
+			PrimeFaces.current().executeScript("PF('dlgUsuario').show()");
+		} catch (Exception e) {
+			FacesUtils.processaExcecao(e, "Ocorreu um erro ao abrir a janela de cadastro de usuários.");
+		}
 	}
 	
 	public void openDialogUsuario(Usuario usuarioSelecionado) {
@@ -88,8 +96,20 @@ public class AcessoController implements Serializable {
 			return;
 		}
 
-		usuario = usuarioSelecionado;
-		PrimeFaces.current().executeScript("PF('dlgUsuario').show()");
+		try {
+			usuario = usuarioSelecionado;
+
+			List<Grupo> grupos = gruposService.buscaTodos();
+			List<Grupo> gruposDoUsuario = new ArrayList<>(usuario.getGrupos());
+
+			for (Grupo g : gruposDoUsuario)
+				grupos.remove(g);
+
+			this.grupos = new DualListModel<>(grupos, gruposDoUsuario);
+			PrimeFaces.current().executeScript("PF('dlgUsuario').show()");
+		} catch (Exception e) {
+			FacesUtils.processaExcecao(e, "Ocorreu um erro ao abrir a janela de edição dos usuários.");
+		}
 	}
 	
 	public void salvaGrupos() {
@@ -115,7 +135,7 @@ public class AcessoController implements Serializable {
 		} catch (CustomRuntimeException e) {
 			FacesUtils.showError(e.getMessage());
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			FacesUtils.showError("Ocorreu um erro ao salvar os perfis.");
 		}
 	}
@@ -130,15 +150,37 @@ public class AcessoController implements Serializable {
 			FacesUtils.showError("É necessário informar o login do usuário.");
 			return;
 		}
+
+		if (grupos.getTarget().isEmpty()) {
+			FacesUtils.showError("É necessário selecionar pelo menos um grupo para o usuário.");
+			return;
+		}
+
+		if (StringUtils.isNotBlank(senha) || StringUtils.isNotBlank(confirmacaoSenha)) {
+			if (Objects.nonNull(senha) && (!senha.equals(confirmacaoSenha))) {
+				FacesUtils.showError("Senha e confirmação não conferem.");
+				return;
+			}
+
+			if (Objects.nonNull(confirmacaoSenha) && !confirmacaoSenha.equals(senha)) {
+				FacesUtils.showError("Senha e confirmação não conferem.");
+				return;
+			}
+
+			Base64Sha256PasswordHash hash = new Base64Sha256PasswordHash();
+			String hashSenha = hash.generate(senha.toCharArray());
+			usuario.setPassword(hashSenha);
+		}
 		
 		try {
+			usuario.setGrupos(new ArrayList<>(grupos.getTarget()));
 			usuariosService.salva(usuario);
 			PrimeFaces.current().executeScript("PF('dlgUsuario').hide()");
 			FacesUtils.showInfo("Usuário salvo com sucesso!");
 		} catch (CustomRuntimeException e) {
 			FacesUtils.showError(e.getMessage());
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			FacesUtils.showError("Ocorreu um erro ao salvar o usuário.");
 		}
 	}

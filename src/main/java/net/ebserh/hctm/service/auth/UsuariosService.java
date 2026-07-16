@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 @Stateless
 public class UsuariosService {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	@Inject
 	private GruposService gruposService;
@@ -38,7 +38,7 @@ public class UsuariosService {
 					.setParameter("login", "%" + login.toUpperCase() + "%")
 					.getResultList();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os usuários.");
 		}
 	}
@@ -51,7 +51,7 @@ public class UsuariosService {
 		} catch (NoResultException e) {
 			return null;
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os usuários.");
 		}
 	}
@@ -70,7 +70,7 @@ public class UsuariosService {
 		} catch (CustomRuntimeException e) {
 			throw e;
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os grupos do usuário.");
 		}
 	}
@@ -80,7 +80,7 @@ public class UsuariosService {
 		try {
 			return entityManager.find(Usuario.class, id);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar o usuário.");
 		}
 	}
@@ -96,7 +96,7 @@ public class UsuariosService {
 					.setParameter("ids", ids)
 					.getResultList();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os usuários.");
 		}
 	}
@@ -110,7 +110,7 @@ public class UsuariosService {
 		} catch (NoResultException e) {
 			return null;
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar o grupo.");
 		}
 	}
@@ -143,7 +143,7 @@ public class UsuariosService {
 		} catch (CustomRuntimeException e) {
 			throw e;
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao atualizar os perfis.");
 		}
 	}
@@ -157,7 +157,7 @@ public class UsuariosService {
 					.executeUpdate();
 
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao remover grupo");
 		}
 	}
@@ -166,37 +166,35 @@ public class UsuariosService {
 		if (usuario.getLogin() == null || usuario.getLogin().isBlank())
 			throw new CustomRuntimeException("É necessário informar o login do usuário.");
 
-		Usuario usuarioExistente = null;
+		Usuario usuarioExistente;
 		try {
 			usuarioExistente = entityManager
 					.createNamedQuery("Usuario.findByLogin", Usuario.class)
 					.setParameter("login", usuario.getLogin().toUpperCase())
 					.getSingleResult();
+
+			if (!usuarioExistente.equals(usuario))
+				throw new CustomRuntimeException("Já existe um usuário cadastrado com este login.");
+		} catch (CustomRuntimeException e) {
+			throw e;
 		} catch (NoResultException e) {
 			// Ok, novo usuário
 		} catch (NonUniqueResultException e) {
 			throw new CustomRuntimeException("Mais de um usuário encontrado com o login informado.");
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os usuários existentes.");
 		}
 
 		try {
 			usuario.setLogin(usuario.getLogin().toLowerCase());
 			if (usuario.getId() != null) {
-				if (usuarioExistente != null && !usuario.getId().equals(usuarioExistente.getId()))
-					throw new CustomRuntimeException("Já existe usuário cadastrado com este login.");
-
 				entityManager.merge(usuario);
 			} else {
-				if (usuarioExistente != null)
-					throw new CustomRuntimeException("Já existe usuário cadastrado com este login.");
 				entityManager.persist(usuario);
 			}
-		} catch (CustomRuntimeException e) {
-			throw e;
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao salvar o usuário.");
 		}
 	}
@@ -215,7 +213,7 @@ public class UsuariosService {
 					.where(criteriaBuilder.equal(criteriaBuilder.upper(usuario.get("login")), login.toUpperCase()));
 			return entityManager.createQuery(criteriaQuery).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new CustomRuntimeException("Ocorreu um erro ao buscar as permissões do usuário.");
 		}
 	}

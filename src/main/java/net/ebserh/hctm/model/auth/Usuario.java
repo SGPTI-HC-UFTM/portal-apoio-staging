@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,11 +24,16 @@ public class Usuario extends AbstractEntity {
     @Size(max = 256)
     private String password;
 
+    /*
+    @Transient
+    private List<Grupo> grupos = new ArrayList<>();
+     */
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(schema = "auth", name = "usuarios_grupos",
             joinColumns = { @JoinColumn(name = "usuario_id") },
             inverseJoinColumns = { @JoinColumn(name = "grupo_id") })
-    private List<Grupo> grupos;
+    private List<Grupo> grupos = new ArrayList<>();
 
     public String getLogin() {
         return login;

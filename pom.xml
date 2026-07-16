@@ -146,7 +146,18 @@
                                 <artifactId>h2</artifactId>
                             </dependency>
                         </dependencyGroup>
-                    </copyDependencies>
+
+						<!--
+						<dependencyGroup>
+							<location>jdbc</location>
+							<dependency>
+								<groupId>org.postgresql</groupId>
+								<artifactId>postgresql</artifactId>
+								<version>42.7.4</version>
+							</dependency>
+						</dependencyGroup>
+						-->
+					</copyDependencies>
                 </configuration>
             </plugin>
         </plugins>
