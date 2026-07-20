@@ -136,6 +136,10 @@
 						<p:menuitem value="Neonatal - FARNNeo" outcome="/triagens/neonatal-farnneo" />
 					</p:submenu>
 
+					<p:submenu icon="pi pi-pencil" label="UTI Neonatal / Pediátrica">
+						<p:menuitem value="Calculadora do Teste do Pezinho" outcome="/uti-neonatal-pediatrica/calculadora-do-teste-do-pezinho" />
+					</p:submenu>
+
 					<p:submenu icon="pi pi-cog" label="Administração" rendered="#{request.isUserInRole('ADMIN')}">
 						<p:menuitem value="Gestão de acesso" outcome="/administracao/acesso/gestao" />
 						<p:menuitem value="Grupos" outcome="/administracao/acesso/grupos" />
