@@ -11,71 +11,153 @@
 
     <h:form id="formCalculadoraTestePezinho">
       <div class="ui-fluid formgrid grid">
-        <p:fieldset>
-          <f:facet name="legend">
-            <i
-              class="pi pi-book"
-              style="margin-right: 8px; vertical-align: middle"
-            ></i>
-            <h:outputText
-              value="Dados do Recém-Nascido"
-              style="vertical-align: middle"
-            />
-          </f:facet>
-
-          <div class="ui-g ui-fluid">
-            <div class="field col-6">
-              <p:outputLabel
-                for="nomeRecemNascido"
-                value="Nome do Recém-Nascido:"
-              />
-
-              <p:inputText
-                id="nomeRecemNascido"
-                value="#{calculadoraTestePezinhoController.calculoTestePezinho.nomeRecemNascido}"
-                required="true"
-                requiredMessage="Informe o nome completo do recém-nascido."
-                placeholder="Nome completo"
-              />
-            </div>
-
-            <div class="field col-6">
-              <p:outputLabel for="nomeMae" value="Nome da Mãe:" />
-
-              <p:inputText
-                id="nomeMae"
-                value="#{calculadoraTestePezinhoController.calculoTestePezinho.nomeMae}"
-                required="false"
-                requiredMessage="Informe o nome completo da mãe."
-                placeholder="Nome completo da mãe"
-              />
-            </div>
-
-            <div class="field col-6">
-              <p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
-
-              <p:datePicker
-                id="dtNascimento"
-                size="30"
-                locale="pt_BR"
-                pattern="dd/MM/yyyy"
-                mask="true"
-                placeholder="dia / mês / ano"
-                showIcon="true"
-                monthNavigator="true"
-                yearNavigator="true"
-                value="#{calculadoraTestePezinhoController.calculoTestePezinho.dtNascimento}"
-                requiredMessage="Informe a data de nascimento."
-                required="true"
-              />
-
+        <div class="col-12">
+          <p:fieldset>
+            <f:facet name="legend">
+              <i
+                class="pi pi-book"
+                style="margin-right: 8px; vertical-align: middle"
+              ></i>
               <h:outputText
-                style="font-size: 0.75rem;color: #94A3B8;"
-                value="Aceita datas dos últimos 12 meses."
+                value="Dados do Recém-Nascido"
+                style="vertical-align: middle"
               />
+            </f:facet>
+
+            <div class="ui-g ui-fluid">
+              <div class="field col-6">
+                <p:outputLabel
+                  for="nomeRecemNascido"
+                  value="Nome do Recém-Nascido:"
+                />
+
+                <p:inputText
+                  id="nomeRecemNascido"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.nomeRecemNascido}"
+                  required="true"
+                  requiredMessage="Informe o nome completo do recém-nascido."
+                  placeholder="Nome completo"
+                />
+              </div>
+
+              <div class="field col-6">
+                <p:outputLabel for="nomeMae" value="Nome da Mãe:" />
+
+                <p:inputText
+                  id="nomeMae"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.nomeMae}"
+                  required="false"
+                  requiredMessage="Informe o nome completo da mãe."
+                  placeholder="Nome completo da mãe"
+                />
+              </div>
+
+              <div class="field col-6">
+                <p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
+
+                <p:datePicker
+                  id="dtNascimento"
+                  size="30"
+                  locale="pt_BR"
+                  pattern="dd/MM/yyyy"
+                  mask="true"
+                  placeholder="dia / mês / ano"
+                  showIcon="true"
+                  monthNavigator="true"
+                  yearNavigator="true"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.dtNascimento}"
+                  requiredMessage="Informe a data de nascimento."
+                  required="true"
+                />
+
+                <h:outputText
+                  style="font-size: 0.75rem; color: #94a3b8"
+                  value="Aceita datas dos últimos 12 meses."
+                />
+              </div>
             </div>
-          </div>
-        </p:fieldset>
+          </p:fieldset>
+        </div>
+
+        <div class="col-12 mt-4">
+          <p:fieldset>
+            <f:facet name="legend">
+              <i
+                class="pi pi-book"
+                style="margin-right: 8px; vertical-align: middle"
+              ></i>
+              <h:outputText
+                value="Parâmetros Clínicos"
+                style="vertical-align: middle"
+              />
+            </f:facet>
+
+            <div class="ui-g ui-fluid">
+              <div class="field col-4">
+                <p:outputLabel
+                  for="estabilidadeRecemNascido"
+                  value="Estabilidade do RN:"
+                />
+
+                <p:selectOneRadio
+                  id="estabilidadeRecemNascido"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.estabilidadeRecemNascido}"
+                  layout="pageDirection"
+                  required="true"
+                  requiredMessage="Selecione a estabilidade do recém-nascido."
+                >
+                  <f:selectItem itemLabel="ESTÁVEL" itemValue="ESTAVEL" />
+                  <f:selectItem itemLabel="INSTÁVEL" itemValue="INSTAVEL" />
+                </p:selectOneRadio>
+              </div>
+
+              <div class="field col-4">
+                <p:outputLabel for="pesoNascimento" value="Peso ao Nascer:" />
+
+                <p:selectOneRadio
+                  id="pesoNascimento"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.pesoNascimento}"
+                  layout="pageDirection"
+                  required="true"
+                  requiredMessage="Selecione o peso ao nascer."
+                >
+                  <f:selectItem
+                    itemLabel="&#8805; 1500g"
+                    itemValue="MAIOR_OU_IGUAL_A_1500"
+                  />
+                  <f:selectItem
+                    itemLabel="&lt; 1500g"
+                    itemValue="MENOR_QUE_1500"
+                  />
+                </p:selectOneRadio>
+              </div>
+
+              <div class="field col-4">
+                <p:outputLabel
+                  for="idadeGestacional"
+                  value="Idade Gestacional:"
+                />
+
+                <p:selectOneRadio
+                  id="idadeGestacional"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.idadeGestacional}"
+                  layout="pageDirection"
+                  required="true"
+                  requiredMessage="Selecione o idade gestacional."
+                >
+                  <f:selectItem
+                    itemLabel="&#8805; 32 semanas"
+                    itemValue="MAIOR_OU_IGUAL_A_32_SEMANAS"
+                  />
+                  <f:selectItem
+                    itemLabel="&lt; 32 semanas"
+                    itemValue="MENOR_QUE_32_SEMANAS"
+                  />
+                </p:selectOneRadio>
+              </div>
+            </div>
+          </p:fieldset>
+        </div>
       </div>
 
       <div class="field col-2">
