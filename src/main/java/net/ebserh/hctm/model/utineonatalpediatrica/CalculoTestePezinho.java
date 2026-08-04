@@ -11,6 +11,9 @@ public class CalculoTestePezinho implements Serializable {
     private ClassificacaoEstabilidade estabilidadeRecemNascido;
     private ClassificacaoPeso pesoNascimento;
     private ClassificacaoIdadeGestacional idadeGestacional;
+    private boolean ocorreuHemotransfusaoAntesPrimeiraColeta;
+    private boolean ocorreuHemotransfusaoAposPrimeiraColeta;
+    private LocalDate dtUltimaTransfusao;
 
     public String getNomeRecemNascido() {
         return nomeRecemNascido;
@@ -60,4 +63,27 @@ public class CalculoTestePezinho implements Serializable {
         this.idadeGestacional = idadeGestacional;
     }
 
+    public boolean isOcorreuHemotransfusaoAntesPrimeiraColeta() {
+        return ocorreuHemotransfusaoAntesPrimeiraColeta;
+    }
+
+    public void setOcorreuHemotransfusaoAntesPrimeiraColeta(boolean ocorreuHemotransfusaoAntesPrimeiraColeta) {
+        this.ocorreuHemotransfusaoAntesPrimeiraColeta = ocorreuHemotransfusaoAntesPrimeiraColeta;
+    }
+
+    public boolean isOcorreuHemotransfusaoAposPrimeiraColeta() {
+        return ocorreuHemotransfusaoAposPrimeiraColeta;
+    }
+
+    public void setOcorreuHemotransfusaoAposPrimeiraColeta(boolean ocorreuHemotransfusaoAposPrimeiraColeta) {
+        this.ocorreuHemotransfusaoAposPrimeiraColeta = ocorreuHemotransfusaoAposPrimeiraColeta;
+    }
+
+    public LocalDate getDtUltimaTransfusao() {
+        return dtUltimaTransfusao;
+    }
+
+    public void setDtUltimaTransfusao(LocalDate dtUltimaTransfusao) {
+        this.dtUltimaTransfusao = dtUltimaTransfusao;
+    }
 }

@@ -61,7 +61,7 @@
                   locale="pt_BR"
                   pattern="dd/MM/yyyy"
                   mask="true"
-                  placeholder="dia / mês / ano"
+                  placeholder="dd/mm/aaaa"
                   showIcon="true"
                   monthNavigator="true"
                   yearNavigator="true"
@@ -155,6 +155,89 @@
                   />
                 </p:selectOneRadio>
               </div>
+            </div>
+          </p:fieldset>
+        </div>
+
+        <div class="col-12 mt-4">
+          <p:fieldset>
+            <f:facet name="legend">
+              <i
+                class="pi pi-book"
+                style="margin-right: 8px; vertical-align: middle"
+              ></i>
+              <h:outputText
+                value="Hemotransfusão"
+                style="vertical-align: middle"
+              />
+            </f:facet>
+
+            <div class="ui-g ui-fluid">
+              <div class="field col-12">
+                <p:outputLabel
+                  for="ocorreuHemotransfusaoAntesPrimeiraColeta"
+                  value="O RN recebeu hemotransfusão antes da 1º coleta?"
+                />
+
+                <p:selectOneRadio
+                  id="ocorreuHemotransfusaoAntesPrimeiraColeta"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAntesPrimeiraColeta}"
+                  layout="lineDirection"
+                  required="true"
+                  requiredMessage="Informe se o RN recebeu hemotransfusão antes da 1º coleta."
+                >
+                  <f:selectItem itemLabel="Não" itemValue="false" />
+                  <f:selectItem itemLabel="Sim" itemValue="true" />
+
+                  <p:ajax event="change" update="painelCondicional" />
+                </p:selectOneRadio>
+              </div>
+
+              <p:divider />
+
+              <div class="field col-12">
+                <p:outputLabel
+                  for="ocorreuHemotransfusaoAposPrimeiraColeta"
+                  value="Houve transfusão após a 1º coleta?"
+                />
+
+                <p:selectOneRadio
+                  id="ocorreuHemotransfusaoAposPrimeiraColeta"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAposPrimeiraColeta}"
+                  layout="lineDirection"
+                  required="true"
+                  requiredMessage="Informe se houve transfusão após a 1º coleta."
+                >
+                  <f:selectItem itemLabel="Não" itemValue="false" />
+                  <f:selectItem itemLabel="Sim" itemValue="true" />
+
+                  <p:ajax event="change" update="painelCondicional" />
+                </p:selectOneRadio>
+              </div>
+
+              <h:panelGroup id="painelCondicional" class="field col-12">
+                <p:outputLabel
+                  rendered="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAposPrimeiraColeta || calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAntesPrimeiraColeta}"
+                  for="dtUltimaTransfusao"
+                  value="Data da última transfusão:"
+                />
+
+                <p:datePicker
+                  id="dtUltimaTransfusao"
+                  rendered="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAposPrimeiraColeta || calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAntesPrimeiraColeta}"
+                  size="30"
+                  locale="pt_BR"
+                  pattern="dd/MM/yyyy"
+                  mask="true"
+                  placeholder="dd/mm/aaaa"
+                  showIcon="true"
+                  monthNavigator="true"
+                  yearNavigator="true"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.dtUltimaTransfusao}"
+                  requiredMessage="Informe a data da última transfusão."
+                  required="true"
+                />
+              </h:panelGroup>
             </div>
           </p:fieldset>
         </div>

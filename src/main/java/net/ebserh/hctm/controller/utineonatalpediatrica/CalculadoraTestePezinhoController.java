@@ -20,6 +20,8 @@ public class CalculadoraTestePezinhoController implements Serializable {
     @PostConstruct
     public void init() {
         calculoTestePezinho = new CalculoTestePezinho();
+        calculoTestePezinho.setOcorreuHemotransfusaoAntesPrimeiraColeta(false);
+        calculoTestePezinho.setOcorreuHemotransfusaoAposPrimeiraColeta(false);
     }
 
     public CalculoTestePezinho getCalculoTestePezinho() {
