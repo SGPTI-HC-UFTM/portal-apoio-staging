@@ -1,6 +1,7 @@
 package net.ebserh.hctm.controller.utineonatalpediatrica;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import jakarta.annotation.PostConstruct;
@@ -22,6 +23,7 @@ public class CalculadoraTestePezinhoController implements Serializable {
         calculoTestePezinho = new CalculoTestePezinho();
         calculoTestePezinho.setOcorreuHemotransfusaoAntesPrimeiraColeta(false);
         calculoTestePezinho.setOcorreuHemotransfusaoAposPrimeiraColeta(false);
+        calculoTestePezinho.setAmostras(new LocalDate[4]);
     }
 
     public CalculoTestePezinho getCalculoTestePezinho() {

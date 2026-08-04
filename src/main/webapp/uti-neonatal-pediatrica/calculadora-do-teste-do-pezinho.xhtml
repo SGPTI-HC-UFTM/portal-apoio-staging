@@ -241,6 +241,107 @@
             </div>
           </p:fieldset>
         </div>
+
+        <div class="col-12 mt-4">
+          <p:fieldset>
+            <f:facet name="legend">
+              <i
+                class="pi pi-book"
+                style="margin-right: 8px; vertical-align: middle"
+              ></i>
+              <h:outputText
+                value="Coletas Já Realizadas (para recálculo)"
+                style="vertical-align: middle"
+              />
+            </f:facet>
+
+            
+
+            <div class="ui-g ui-fluid">
+              <div class="field col-12">
+                               <h:outputText
+                  style="font-size: 1rem; color: #94a3b8;"
+                  value="Preencha as datas das coletas já realizadas para recalcular apenas as pendentes."
+                />
+              </div>
+              <div class="field col-3">
+                <p:outputLabel for="primeiraAmostra" value="1ª Amostra" />
+
+                <p:datePicker
+                  id="primeiraAmostra"
+                  size="30"
+                  locale="pt_BR"
+                  pattern="dd/MM/yyyy"
+                  mask="true"
+                  placeholder="dd/mm/aaaa"
+                  showIcon="true"
+                  monthNavigator="true"
+                  yearNavigator="true"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[0]}"
+                  requiredMessage="Informe a data da 1ª amostra."
+                  required="false"
+                />
+              </div>
+
+              <div class="field col-3">
+                <p:outputLabel for="segundaAmostra" value="2ª Amostra" />
+
+                <p:datePicker
+                  id="segundaAmostra"
+                  size="30"
+                  locale="pt_BR"
+                  pattern="dd/MM/yyyy"
+                  mask="true"
+                  placeholder="dd/mm/aaaa"
+                  showIcon="true"
+                  monthNavigator="true"
+                  yearNavigator="true"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[1]}"
+                  requiredMessage="Informe a data da 2ª amostra."
+                  required="false"
+                />
+              </div>
+
+              <div class="field col-3">
+                <p:outputLabel for="terceiraAmostra" value="3ª Amostra" />
+
+                <p:datePicker
+                  id="terceiraAmostra"
+                  size="30"
+                  locale="pt_BR"
+                  pattern="dd/MM/yyyy"
+                  mask="true"
+                  placeholder="dd/mm/aaaa"
+                  showIcon="true"
+                  monthNavigator="true"
+                  yearNavigator="true"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[2]}"
+                  requiredMessage="Informe a data da 3ª amostra."
+                  required="false"
+                />
+              </div>
+
+              <div class="field col-3">
+                <p:outputLabel for="primeiraAmostra" value="4ª Amostra" />
+
+                <p:datePicker
+                  id="quartaAmostra"
+                  size="30"
+                  locale="pt_BR"
+                  pattern="dd/MM/yyyy"
+                  mask="true"
+                  placeholder="dd/mm/aaaa"
+                  showIcon="true"
+                  monthNavigator="true"
+                  yearNavigator="true"
+                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[4]}"
+                  requiredMessage="Informe a data da 4ª amostra."
+                  required="false"
+                />
+              </div>
+            </div>
+          </p:fieldset>
+        </div>
       </div>
 
       <div class="field col-2">

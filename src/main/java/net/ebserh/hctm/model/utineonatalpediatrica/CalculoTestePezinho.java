@@ -14,6 +14,7 @@ public class CalculoTestePezinho implements Serializable {
     private boolean ocorreuHemotransfusaoAntesPrimeiraColeta;
     private boolean ocorreuHemotransfusaoAposPrimeiraColeta;
     private LocalDate dtUltimaTransfusao;
+    private LocalDate[] amostras;
 
     public String getNomeRecemNascido() {
         return nomeRecemNascido;
@@ -85,5 +86,13 @@ public class CalculoTestePezinho implements Serializable {
 
     public void setDtUltimaTransfusao(LocalDate dtUltimaTransfusao) {
         this.dtUltimaTransfusao = dtUltimaTransfusao;
+    }
+
+    public LocalDate[] getAmostras() {
+        return amostras;
+    }
+
+    public void setAmostras(LocalDate[] amostras) {
+        this.amostras = amostras;
     }
 }
