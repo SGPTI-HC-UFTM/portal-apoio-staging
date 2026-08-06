@@ -1,0 +1,23 @@
+CREATE TABLE pesquisa.pesquisadores (
+    id SERIAL,
+    nome VARCHAR (100),
+    lattes VARCHAR (200),
+    orcid VARCHAR (50),
+    telefone VARCHAR (20),
+    ramal INTEGER,
+    e_mail VARCHAR (100),
+    e_mail_alternativo VARCHAR (100),
+    instituicao_id INTEGER,
+    formacao_academica_id INTEGER,
+    nivel_formacao_id INTEGER,
+    linha_pesquisa_id INTEGER,
+    bolsa_produtividade_cnpq_id INTEGER,
+    programa_pos_graduacao_id INTEGER,
+    PRIMARY KEY (id),
+    FOREIGN KEY (instituicao_id) REFERENCES pesquisa.instituicoes (id),
+    FOREIGN KEY (formacao_academica_id) REFERENCES pesquisa.formacoes_academicas (id),
+    FOREIGN KEY (nivel_formacao_id) REFERENCES pesquisa.niveis_formacao (id),
+    FOREIGN KEY (linha_pesquisa_id) REFERENCES pesquisa.linhas_pesquisa (id),
+    FOREIGN KEY (bolsa_produtividade_cnpq_id) REFERENCES pesquisa.bolsas_produtividade_cnpq (id),
+    FOREIGN KEY (programa_pos_graduacao_id) REFERENCES pesquisa.programas_pos_graduacao (id)
+);

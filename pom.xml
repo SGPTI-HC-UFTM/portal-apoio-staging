@@ -140,14 +140,12 @@
                     <copyDependencies>
                         <dependencyGroup>
                             <location>h2</location>
-                            <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
                             <dependency>
                                 <groupId>com.h2database</groupId>
                                 <artifactId>h2</artifactId>
                             </dependency>
                         </dependencyGroup>
 
-						<!--
 						<dependencyGroup>
 							<location>jdbc</location>
 							<dependency>
@@ -156,7 +154,6 @@
 								<version>42.7.4</version>
 							</dependency>
 						</dependencyGroup>
-						-->
 					</copyDependencies>
                 </configuration>
             </plugin>
