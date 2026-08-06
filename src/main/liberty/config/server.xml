@@ -28,23 +28,21 @@
         <fileset dir="${server.config.dir}/h2/" includes="*.jar" />
     </library>
 
-    <!--
-    <library id="jdbcLib">
-        <fileset dir="jdbc" includes="*.jar" />
-    </library>
-
-    <jdbcDriver id="postgresqlDriver" libraryRef="jdbcLib"/>
-    -->
-
     <dataSource jndiName="portalApoioDS">
         <jdbcDriver libraryRef="h2" />
         <properties url="jdbc:h2:mem:testdb;MODE=PostgreSQL" user="sa" password="sa" />
     </dataSource>
 
     <!--
+    <library id="jdbcLib">
+        <fileset dir="jdbc" includes="*.jar" />
+    </library>
+
+    <jdbcDriver id="postgresqlDriver" libraryRef="jdbcLib"/>
+
     <dataSource id="portalApoioDS" jndiName="portalApoioDS" jdbcDriverRef="postgresqlDriver">
         <properties serverName="localhost" portNumber="5432"
-                    databaseName="tmp" user="postgres" password="123456" />
+                    databaseName="portal_apoio_staging" user="postgres" password="123456" />
     </dataSource>
     -->
 
