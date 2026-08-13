@@ -365,10 +365,16 @@ public List<ProgramaPosGraduacao> buscaProgramasPosGraduacao() {
             throw new CustomRuntimeException("É necessário informar o nome para pesquisa.");
 
         try {
-            return entityManager
+            List<Pesquisador> pesquisadores = entityManager
                     .createNamedQuery("Pesquisador.findByNomeLike", Pesquisador.class)
                     .setParameter("nome", String.format("%%%s%%", nome.toLowerCase()))
                     .getResultList();
+            if(pesquisadores.isEmpty()){
+                throw new CustomRuntimeException("Nenhum pesquisador encontrado com os critérios informados.");
+            }
+            return pesquisadores;
+        } catch(CustomRuntimeException e){
+            throw e;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new CustomRuntimeException("Ocorreu um erro ao buscar os pesquisadores.");
