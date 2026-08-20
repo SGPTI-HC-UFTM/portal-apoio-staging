@@ -11,6 +11,15 @@ import net.ebserh.hctm.model.util.AbstractEntity;
                 + "FROM Pesquisador p "
                 + "WHERE LOWER(p.nome) LIKE :nome "
                 + "ORDER BY p.nome")
+@NamedQuery(name = "Pesquisador.findByNome",
+        query = "SELECT p.id "
+                + "FROM Pesquisador p "
+                + "WHERE LOWER(p.nome) = :nome")
+@NamedQuery(name = "Pesquisador.findByEmail",
+        query = "SELECT p.id "
+                + "FROM Pesquisador p "
+                + "WHERE LOWER(p.eMail) = :eMail")
+
 public class Pesquisador  extends AbstractEntity {
 
     @Size(max = 100)
