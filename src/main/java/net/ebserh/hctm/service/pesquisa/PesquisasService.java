@@ -289,7 +289,7 @@ public class PesquisasService {
         }
     }
 
-public List<ProgramaPosGraduacao> buscaProgramasPosGraduacao() {
+    public List<ProgramaPosGraduacao> buscaProgramasPosGraduacao() {
         try {
             return entityManager
                     .createNamedQuery("ProgramaPosGraduacao.findAll", ProgramaPosGraduacao.class)
@@ -343,41 +343,65 @@ public List<ProgramaPosGraduacao> buscaProgramasPosGraduacao() {
         }
     }
 
-
-
-    public void salvaPesquisador(Pesquisador pesquisador) {
-        if (pesquisador == null)
-            throw new CustomRuntimeException("É necessário informar os dados do pesquisador.");
-
-        try {
-            if (pesquisador.getId() == null)
-                entityManager.persist(pesquisador);
-            else
-                entityManager.merge(pesquisador);
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados do pesquisador.");
-        }
-    }
-
     public List<Pesquisador> buscaPesquisadoresPorNome(String nome) {
         if (StringUtils.isBlank(nome))
             throw new CustomRuntimeException("É necessário informar o nome para pesquisa.");
 
         try {
-            List<Pesquisador> pesquisadores = entityManager
+            return entityManager
                     .createNamedQuery("Pesquisador.findByNomeLike", Pesquisador.class)
                     .setParameter("nome", String.format("%%%s%%", nome.toLowerCase()))
                     .getResultList();
-            if(pesquisadores.isEmpty()){
-                throw new CustomRuntimeException("Nenhum pesquisador encontrado com os critérios informados.");
-            }
-            return pesquisadores;
-        } catch(CustomRuntimeException e){
-            throw e;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new CustomRuntimeException("Ocorreu um erro ao buscar os pesquisadores.");
+        }
+    }
+
+
+    public void salvaPesquisador(Pesquisador pesquisador) {
+        if (pesquisador == null)
+            throw new CustomRuntimeException("É necessário informar os dados do pesquisador.");
+        //Impede nome que comece com espaco ou termine com espaco
+        pesquisador.setNome(StringUtils.trim(pesquisador.getNome()));
+        pesquisador.seteMail(StringUtils.trim(pesquisador.geteMail()));
+        try {
+            //Verificar duplicidade de nome e de email
+            try {
+                Integer pesquisadorNomeExistente_id = entityManager
+                    .createNamedQuery("Pesquisador.findByNome", Integer.class)
+                    .setParameter("nome", pesquisador.getNome().toLowerCase())
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+
+                Integer pesquisadorEmailExistente_id = entityManager
+                    .createNamedQuery("Pesquisador.findByEmail", Integer.class)
+                    .setParameter("eMail", pesquisador.geteMail().toLowerCase())
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+                
+                if(!Objects.isNull(pesquisadorNomeExistente_id) && !pesquisadorNomeExistente_id.equals(pesquisador.getId()))
+                    throw new CustomRuntimeException("Já existe um pesquisador cadastrado com este nome.");
+                if(!Objects.isNull(pesquisadorEmailExistente_id) && !pesquisadorEmailExistente_id.equals(pesquisador.getId()))
+                    throw new CustomRuntimeException("Já existe um pesquisador cadastrado com este email como primário.");
+
+            } catch (CustomRuntimeException e){
+                throw e;
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                throw new CustomRuntimeException("Ocorreu um erro ao verificar a duplicidade de registros.");
+            }
+            if (pesquisador.getId() == null)
+                entityManager.persist(pesquisador);
+            else
+                entityManager.merge(pesquisador);
+        } catch (CustomRuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados do pesquisador.");
         }
     }
 
