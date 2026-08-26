@@ -75,4 +75,16 @@ public class BolsasProdutividadeService {
         }
     }
 
+    public void excluiBolsa(BolsaProdutividadeCnpq bolsa) {
+        if (Objects.isNull(bolsa))
+            throw new CustomRuntimeException("É necessário selecionar uma bolsa.");
+
+        try {
+            entityManager.remove(entityManager.merge(bolsa));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir a bolsa.");
+        }
+    }
+
 }
