@@ -63,6 +63,10 @@ public class PesquisadoresController implements Serializable {
 
         try {
             pesquisadores = pesquisasService.buscaPesquisadoresPorNome(nome);
+            if(pesquisadores.isEmpty()){
+                FacesUtils.showError("Nenhum pesquisador encontrado com os critérios informados.");
+                return;
+            }
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao pesquisar os pesquisadores.");
         }
