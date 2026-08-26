@@ -23,11 +23,16 @@
 				<p:column headerText="Descrição" field="descricao" style="width: 40%; text-align: center" />
 
 				<p:column headerText="Ações" style="width:20%; text-align: center">
-					<p:commandButton id="btnEdita"
-						icon="pi pi-pencil"
-						action="#{bolsasProdutividadeCnpqController.editaBolsa(bolsa)}"
-						update="dialogBolsaProdutividade"
-						title="Editar" />
+					<p:commandButton id="btnEdita" icon="pi pi-pencil"
+									 action="#{bolsasProdutividadeCnpqController.editaBolsa(bolsa)}"
+									 update="dialogBolsaProdutividade" title="Editar" />
+
+					<p:commandButton id="btnExclui" icon="pi pi-trash" style="margin-left:2px"
+									 action="#{bolsasProdutividadeCnpqController.excluiBolsa(bolsa)}"
+									 update="@form" title="Excluir">
+						<p:confirm header="Confirmação" message="Deseja realmente excluir a bolsa selecionada?"
+								   icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
