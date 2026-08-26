@@ -1,6 +1,5 @@
 package net.ebserh.hctm.service.pesquisa;
 
-import jakarta.annotation.Nonnull;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -76,7 +75,10 @@ public class BolsasProdutividadeService {
         }
     }
 
-    public void excluiBolsa(@Nonnull BolsaProdutividadeCnpq bolsa) {
+    public void excluiBolsa(BolsaProdutividadeCnpq bolsa) {
+        if (Objects.isNull(bolsa))
+            throw new CustomRuntimeException("É necessário selecionar uma bolsa.");
+
         try {
             entityManager.remove(entityManager.merge(bolsa));
         } catch (Exception e) {
