@@ -12,6 +12,7 @@ import org.primefaces.PrimeFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,6 +65,21 @@ public class BolsasProdutividadeCnpqController implements Serializable {
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar os a bolsa.");
+        }
+    }
+
+    public void excluiBolsa(BolsaProdutividadeCnpq bolsa) {
+        if (Objects.isNull(bolsa)) {
+            FacesUtils.showError("É necessário selecionar uma bolsa.");
+            return;
+        }
+
+        try {
+            bolsasProdutividadeService.excluiBolsa(bolsa);
+            bolsas = bolsasProdutividadeService.buscaBolsas();
+            FacesUtils.showInfo("Bolsa excluída com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir a bolsa.");
         }
     }
 

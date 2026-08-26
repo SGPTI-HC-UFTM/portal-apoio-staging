@@ -1,5 +1,6 @@
 package net.ebserh.hctm.service.pesquisa;
 
+import jakarta.annotation.Nonnull;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -72,6 +73,15 @@ public class BolsasProdutividadeService {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da bolsa.");
+        }
+    }
+
+    public void excluiBolsa(@Nonnull BolsaProdutividadeCnpq bolsa) {
+        try {
+            entityManager.remove(entityManager.merge(bolsa));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir a bolsa.");
         }
     }
 
