@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.ProgramaPosGraduacaoService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,21 @@ public class ProgramasPosGraduacaoController implements Serializable {
             FacesUtils.showInfo("Programa de pós graduação salvo com sucesso!");
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o programa de pós graduação.");
+        }
+    }
+
+    public void excluiProgramaPosGraduacao(ProgramaPosGraduacao programaPosGraduacao){
+        if (Objects.isNull(programaPosGraduacao)) {
+            FacesUtils.showError("É necessário selecionar um programa de pós graduação.");
+            return;
+        }
+
+        try {
+            programaPosGraduacaoService.excluiProgramaPosGraduacao(programaPosGraduacao);
+            programasPosGraduacao = programaPosGraduacaoService.buscaProgramasPosGraduacao();
+            FacesUtils.showInfo("Programa de pós graduação excluído com sucesso!");
+        } catch (Exception e){
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir o programa de pós graduação.");
         }
     }
 
