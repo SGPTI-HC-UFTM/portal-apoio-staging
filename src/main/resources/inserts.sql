@@ -12,3 +12,5 @@ INSERT INTO pesquisa.bolsas_produtividade_cnpq (descricao) VALUES ('BOLSA 1');
 INSERT INTO pesquisa.bolsas_produtividade_cnpq (descricao) VALUES ('BOLSA 2');
 
 INSERT INTO pesquisa.cbos (descricao) VALUES ('ANALISTA DE TI');
+
+INSERT INTO pesquisa.tipos_projeto (descricao) VALUES ('Pesquisa'), ('Extensão'), ('Inovação Tecnológica');
