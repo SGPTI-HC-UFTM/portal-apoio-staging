@@ -76,4 +76,16 @@ public class ProgramaPosGraduacaoService{
         }
     }
 
+    public void excluiProgramaPosGraduacao(ProgramaPosGraduacao programaPosGraduacao) {
+        if (Objects.isNull(programaPosGraduacao))
+            throw new CustomRuntimeException("É necessário selecionar um programa de pós graduação.");
+
+        try {
+            entityManager.remove(entityManager.merge(programaPosGraduacao));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir o programa de pós graduação.");
+        }
+    }
+
 }

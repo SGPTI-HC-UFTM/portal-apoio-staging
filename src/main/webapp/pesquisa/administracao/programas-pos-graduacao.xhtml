@@ -24,11 +24,16 @@
 				<p:column headerText="Descrição" field="descricao" style="width: 40%; text-align: center" />
 
 				<p:column headerText="Ações" style="width:20%; text-align: center">
-					<p:commandButton id="btnEdita"
-						icon="pi pi-pencil"
+					<p:commandButton id="btnEdita" icon="pi pi-pencil"
 						action="#{programasPosGraduacaoController.editaProgramaPosGraduacao(programa)}"
-						update="dialogProgramaPosGraduacao"
-						title="Editar" />
+						update="dialogProgramaPosGraduacao" title="Editar" />
+				
+					<p:commandButton id="btnExclui" icon="pi pi-trash" style="margin-left:2px"
+									action="#{programasPosGraduacaoController.excluiProgramaPosGraduacao(programa)}"
+									update="@form" title="Excluir">
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o programa de pós graduação selecionado?"
+								   icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
