@@ -76,4 +76,16 @@ public class FontesFinanciadorasService {
         }
     }
 
+    public void excluiFonteFinanciadora(FonteFinanciadora fonteFinanciadora) {
+        if (Objects.isNull(fonteFinanciadora))
+            throw new CustomRuntimeException("É necessário selecionar uma fonte financiadora");
+
+        try {
+            entityManager.remove(entityManager.merge(fonteFinanciadora));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir a fonte financiadora");
+        }
+    }
+
 }
