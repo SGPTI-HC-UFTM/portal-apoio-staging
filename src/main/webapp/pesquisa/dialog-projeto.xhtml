@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<p:dialog id="dialogProjeto" header="Cadastro de Projeto" widgetVar="dialogProjeto" width="80%" height="70vh"
+			  appendTo="@(body)" modal="true">
+		<h:form id="formProjeto">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-12">
+					<p:outputLabel for="titulo" value="Título:" />
+					<p:inputTextarea id="titulo" value="#{projetosController.projeto.titulo}" maxlength="200"
+									 required="true" />
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="tipo" value="Tipo de Projeto:" />
+					<p:selectOneMenu id="tipo" value="#{projetosController.projeto.tipo}"
+									 converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{projetosController.tipos}" var="tipo" itemLabel="#{tipo.descricao}"
+									   itemValue="#{tipo}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="status" value="Status Atual:" />
+					<p:selectOneMenu id="status" value="#{projetosController.projeto.status}"
+									 converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{projetosController.status}" var="status" itemLabel="#{status.descricao}"
+									   itemValue="#{status}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="field-checkbox col-6">
+					<p:selectBooleanCheckbox id="financiamento" value="#{projetosController.projeto.financiamento}"
+											 itemLabel="Possui financiamento?" />
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="font" value="Fonte Financiadora:" />
+					<p:selectOneMenu id="font" value="#{projetosController.projeto.fonteFinanciadora}"
+									 converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{projetosController.fontesFinanciadoras}" var="fonte"
+									   itemLabel="#{fonte.descricao}" itemValue="#{fonte}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="field col-2">
+					<p:commandButton id="btnSalvar" value="Salvar" icon="pi pi-save"
+									 action="#{projetosController.salva}" update="@form" />
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>

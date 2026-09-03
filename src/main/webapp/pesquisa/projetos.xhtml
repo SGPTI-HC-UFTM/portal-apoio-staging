@@ -1,0 +1,51 @@
+<ui:composition template="/templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="content">
+		<h2>Cadastro de Projetos</h2>
+
+		<h:form id="formProjetos">
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-2">
+					<p:commandButton id="btnNovo" value="Novo" action="#{projetosController.openDialogNovo}"
+									 icon="pi pi-plus" update="dialogProjeto" />
+				</div>
+			</div>
+					
+			<p:panel id="pnlPesquisa" header="Projetos cadastrados" style="margin-top:10px">
+				<div class="ui-fluid formgrid grid">
+					<div class="field col-12">
+						<p:outputLabel for="titulo" value="Títuo:" />
+						<p:inputText id="titulo" maxlength="200" value="#{projetosController.titulo}" />
+					</div>
+
+					<div class="field col-2">
+						<p:commandButton id="btnPesquisar" value="Pesquisar" icon="pi pi-search"
+										 action="#{projetosController.pesquisa}" update="tblProjetos" />
+					</div>
+				</div>
+
+				<p:dataTable id="tblProjetos" var="projeto" value="#{projetosController.projetos}"
+							 emptyMessage="Nenhum registro encontrado.">
+   					<p:column headerText="Código" field="id" style="width: 10%; text-align: center"  />
+
+   					<p:column headerText="Titulo" field="titulo" style="width: 40%; text-align: center" />
+
+					<p:column headerText="Tipo" field="tipo.descricao" style="width:20%; text-align: center" />
+
+					<p:column headerText="Status" field="status.descricao" style="width:20%; text-align: center" />
+
+					<p:column headerText="Ações" style="width:10%; text-align: center">
+						<p:commandButton id="btnEdita" icon="pi pi-pencil" action="#{projetosController.edita(projeto)}"
+							update="dialogProjeto" title="Editar" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<ui:include src="dialog-projeto.xhtml" />
+	</ui:define>
+</ui:composition>
