@@ -69,6 +69,21 @@ public class FontesFinanciadorasController implements Serializable {
         }
    }
 
+    public void excluiFonteFinanciadora(FonteFinanciadora fonteFinanciadora) {
+        if (Objects.isNull(fonteFinanciadora)) {
+            FacesUtils.showError("É necessário selecionar uma fonte financiadora.");
+            return;
+        }
+
+        try {
+            fontesFinanciadorasService.excluiFonteFinanciadora(fonteFinanciadora);
+            fontes = fontesFinanciadorasService.buscaFontes();
+            FacesUtils.showInfo("Fonte financiadora excluída com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir a fonte financiadora.");
+        }
+    }
+
     public List<FonteFinanciadora> getFontes() {
         return fontes;
     }

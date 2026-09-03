@@ -27,11 +27,16 @@
                 </p:column>
 
 				<p:column headerText="Ações" style="width:20%; text-align: center">
-					<p:commandButton id="btnEdita"
-						icon="pi pi-pencil"
+					<p:commandButton id="btnEdita" icon="pi pi-pencil"
 						action="#{fontesFinanciadorasController.editaFonte(fonte)}"
-						update="dialogFonteFinanciadora"
-						title="Editar" />
+						update="dialogFonteFinanciadora" title="Editar" />
+
+					<p:commandButton id="btnExclui" icon="pi pi-trash" style="margin-left:2px"
+									action="#{fontesFinanciadorasController.excluiFonteFinanciadora(fonte)}"
+									update="@form" title="Excluir">
+						<p:confirm header="Confirmação" message="Deseja realmente excluir a fonte financiadora selecionada?"
+								   icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
