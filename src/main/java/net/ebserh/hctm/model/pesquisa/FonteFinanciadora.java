@@ -28,7 +28,7 @@ public class FonteFinanciadora extends AbstractEntity {
     @Size(max = 100)
     private String descricao;
 
-    private Boolean ativa;
+    private Boolean ativa = false;
 
     public String getDescricao() {
         return descricao;
@@ -39,7 +39,7 @@ public class FonteFinanciadora extends AbstractEntity {
     }
 
     public Boolean getAtiva() {
-        return ativa;
+        return ativa; 
     }
 
     public void setAtiva(Boolean ativa) {

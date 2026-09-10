@@ -1,6 +1,7 @@
 package net.ebserh.hctm.model.pesquisa;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -9,6 +10,16 @@ import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "projetos")
+@NamedQuery(name = "Projeto.findByTitulo",
+        query = "SELECT p.id "
+                + "FROM Projeto p "
+                + "WHERE LOWER(p.titulo) = :titulo")
+@NamedQuery(name = "Projeto.findByTituloLike",
+        query = "SELECT p "
+                + "FROM Projeto p "
+                + "WHERE LOWER(p.titulo) LIKE :titulo "
+                + "ORDER BY p.titulo")
+
 public class Projeto extends AbstractEntity {
 
     @Size(max = 200)

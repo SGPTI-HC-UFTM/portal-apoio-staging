@@ -4,9 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import net.ebserh.hctm.model.pesquisa.FonteFinanciadora;
 import net.ebserh.hctm.model.pesquisa.Projeto;
-import net.ebserh.hctm.model.pesquisa.StatusProjeto;
 import net.ebserh.hctm.model.pesquisa.TipoProjeto;
 import net.ebserh.hctm.service.pesquisa.ProjetosService;
 import net.ebserh.hctm.util.FacesUtils;
@@ -36,16 +34,10 @@ public class ProjetosController implements Serializable {
 
     private List<TipoProjeto> tipos = new ArrayList<>();
 
-    private List<StatusProjeto> status = new ArrayList<>();
-
-    private List<FonteFinanciadora> fontesFinanciadoras = new ArrayList<>();
-
     @PostConstruct
     public void init() {
         try {
             tipos = projetosService.buscaTiposProjeto();
-            status = projetosService.buscaStatusProjeto();
-            fontesFinanciadoras = projetosService.buscaFontesFinanciadoras();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -58,7 +50,7 @@ public class ProjetosController implements Serializable {
 
     public void edita(Projeto projeto) {
         if (projeto == null) {
-            FacesUtils.showError("É necessário selecionar um pesquisador.");
+            FacesUtils.showError("É necessário selecionar um projeto.");
             return;
         }
 
@@ -68,7 +60,7 @@ public class ProjetosController implements Serializable {
 
     public void salva() {
         if (projeto == null) {
-            FacesUtils.showError("É necessário informar os dados do pesquisador.");
+            FacesUtils.showError("É necessário informar os dados do projeto.");
             return;
         }
 
@@ -126,22 +118,6 @@ public class ProjetosController implements Serializable {
 
     public void setTipos(List<TipoProjeto> tipos) {
         this.tipos = tipos;
-    }
-
-    public List<StatusProjeto> getStatus() {
-        return status;
-    }
-
-    public void setStatus(List<StatusProjeto> status) {
-        this.status = status;
-    }
-
-    public List<FonteFinanciadora> getFontesFinanciadoras() {
-        return fontesFinanciadoras;
-    }
-
-    public void setFontesFinanciadoras(List<FonteFinanciadora> fontesFinanciadoras) {
-        this.fontesFinanciadoras = fontesFinanciadoras;
     }
 
 }

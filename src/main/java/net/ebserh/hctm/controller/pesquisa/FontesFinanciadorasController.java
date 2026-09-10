@@ -27,12 +27,13 @@ public class FontesFinanciadorasController implements Serializable {
 
     private List<FonteFinanciadora> fontes = new ArrayList<>();
 
-    private FonteFinanciadora fonteFinanciadora = new FonteFinanciadora();
+    private FonteFinanciadora fonteFinanciadora;
 
     @PostConstruct
     public void init() {
         try {
             fontes = fontesFinanciadorasService.buscaFontes();
+            fonteFinanciadora = new FonteFinanciadora();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
