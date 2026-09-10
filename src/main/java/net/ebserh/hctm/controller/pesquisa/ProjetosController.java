@@ -5,7 +5,6 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import net.ebserh.hctm.model.pesquisa.Projeto;
-import net.ebserh.hctm.model.pesquisa.TipoProjeto;
 import net.ebserh.hctm.service.pesquisa.ProjetosService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,16 +31,6 @@ public class ProjetosController implements Serializable {
 
     private Projeto projeto;
 
-    private List<TipoProjeto> tipos = new ArrayList<>();
-
-    @PostConstruct
-    public void init() {
-        try {
-            tipos = projetosService.buscaTiposProjeto();
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-        }
-    }
 
     public void openDialogNovo() {
         projeto = new Projeto();
@@ -110,14 +99,6 @@ public class ProjetosController implements Serializable {
 
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
-    }
-
-    public List<TipoProjeto> getTipos() {
-        return tipos;
-    }
-
-    public void setTipos(List<TipoProjeto> tipos) {
-        this.tipos = tipos;
     }
 
 }

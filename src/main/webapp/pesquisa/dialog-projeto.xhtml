@@ -16,9 +16,10 @@
 					<p:outputLabel for="tipo" value="Tipo de Projeto:" />
 					<p:selectOneMenu id="tipo" value="#{projetosController.projeto.tipo}"
 									 converter="omnifaces.SelectItemsConverter">
+
 						<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
-						<f:selectItems value="#{projetosController.tipos}" var="tipo" itemLabel="#{tipo.descricao}"
-									   itemValue="#{tipo}" />
+						<f:selectItems value="#{tiposProjetoController.tipos}" var="t" itemLabel="#{t.descricao}"
+									   itemValue="#{t}" />
 					</p:selectOneMenu>
 				</div>
 
@@ -26,6 +27,7 @@
 					<p:outputLabel for="status" value="Status Atual:" />
 					<p:selectOneMenu id="status" value="#{projetosController.projeto.status}"
 									 converter="omnifaces.SelectItemsConverter">
+
 						<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />		
 						<f:selectItems value="#{statusProjetoController.status}" var="status" itemLabel="#{status.descricao}"
 									   itemValue="#{status}" />

@@ -25,11 +25,61 @@ public class ProjetosService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<TipoProjeto> buscaTiposProjeto() {
-        throw new CustomRuntimeException("Em construção... TIPOS");
+    public List<TipoProjeto> buscaTiposProjeto(){
+        try{
+            return entityManager
+                   .createNamedQuery("TipoProjeto.findAll", TipoProjeto.class)
+                    .getResultList();
+        }catch(Exception e){
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao buscar os tipos de projeto cadastrados.");
+        }
     }
 
-    public List<StatusProjeto> buscaStatusProjeto(){
+    public void salvaTipoProjeto(TipoProjeto tipoProjeto){
+        if(Objects.isNull(tipoProjeto)){
+            throw new CustomRuntimeException("É necessário informar os dados do tipo de projeto.");
+        }
+        if(StringUtils.isBlank(tipoProjeto.getDescricao())){
+            throw new CustomRuntimeException("É necessário informar a descrição do tipo de projeto.");
+        }
+        try{
+            // Impede a entrada de string com espaço no inicio ou no fim
+            tipoProjeto.setDescricao(StringUtils.trim(tipoProjeto.getDescricao()));
+            // Verifica duplicidade de registros
+            try {
+                TipoProjeto tipoProjetoExistente = entityManager
+                        .createNamedQuery("TipoProjeto.findByDescricao", TipoProjeto.class)
+                        .setParameter("descricao", tipoProjeto.getDescricao().toUpperCase())
+                        .getSingleResult();
+
+                if (!tipoProjetoExistente.getId().equals(tipoProjeto.getId()))
+                    throw new CustomRuntimeException("Já existe um tipo de projeto cadastrado com esta descrição.");
+            } catch (CustomRuntimeException e) {
+                throw e;
+            } catch (NoResultException e) {
+                // Ok, não há duplicidade
+            } catch (NonUniqueResultException e) {
+                throw new CustomRuntimeException(
+                        "Mais de um tipo de projeto previamente cadastrado com a descrição informada.");
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                throw new CustomRuntimeException("Ocorreu um erro ao verificar a duplicidade de registros.");
+            }
+        
+            if (Objects.isNull(tipoProjeto.getId()))
+                entityManager.persist(tipoProjeto);
+            else
+                entityManager.merge(tipoProjeto);
+        } catch (CustomRuntimeException e) {
+            throw e;
+        }catch(Exception e){
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao salvar o tipo de projeto cadastrado.");
+        }
+    }
+
+    public List<StatusProjeto> buscaStatusProjetos(){
         try{
             return entityManager
                    .createNamedQuery("StatusProjeto.findAll", StatusProjeto.class)

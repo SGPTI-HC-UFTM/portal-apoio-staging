@@ -28,7 +28,7 @@ public class FonteFinanciadora extends AbstractEntity {
     @Size(max = 100)
     private String descricao;
 
-    private Boolean ativa = false;
+    private Boolean ativa;
 
     public String getDescricao() {
         return descricao;
