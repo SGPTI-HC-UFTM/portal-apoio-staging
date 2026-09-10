@@ -4,11 +4,11 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import net.ebserh.hctm.model.pesquisa.FonteFinanciadora;
-import net.ebserh.hctm.model.pesquisa.Projeto;
-import net.ebserh.hctm.model.pesquisa.StatusProjeto;
-import net.ebserh.hctm.model.pesquisa.TipoProjeto;
+import net.ebserh.hctm.model.pesquisa.*;
+import net.ebserh.hctm.service.pesquisa.FontesFinanciadorasService;
+import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.service.pesquisa.ProjetosService;
+import net.ebserh.hctm.service.pesquisa.StatusProjetoService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PrimeFaces;
@@ -28,11 +28,20 @@ public class ProjetosController implements Serializable {
     @Inject
     private ProjetosService projetosService;
 
+    @Inject
+    private StatusProjetoService statusProjetoService;
+
+    @Inject
+    private FontesFinanciadorasService fontesFinanciadorasService;
+
+    @Inject
+    private PesquisasService pesquisasService;
+
     private String titulo;
 
     private List<Projeto> projetos;
 
-    private Projeto projeto;
+    private Projeto projeto = new Projeto();
 
     private List<TipoProjeto> tipos = new ArrayList<>();
 
@@ -40,12 +49,20 @@ public class ProjetosController implements Serializable {
 
     private List<FonteFinanciadora> fontesFinanciadoras = new ArrayList<>();
 
+    private String nomePesquisador;
+
+    private List<Pesquisador> pesquisadores = new ArrayList<>();
+
+    private List<ProjetoPesquisador> equipe = new ArrayList<>();
+
+    private String funcao;
+
     @PostConstruct
     public void init() {
         try {
             tipos = projetosService.buscaTiposProjeto();
-            status = projetosService.buscaStatusProjeto();
-            fontesFinanciadoras = projetosService.buscaFontesFinanciadoras();
+            status = statusProjetoService.buscaStatusProjetos();
+            fontesFinanciadoras = fontesFinanciadorasService.buscaFontes();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -96,6 +113,39 @@ public class ProjetosController implements Serializable {
         }
     }
 
+    public void buscaPesquisador() {
+        if (StringUtils.isBlank(nomePesquisador)) {
+            FacesUtils.showError("É necessário informar o nome para pesquisa.");
+            return;
+        }
+
+        try {
+            pesquisadores = pesquisasService.buscaPesquisadoresPorNome(nomePesquisador);
+            if (pesquisadores.isEmpty())
+                FacesUtils.showError("Nenhum pesquisador encontrado com os critérios informados.");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao buscar os pesquisadores.");
+        }
+    }
+
+    public void acrescentaPesquisador(Pesquisador pesquisador) {
+        try {
+            ProjetoPesquisador p = new ProjetoPesquisador();
+            p.setProjeto(projeto);
+            p.setPesquisador(pesquisador);
+            p.setFuncao(funcao);
+
+            equipe.add(p);
+            FacesUtils.showInfo("Pesquisador incluído com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao incluir o pesquisador.");
+        }
+    }
+
+    public void removePesquisador(ProjetoPesquisador projetoPesquisador) {
+        FacesUtils.showError("Em construção...");
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -142,6 +192,38 @@ public class ProjetosController implements Serializable {
 
     public void setFontesFinanciadoras(List<FonteFinanciadora> fontesFinanciadoras) {
         this.fontesFinanciadoras = fontesFinanciadoras;
+    }
+
+    public String getNomePesquisador() {
+        return nomePesquisador;
+    }
+
+    public void setNomePesquisador(String nomePesquisador) {
+        this.nomePesquisador = nomePesquisador;
+    }
+
+    public List<Pesquisador> getPesquisadores() {
+        return pesquisadores;
+    }
+
+    public void setPesquisadores(List<Pesquisador> pesquisadores) {
+        this.pesquisadores = pesquisadores;
+    }
+
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
+    }
+
+    public List<ProjetoPesquisador> getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(List<ProjetoPesquisador> equipe) {
+        this.equipe = equipe;
     }
 
 }
