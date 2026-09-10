@@ -39,7 +39,7 @@ public class FonteFinanciadora extends AbstractEntity {
     }
 
     public Boolean getAtiva() {
-        return ativa;
+        return ativa; 
     }
 
     public void setAtiva(Boolean ativa) {
