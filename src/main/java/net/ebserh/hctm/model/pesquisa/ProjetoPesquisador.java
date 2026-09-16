@@ -1,14 +1,18 @@
 package net.ebserh.hctm.model.pesquisa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
 @Table(schema = "pesquisa", name = "projetos_pesquisadores")
+@NamedQuery(name = "ProjetoPesquisador.findByProjeto", query = """
+SELECT
+    p
+FROM
+    ProjetoPesquisador p
+WHERE
+    p.projeto = :projeto""")
 public class ProjetoPesquisador extends AbstractEntity {
 
     @Size(max = 100)

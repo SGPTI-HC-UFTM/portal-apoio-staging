@@ -16,6 +16,7 @@ import org.primefaces.PrimeFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,7 +52,7 @@ public class ProjetosController implements Serializable {
 
     private String nomePesquisador;
 
-    private List<Pesquisador> pesquisadores = new ArrayList<>();
+    private List<ProjetoPesquisador> pesquisadores = new ArrayList<>();
 
     private List<ProjetoPesquisador> equipe = new ArrayList<>();
 
@@ -70,6 +71,9 @@ public class ProjetosController implements Serializable {
 
     public void openDialogNovo() {
         projeto = new Projeto();
+        nomePesquisador = null;
+        pesquisadores = new ArrayList<>();
+        equipe = new ArrayList<>();
         PrimeFaces.current().executeScript("PF('dialogProjeto').show()");
     }
 
@@ -79,8 +83,15 @@ public class ProjetosController implements Serializable {
             return;
         }
 
-        this.projeto = projeto;
-        PrimeFaces.current().executeScript("PF('dialogProjeto').show()");
+        try {
+            this.projeto = projeto;
+            nomePesquisador = null;
+            pesquisadores = new ArrayList<>();
+            equipe = projetosService.buscaEquipe(projeto);
+            PrimeFaces.current().executeScript("PF('dialogProjeto').show()");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao carregar os dados da equipe.");
+        }
     }
 
     public void salva() {
@@ -89,8 +100,13 @@ public class ProjetosController implements Serializable {
             return;
         }
 
+        if (Objects.isNull(equipe) || equipe.isEmpty()) {
+            FacesUtils.showError("É necessário informarar os dados da equipe.");
+            return;
+        }
+
         try {
-            projetosService.salvaProjeto(projeto);
+            projetosService.salvaProjeto(projeto, equipe);
             PrimeFaces.current().executeScript("PF('dialogProjeto').hide()");
             FacesUtils.showInfo("Projeto salvo com sucesso!");
         } catch (Exception e) {
@@ -120,22 +136,33 @@ public class ProjetosController implements Serializable {
         }
 
         try {
-            pesquisadores = pesquisasService.buscaPesquisadoresPorNome(nomePesquisador);
-            if (pesquisadores.isEmpty())
+            pesquisadores = new ArrayList<>();
+            List<Pesquisador> listaPesquisadores = pesquisasService.buscaPesquisadoresPorNome(nomePesquisador);
+            if (listaPesquisadores.isEmpty()) {
                 FacesUtils.showError("Nenhum pesquisador encontrado com os critérios informados.");
+                return;
+            }
+
+            for (Pesquisador p : listaPesquisadores) {
+                ProjetoPesquisador pp = new ProjetoPesquisador();
+                pp.setPesquisador(p);
+                pp.setProjeto(projeto);
+
+                pesquisadores.add(pp);
+            }
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao buscar os pesquisadores.");
         }
     }
 
-    public void acrescentaPesquisador(Pesquisador pesquisador) {
-        try {
-            ProjetoPesquisador p = new ProjetoPesquisador();
-            p.setProjeto(projeto);
-            p.setPesquisador(pesquisador);
-            p.setFuncao(funcao);
+    public void acrescentaPesquisador(ProjetoPesquisador projetoPesquisador) {
+        if (Objects.isNull(projetoPesquisador)) {
+            FacesUtils.showError("É necessário selecionar um pesquisador.");
+            return;
+        }
 
-            equipe.add(p);
+        try {
+            equipe.add(projetoPesquisador);
             FacesUtils.showInfo("Pesquisador incluído com sucesso!");
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao incluir o pesquisador.");
@@ -143,7 +170,17 @@ public class ProjetosController implements Serializable {
     }
 
     public void removePesquisador(ProjetoPesquisador projetoPesquisador) {
-        FacesUtils.showError("Em construção...");
+        if (Objects.isNull(projetoPesquisador))
+            return;
+
+        for (int i = 0; i < equipe.size(); ++i) {
+            ProjetoPesquisador pp = equipe.get(i);
+            if (pp.getPesquisador().equals(projetoPesquisador.getPesquisador()) &&
+                    pp.getFuncao().equals(projetoPesquisador.getFuncao())) {
+                equipe.remove(i);
+                return;
+            }
+        }
     }
 
     public String getTitulo() {
@@ -202,14 +239,6 @@ public class ProjetosController implements Serializable {
         this.nomePesquisador = nomePesquisador;
     }
 
-    public List<Pesquisador> getPesquisadores() {
-        return pesquisadores;
-    }
-
-    public void setPesquisadores(List<Pesquisador> pesquisadores) {
-        this.pesquisadores = pesquisadores;
-    }
-
     public String getFuncao() {
         return funcao;
     }
@@ -224,6 +253,14 @@ public class ProjetosController implements Serializable {
 
     public void setEquipe(List<ProjetoPesquisador> equipe) {
         this.equipe = equipe;
+    }
+
+    public List<ProjetoPesquisador> getPesquisadores() {
+        return pesquisadores;
+    }
+
+    public void setPesquisadores(List<ProjetoPesquisador> pesquisadores) {
+        this.pesquisadores = pesquisadores;
     }
 
 }
