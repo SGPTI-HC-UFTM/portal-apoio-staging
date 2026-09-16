@@ -10,6 +10,8 @@
     <h2>Calculadora do Teste do Pezinho</h2>
 
     <h:form id="formCalculadoraTestePezinho">
+      <p:messages id="messages" showDetail="false" closable="true" />
+
       <div class="ui-fluid formgrid grid">
         <div class="col-12">
           <p:fieldset>
@@ -33,7 +35,7 @@
 
                 <p:inputText
                   id="nomeRecemNascido"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.nomeRecemNascido}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.nomeRecemNascido}"
                   required="true"
                   requiredMessage="Informe o nome completo do recém-nascido."
                   placeholder="Nome completo"
@@ -45,7 +47,7 @@
 
                 <p:inputText
                   id="nomeMae"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.nomeMae}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.nomeMae}"
                   required="false"
                   requiredMessage="Informe o nome completo da mãe."
                   placeholder="Nome completo da mãe"
@@ -65,10 +67,12 @@
                   showIcon="true"
                   monthNavigator="true"
                   yearNavigator="true"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.dtNascimento}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.dataNascimentoRecemNascido}"
                   requiredMessage="Informe a data de nascimento."
                   required="true"
-                />
+                  maxdate="#{calculadoraNeonatalController.dataHoje}"
+                >
+                </p:datePicker>
 
                 <h:outputText
                   style="font-size: 0.75rem; color: #94a3b8"
@@ -101,13 +105,13 @@
 
                 <p:selectOneRadio
                   id="estabilidadeRecemNascido"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.estabilidadeRecemNascido}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.estabilidadeRecemNascido}"
                   layout="pageDirection"
                   required="true"
                   requiredMessage="Selecione a estabilidade do recém-nascido."
                 >
-                  <f:selectItem itemLabel="ESTÁVEL" itemValue="ESTAVEL" />
-                  <f:selectItem itemLabel="INSTÁVEL" itemValue="INSTAVEL" />
+                  <f:selectItem itemLabel="ESTÁVEL" itemValue="true" />
+                  <f:selectItem itemLabel="INSTÁVEL" itemValue="false" />
                 </p:selectOneRadio>
               </div>
 
@@ -116,18 +120,18 @@
 
                 <p:selectOneRadio
                   id="pesoNascimento"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.pesoNascimento}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.pesoAoNascer}"
                   layout="pageDirection"
                   required="true"
                   requiredMessage="Selecione o peso ao nascer."
                 >
                   <f:selectItem
                     itemLabel="&#8805; 1500g"
-                    itemValue="MAIOR_OU_IGUAL_A_1500"
+                    itemValue="true"
                   />
                   <f:selectItem
                     itemLabel="&lt; 1500g"
-                    itemValue="MENOR_QUE_1500"
+                    itemValue="false"
                   />
                 </p:selectOneRadio>
               </div>
@@ -140,18 +144,18 @@
 
                 <p:selectOneRadio
                   id="idadeGestacional"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.idadeGestacional}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.idadeGestacional}"
                   layout="pageDirection"
                   required="true"
                   requiredMessage="Selecione o idade gestacional."
                 >
                   <f:selectItem
                     itemLabel="&#8805; 32 semanas"
-                    itemValue="MAIOR_OU_IGUAL_A_32_SEMANAS"
+                    itemValue="true"
                   />
                   <f:selectItem
                     itemLabel="&lt; 32 semanas"
-                    itemValue="MENOR_QUE_32_SEMANAS"
+                    itemValue="false"
                   />
                 </p:selectOneRadio>
               </div>
@@ -181,7 +185,7 @@
 
                 <p:selectOneRadio
                   id="ocorreuHemotransfusaoAntesPrimeiraColeta"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAntesPrimeiraColeta}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.hemotransfusaoAntesPrimeiraColeta}"
                   layout="lineDirection"
                   required="true"
                   requiredMessage="Informe se o RN recebeu hemotransfusão antes da 1º coleta."
@@ -189,7 +193,7 @@
                   <f:selectItem itemLabel="Não" itemValue="false" />
                   <f:selectItem itemLabel="Sim" itemValue="true" />
 
-                  <p:ajax event="change" update="painelCondicional" />
+                  <p:ajax event="change" process="@this" update="painelCondicional" />
                 </p:selectOneRadio>
               </div>
 
@@ -203,7 +207,7 @@
 
                 <p:selectOneRadio
                   id="ocorreuHemotransfusaoAposPrimeiraColeta"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAposPrimeiraColeta}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.hemotransfusaoAposPrimeiraColeta}"
                   layout="lineDirection"
                   required="true"
                   requiredMessage="Informe se houve transfusão após a 1º coleta."
@@ -217,14 +221,14 @@
 
               <h:panelGroup id="painelCondicional" class="field col-12">
                 <p:outputLabel
-                  rendered="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAposPrimeiraColeta || calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAntesPrimeiraColeta}"
+                  rendered="#{calculadoraNeonatalController.calculadoraNeonatal.hemotransfusaoAposPrimeiraColeta || calculadoraNeonatalController.calculadoraNeonatal.hemotransfusaoAntesPrimeiraColeta}"
                   for="dtUltimaTransfusao"
                   value="Data da última transfusão:"
                 />
 
                 <p:datePicker
                   id="dtUltimaTransfusao"
-                  rendered="#{calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAposPrimeiraColeta || calculadoraTestePezinhoController.calculoTestePezinho.ocorreuHemotransfusaoAntesPrimeiraColeta}"
+                  rendered="#{calculadoraNeonatalController.calculadoraNeonatal.hemotransfusaoAposPrimeiraColeta || calculadoraNeonatalController.calculadoraNeonatal.hemotransfusaoAntesPrimeiraColeta}"
                   size="30"
                   locale="pt_BR"
                   pattern="dd/MM/yyyy"
@@ -233,7 +237,7 @@
                   showIcon="true"
                   monthNavigator="true"
                   yearNavigator="true"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.dtUltimaTransfusao}"
+                  value="#{calculadoraNeonatalController.calculadoraNeonatal.dataUltimaHemotransfusao}"
                   requiredMessage="Informe a data da última transfusão."
                   required="true"
                 />
@@ -255,90 +259,38 @@
               />
             </f:facet>
 
-            
-
             <div class="ui-g ui-fluid">
               <div class="field col-12">
-                               <h:outputText
-                  style="font-size: 1rem; color: #94a3b8;"
+                <h:outputText
+                  style="font-size: 1rem; color: #94a3b8"
                   value="Preencha as datas das coletas já realizadas para recalcular apenas as pendentes."
                 />
               </div>
-              <div class="field col-3">
-                <p:outputLabel for="primeiraAmostra" value="1ª Amostra" />
 
-                <p:datePicker
-                  id="primeiraAmostra"
-                  size="30"
-                  locale="pt_BR"
-                  pattern="dd/MM/yyyy"
-                  mask="true"
-                  placeholder="dd/mm/aaaa"
-                  showIcon="true"
-                  monthNavigator="true"
-                  yearNavigator="true"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[0]}"
-                  requiredMessage="Informe a data da 1ª amostra."
-                  required="false"
-                />
-              </div>
+              <ui:repeat
+                value="#{calculadoraNeonatalController.calculadoraNeonatal.coletasRealizadas}"
+                var="amostra"
+                varStatus="status"
+              >
+                <div class="field col-3">
+                  <p:outputLabel value="#{status.index + 1}ª Amostra" />
 
-              <div class="field col-3">
-                <p:outputLabel for="segundaAmostra" value="2ª Amostra" />
-
-                <p:datePicker
-                  id="segundaAmostra"
-                  size="30"
-                  locale="pt_BR"
-                  pattern="dd/MM/yyyy"
-                  mask="true"
-                  placeholder="dd/mm/aaaa"
-                  showIcon="true"
-                  monthNavigator="true"
-                  yearNavigator="true"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[1]}"
-                  requiredMessage="Informe a data da 2ª amostra."
-                  required="false"
-                />
-              </div>
-
-              <div class="field col-3">
-                <p:outputLabel for="terceiraAmostra" value="3ª Amostra" />
-
-                <p:datePicker
-                  id="terceiraAmostra"
-                  size="30"
-                  locale="pt_BR"
-                  pattern="dd/MM/yyyy"
-                  mask="true"
-                  placeholder="dd/mm/aaaa"
-                  showIcon="true"
-                  monthNavigator="true"
-                  yearNavigator="true"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[2]}"
-                  requiredMessage="Informe a data da 3ª amostra."
-                  required="false"
-                />
-              </div>
-
-              <div class="field col-3">
-                <p:outputLabel for="primeiraAmostra" value="4ª Amostra" />
-
-                <p:datePicker
-                  id="quartaAmostra"
-                  size="30"
-                  locale="pt_BR"
-                  pattern="dd/MM/yyyy"
-                  mask="true"
-                  placeholder="dd/mm/aaaa"
-                  showIcon="true"
-                  monthNavigator="true"
-                  yearNavigator="true"
-                  value="#{calculadoraTestePezinhoController.calculoTestePezinho.amostras[4]}"
-                  requiredMessage="Informe a data da 4ª amostra."
-                  required="false"
-                />
-              </div>
+                  <p:datePicker
+                    size="30"
+                    locale="pt_BR"
+                    pattern="dd/MM/yyyy"
+                    mask="true"
+                    placeholder="dd/mm/aaaa"
+                    showIcon="true"
+                    monthNavigator="true"
+                    yearNavigator="true"
+                    value="#{calculadoraNeonatalController.calculadoraNeonatal.coletasRealizadas[status.index]}"
+                    requiredMessage="Informe a data da amostra."
+                    required="false"
+                    mindate="#{calculadoraNeonatalController.dataHoje}"
+                  />
+                </div>
+              </ui:repeat>
             </div>
           </p:fieldset>
         </div>
@@ -348,10 +300,14 @@
         <p:commandButton
           id="btnCalcularDatas"
           value="Calcular Datas"
-          action="#{calculadoraTestePezinhoController.calcularDatas}"
+          action="#{calculadoraNeonatalController.calcular}"
+          update=":dialogCalculadora"
           icon="pi pi-calendar"
-        />
+          oncomplete="if (!args.validationFailed) PF('dialogCalculadora').show()"
+          />
       </div>
     </h:form>
+
+    <ui:include src="dialog-calculadora.xhtml" />
   </ui:define>
 </ui:composition>
