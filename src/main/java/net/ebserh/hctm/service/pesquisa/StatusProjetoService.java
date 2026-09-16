@@ -33,7 +33,6 @@ public class StatusProjetoService {
         }
     }
 
-
     public void salvaStatus(StatusProjeto statusProjeto){
         if(Objects.isNull(statusProjeto)){
             throw new CustomRuntimeException("É necessário informar os dados do status de projeto.");

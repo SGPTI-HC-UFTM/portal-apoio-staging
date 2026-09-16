@@ -37,7 +37,7 @@ public class StatusProjetoController implements Serializable {
         }
     }
 
-    public void openDialogNova(){
+    public void openDialogNovo(){
         statusProjeto = new StatusProjeto();
         PrimeFaces.current().executeScript("PF('dialogStatusProjeto').show()");
     }

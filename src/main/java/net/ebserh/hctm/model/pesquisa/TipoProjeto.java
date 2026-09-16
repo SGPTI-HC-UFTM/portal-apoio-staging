@@ -15,6 +15,15 @@ FROM
     TipoProjeto t
 ORDER BY
     t.descricao""")
+
+@NamedQuery(name = "TipoProjeto.findByDescricao", query = """
+SELECT
+    t
+FROM
+    TipoProjeto t
+WHERE
+    function('TRANSLATE', function('UPPER', t.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
 public class TipoProjeto extends AbstractEntity {
 
     @Size(max = 100)

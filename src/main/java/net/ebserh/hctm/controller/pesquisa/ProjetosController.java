@@ -75,7 +75,7 @@ public class ProjetosController implements Serializable {
 
     public void edita(Projeto projeto) {
         if (projeto == null) {
-            FacesUtils.showError("É necessário selecionar um pesquisador.");
+            FacesUtils.showError("É necessário selecionar um projeto.");
             return;
         }
 
@@ -85,7 +85,7 @@ public class ProjetosController implements Serializable {
 
     public void salva() {
         if (projeto == null) {
-            FacesUtils.showError("É necessário informar os dados do pesquisador.");
+            FacesUtils.showError("É necessário informar os dados do projeto.");
             return;
         }
 
