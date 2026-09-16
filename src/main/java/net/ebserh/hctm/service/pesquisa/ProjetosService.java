@@ -6,10 +6,7 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import net.ebserh.hctm.exception.CustomRuntimeException;
-import net.ebserh.hctm.model.pesquisa.FonteFinanciadora;
-import net.ebserh.hctm.model.pesquisa.Projeto;
-import net.ebserh.hctm.model.pesquisa.StatusProjeto;
-import net.ebserh.hctm.model.pesquisa.TipoProjeto;
+import net.ebserh.hctm.model.pesquisa.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -20,6 +17,7 @@ import java.util.logging.Logger;
 
 @Stateless
 public class ProjetosService {
+
     private static final Logger LOGGER = Logger.getAnonymousLogger();
 
     @PersistenceContext
@@ -66,7 +64,7 @@ public class ProjetosService {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 throw new CustomRuntimeException("Ocorreu um erro ao verificar a duplicidade de registros.");
             }
-        
+
             if (Objects.isNull(tipoProjeto.getId()))
                 entityManager.persist(tipoProjeto);
             else
@@ -120,7 +118,7 @@ public class ProjetosService {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 throw new CustomRuntimeException("Ocorreu um erro ao verificar a duplicidade de registros.");
             }
-        
+
             if (Objects.isNull(statusProjeto.getId()))
                 entityManager.persist(statusProjeto);
             else
@@ -203,13 +201,17 @@ public class ProjetosService {
         }
     }
 
-    public void salvaProjeto(Projeto projeto) {
+    public void salvaProjeto(Projeto projeto, List<ProjetoPesquisador> equipe) {
         if (Objects.isNull(projeto))
             throw new CustomRuntimeException("É necessário informar os dados do projeto.");
-        //Impede titulo que comece com espaco ou termine com espaco
-        projeto.setTitulo(StringUtils.trim(projeto.getTitulo()));
-        
+
+        if (Objects.isNull(equipe) || equipe.isEmpty())
+            throw new CustomRuntimeException("É necessário informar a equipe do projeto.");
+
         try {
+            //Impede titulo que comece com espaco ou termine com espaco
+            projeto.setTitulo(StringUtils.trim(projeto.getTitulo()));
+
             //Verificar duplicidade de titulo
             try {
                 Integer projetoTituloExistente_id = entityManager
@@ -218,25 +220,49 @@ public class ProjetosService {
                     .getResultStream()
                     .findFirst()
                     .orElse(null);
-                
+
                 if(!Objects.isNull(projetoTituloExistente_id) && !projetoTituloExistente_id.equals(projeto.getId()))
                     throw new CustomRuntimeException("Já existe um projeto cadastrado com este titulo.");
-                
+
             } catch (CustomRuntimeException e){
                 throw e;
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 throw new CustomRuntimeException("Ocorreu um erro ao verificar a duplicidade de registros.");
             }
+
             if (projeto.getId() == null)
                 entityManager.persist(projeto);
             else
                 entityManager.merge(projeto);
+
+            for (ProjetoPesquisador pp : equipe) {
+                pp.setProjeto(projeto);
+                if (Objects.isNull(pp.getId()))
+                    entityManager.persist(pp);
+                else
+                    entityManager.merge(pp);
+            }
         } catch (CustomRuntimeException e) {
             throw e;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados do projeto.");
+        }
+    }
+
+    public List<ProjetoPesquisador> buscaEquipe(Projeto projeto) {
+        if (Objects.isNull(projeto))
+            throw new CustomRuntimeException("É necessário selecionar um projeto.");
+
+        try {
+            return entityManager
+                    .createNamedQuery("ProjetoPesquisador.findByProjeto", ProjetoPesquisador.class)
+                    .setParameter("projeto", projeto)
+                    .getResultList();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao buscar a equipe do projeto.");
         }
     }
 

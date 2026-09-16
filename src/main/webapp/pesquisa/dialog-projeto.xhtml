@@ -5,50 +5,115 @@
 	<p:dialog id="dialogProjeto" header="Cadastro de Projeto" widgetVar="dialogProjeto" width="80%" height="70vh"
 			  appendTo="@(body)" modal="true">
 		<h:form id="formProjeto">
-			<div class="ui-fluid formgrid grid">
+			<p:panel header="Dados do Projeto">
+				<div class="ui-fluid formgrid grid">
+					<div class="field col-12">
+						<p:outputLabel for="titulo" value="Título:" />
+						<p:inputTextarea id="titulo" value="#{projetosController.projeto.titulo}" maxlength="200"
+										 required="true" />
+					</div>
+
+					<div class="field col-6">
+						<p:outputLabel for="tipo" value="Tipo de Projeto:" />
+						<p:selectOneMenu id="tipo" value="#{projetosController.projeto.tipo}"
+										 converter="omnifaces.SelectItemsConverter">
+
+							<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
+							<f:selectItems value="#{tiposProjetoController.tipos}" var="t" itemLabel="#{t.descricao}"
+										   itemValue="#{t}" />
+						</p:selectOneMenu>
+					</div>
+
+					<div class="field col-6">
+						<p:outputLabel for="status" value="Status Atual:" />
+						<p:selectOneMenu id="status" value="#{projetosController.projeto.status}"
+										 converter="omnifaces.SelectItemsConverter">
+
+							<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
+							<f:selectItems value="#{statusProjetoController.status}" var="status" itemLabel="#{status.descricao}"
+										   itemValue="#{status}" />
+						</p:selectOneMenu>
+					</div>
+
+					<div class="field-checkbox col-6">
+						<p:selectBooleanCheckbox id="financiamento" value="#{projetosController.projeto.financiamento}"
+												 itemLabel="Possui financiamento?" />
+					</div>
+
+					<div class="field col-6">
+						<p:outputLabel for="font" value="Fonte Financiadora:" />
+						<p:selectOneMenu id="font" value="#{projetosController.projeto.fonteFinanciadora}"
+										 converter="omnifaces.SelectItemsConverter">
+							<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
+							<f:selectItems value="#{fontesFinanciadorasController.fontes}" var="fontesFinanciadoras"
+										   itemLabel="#{fontesFinanciadoras.descricao}" itemValue="#{fontesFinanciadoras}" />
+						</p:selectOneMenu>
+					</div>
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlEquipe" header="Dados da Equipe" style="margin-top: 20px">
+				<div class="ui-fluid formgrid grid">
+					<div class="field col-12">
+						<p:outputLabel for="nome" value="Nome:" />
+						<p:inputText id="nome" maxlength="50" value="#{projetosController.nomePesquisador}" />
+					</div>
+
+					<div class="field col-2">
+						<p:commandButton id="btnPesquisar" value="Pesquisar" icon="pi pi-search" process="pnlEquipe"
+										 action="#{projetosController.buscaPesquisador}" update="tblPesquisadores" />
+					</div>
+
+					<div class="field col-12">
+						<p:dataTable id="tblPesquisadores" var="p" value="#{projetosController.pesquisadores}"
+									 emptyMessage="Nenhum registro encontrado.">
+							<p:column headerText="Código" field="pesquisador.id" style="width: 20%; text-align: center"
+									  filterable="false" sortable="false" />
+
+							<p:column headerText="Nome" field="pesquisador.nome" style="width: 30%; text-align: center"
+									  filterable="false" sortable="false"/>
+
+							<p:column headerText="Função" style="width: 30%; text-align: center">
+								<p:selectOneMenu id="funcao" value="#{p.funcao}">
+									<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />
+									<f:selectItem itemLabel="Pesquisador responsável" itemValue="Pesquisador responsável" />
+									<f:selectItem itemLabel="Co-pesquisador" itemValue="Co-pesquisador" />
+									<f:selectItem itemLabel="Estudante" itemValue="Estudante" />
+									<f:selectItem itemLabel="Colaborador externo" itemValue="Colaborador externo" />
+								</p:selectOneMenu>
+							</p:column>
+
+							<p:column headerText="Ações" style="width:20%; text-align: center">
+								<p:commandButton id="btnAcrescentar" icon="pi pi-plus" title="Acrescentar"
+												 process="formProjeto:pnlEquipe" update="formProjeto:pnlEquipe"
+												 action="#{projetosController.acrescentaPesquisador(p)}" />
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+
 				<div class="field col-12">
-					<p:outputLabel for="titulo" value="Título:" />
-					<p:inputTextarea id="titulo" value="#{projetosController.projeto.titulo}" maxlength="200"
-									 required="true" />
+					<p:dataTable id="tblEquipe" var="e" value="#{projetosController.equipe}"
+								 emptyMessage="Nenhum registro inserido.">
+						<p:column headerText="Código" field="pesquisador.id" style="width: 20%; text-align: center"
+								  filterable="false" sortable="false" />
+
+						<p:column headerText="Nome" field="pesquisador.nome" style="width: 30%; text-align: center"
+								  filterable="false" sortable="false"/>
+
+						<p:column headerText="Função" field="funcao" style="width: 30%; text-align: center"
+								  filterable="false" sortable="false"/>
+
+						<p:column headerText="Ações" style="width:20%; text-align: center">
+							<p:commandButton id="btnRemover" icon="pi pi-trash" title="Remover"
+											 process="formProjeto:pnlEquipe" update="formProjeto:pnlEquipe"
+											 action="#{projetosController.removePesquisador(e)}" />
+						</p:column>
+					</p:dataTable>
 				</div>
+			</p:panel>
 
-				<div class="field col-6">
-					<p:outputLabel for="tipo" value="Tipo de Projeto:" />
-					<p:selectOneMenu id="tipo" value="#{projetosController.projeto.tipo}"
-									 converter="omnifaces.SelectItemsConverter">
-
-						<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
-						<f:selectItems value="#{tiposProjetoController.tipos}" var="t" itemLabel="#{t.descricao}"
-									   itemValue="#{t}" />
-					</p:selectOneMenu>
-				</div>
-
-				<div class="field col-6">
-					<p:outputLabel for="status" value="Status Atual:" />
-					<p:selectOneMenu id="status" value="#{projetosController.projeto.status}"
-									 converter="omnifaces.SelectItemsConverter">
-
-						<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />		
-						<f:selectItems value="#{statusProjetoController.status}" var="status" itemLabel="#{status.descricao}"
-									   itemValue="#{status}" />
-					</p:selectOneMenu>
-				</div>
-
-				<div class="field-checkbox col-6">
-					<p:selectBooleanCheckbox id="financiamento" value="#{projetosController.projeto.financiamento}"
-											 itemLabel="Possui financiamento?" />
-				</div>
-
-				<div class="field col-6">
-					<p:outputLabel for="font" value="Fonte Financiadora:" />
-					<p:selectOneMenu id="font" value="#{projetosController.projeto.fonteFinanciadora}"
-									 converter="omnifaces.SelectItemsConverter">
-						<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
-						<f:selectItems value="#{fontesFinanciadorasController.fontes}" var="fontesFinanciadoras"
-									   itemLabel="#{fontesFinanciadoras.descricao}" itemValue="#{fontesFinanciadoras}" />
-					</p:selectOneMenu>
-				</div>
-
+			<div class="ui-fluid formgrid grid" style="margin-top: 10px">
 				<div class="field col-2">
 					<p:commandButton id="btnSalvar" value="Salvar" icon="pi pi-save"
 									 action="#{projetosController.salva}" update="@form" />
