@@ -22,7 +22,7 @@ public class PesquisasService {
     @PersistenceContext
     private EntityManager entityManager;
 
- public List<BolsaProdutividadeCnpq> buscaBolsas() {
+    public List<BolsaProdutividadeCnpq> buscaBolsas() {
         try {
             return entityManager
                     .createNamedQuery("BolsaProdutividadeCnpq.findAll", BolsaProdutividadeCnpq.class)
@@ -350,7 +350,7 @@ public class PesquisasService {
         try {
             return entityManager
                     .createNamedQuery("Pesquisador.findByNomeLike", Pesquisador.class)
-                    .setParameter("nome", String.format("%%%s%%", nome.toLowerCase()))
+                    .setParameter("nome", String.format("%%%s%%", nome.toLowerCase().trim()))
                     .getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -362,10 +362,11 @@ public class PesquisasService {
     public void salvaPesquisador(Pesquisador pesquisador) {
         if (pesquisador == null)
             throw new CustomRuntimeException("É necessário informar os dados do pesquisador.");
-        //Impede nome que comece com espaco ou termine com espaco
-        pesquisador.setNome(StringUtils.trim(pesquisador.getNome()));
-        pesquisador.seteMail(StringUtils.trim(pesquisador.geteMail()));
+
         try {
+            //Impede nome que comece com espaco ou termine com espaco
+            pesquisador.setNome(StringUtils.trim(pesquisador.getNome()));
+            pesquisador.seteMail(StringUtils.trim(pesquisador.geteMail()));
             //Verificar duplicidade de nome e de email
             try {
                 Integer pesquisadorNomeExistente_id = entityManager

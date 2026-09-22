@@ -101,7 +101,7 @@ public class ProjetosController implements Serializable {
         }
 
         if (Objects.isNull(equipe) || equipe.isEmpty()) {
-            FacesUtils.showError("É necessário informarar os dados da equipe.");
+            FacesUtils.showError("É necessário informar os dados da equipe.");
             return;
         }
 

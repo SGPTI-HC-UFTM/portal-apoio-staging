@@ -13,6 +13,12 @@ FROM
     ProjetoPesquisador p
 WHERE
     p.projeto = :projeto""")
+@NamedQuery(name = "ProjetoPesquisador.deleteProjeto", query = """
+DELETE
+FROM 
+    ProjetoPesquisador pp 
+WHERE 
+    pp.projeto = :projeto""")
 public class ProjetoPesquisador extends AbstractEntity {
 
     @Size(max = 100)
