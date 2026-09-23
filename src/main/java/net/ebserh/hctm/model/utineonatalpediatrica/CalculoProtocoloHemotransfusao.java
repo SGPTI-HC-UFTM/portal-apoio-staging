@@ -19,7 +19,6 @@ public class CalculoProtocoloHemotransfusao implements EstrategiaCalculoTriagemN
 
     @Override
     public ResultadoCalculadoraNeonatal calcular(CalculadoraNeonatal dados) {
-        System.out.println("Calculo para hemo");
         CategoriaClinica categoriaClinica = classificadorClinicoService.avaliar(dados);
 
         int quantidadeAmostras = categoriaClinica.getQuantidadeAmostras();
@@ -32,12 +31,15 @@ public class CalculoProtocoloHemotransfusao implements EstrategiaCalculoTriagemN
             Amostra amostra = new Amostra();
             amostra.setNumero(i);
 
+            LocalDate inicioCalculado;
+            LocalDate fimCalculado;
+
             if (dataRealizada != null) {
-                LocalDate inicioCalculado = dataReferencia.plusDays(regra.getDiasParaInicio());
-                LocalDate fimCalculado = dataReferencia.plusDays(regra.getDiasParaFim());
+                inicioCalculado = dataReferencia.plusDays(regra.getDiasParaInicio());
+                fimCalculado = dataReferencia.plusDays(regra.getDiasParaFim());
 
                 amostra.setDataRealizada(dataRealizada);
-                amostra.setStatus("Realizado");
+                amostra.setStatus("Realizada");
                 amostra.setInicio(inicioCalculado);
                 amostra.setFim(fimCalculado);
             } else {
@@ -51,9 +53,6 @@ public class CalculoProtocoloHemotransfusao implements EstrategiaCalculoTriagemN
                     novaData = dados.getDataUltimaHemotransfusao().plusDays(91);
                 }
 
-                LocalDate inicioCalculado;
-                LocalDate fimCalculado;
-
                 inicioCalculado = dataReferencia.plusDays(regra.getDiasParaInicio());
                 fimCalculado = dataReferencia.plusDays(regra.getDiasParaFim());
 
@@ -62,10 +61,16 @@ public class CalculoProtocoloHemotransfusao implements EstrategiaCalculoTriagemN
                     fimCalculado = novaData;
                 }
 
+                LocalDate dataHoje = LocalDate.now();
+                if (dataRealizada == null && fimCalculado.equals(dataHoje) || fimCalculado.isAfter(dataHoje)) {
+                    amostra.setStatus("Pendente");
+                }
+                if (dataRealizada == null && fimCalculado.isBefore(dataHoje)) {
+                    amostra.setStatus("Atrasada");
+                }
                 amostra.setInicio(inicioCalculado);
                 amostra.setFim(fimCalculado);
                 amostra.setDataRealizada(null);
-                amostra.setStatus("Pendente");
             }
 
             amostras.add(amostra);
@@ -73,7 +78,7 @@ public class CalculoProtocoloHemotransfusao implements EstrategiaCalculoTriagemN
 
         return new ResultadoCalculadoraNeonatal(
                 dados.getNomeRecemNascido(), dados.getNomeMae(), dados.getDataNascimentoRecemNascido(),
-                categoriaClinica, amostras, "");
+                categoriaClinica, amostras);
     }
 
 }
