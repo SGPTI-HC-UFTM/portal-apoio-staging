@@ -9,19 +9,17 @@ public class ResultadoCalculadoraNeonatal {
     private LocalDate dataNascimentoRecemNascido;
     private CategoriaClinica categoriaClinica;
     private List<Amostra> amostras;
-    private String alertasClinicos;
 
     public ResultadoCalculadoraNeonatal() {
     }
 
     public ResultadoCalculadoraNeonatal(String nomeRecemNascido, String nomeMae, LocalDate dataNascimentoRecemNascido,
-            CategoriaClinica categoriaClinica, List<Amostra> amostras, String alertasClinicos) {
+            CategoriaClinica categoriaClinica, List<Amostra> amostras) {
         this.nomeRecemNascido = nomeRecemNascido;
         this.nomeMae = nomeMae;
         this.dataNascimentoRecemNascido = dataNascimentoRecemNascido;
         this.categoriaClinica = categoriaClinica;
         this.amostras = amostras;
-        this.alertasClinicos = alertasClinicos;
     }
 
     public String getNomeRecemNascido() {
@@ -54,14 +52,6 @@ public class ResultadoCalculadoraNeonatal {
 
     public void setCategoriaClinica(CategoriaClinica categoriaClinica) {
         this.categoriaClinica = categoriaClinica;
-    }
-
-    public String getAlertasClinicos() {
-        return alertasClinicos;
-    }
-
-    public void setAlertasClinicos(String alertasClinicos) {
-        this.alertasClinicos = alertasClinicos;
     }
 
     public List<Amostra> getAmostras() {

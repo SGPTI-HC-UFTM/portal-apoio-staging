@@ -8,7 +8,6 @@
 >
   <p:dialog
     id="dialogCalculadora"
-    header="Resultado - Datas de Coleta"
     widgetVar="dialogCalculadora"
     width="80%"
     height="700px"
@@ -22,7 +21,8 @@
         layout="block"
         class="ui-fluid formgrid grid"
       >
-        <div class="col-12">
+      <div class="col-12">
+          <h3>Resultado - Datas de Coleta</h3>
           <div class="ui-g">
             <div class="field col-3">
               <p:outputLabel
@@ -34,6 +34,7 @@
                 id="nomeRecemNascido"
                 required="false"
                 disabled="true"
+                inputStyleClass="w-auto"
                 value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.nomeRecemNascido}"
               />
             </div>
@@ -46,6 +47,7 @@
                 required="false"
                 disabled="true"
                 placeholder="N/A"
+                inputStyleClass="w-auto"
                 value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.nomeMae}"
               />
             </div>
@@ -58,6 +60,7 @@
                 required="false"
                 placeholder="dd/mm/aaaa"
                 disabled="true"
+                inputStyleClass="w-auto"
                 value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.dataNascimentoRecemNascido}"
               >
                 <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
@@ -94,9 +97,11 @@
           </div>
 
           <div class="col-12">
-            <h3 class="uppercase">Datas de Coleta</h3>
+            <h3>Datas de Coleta</h3>
             <p:dataTable
               var="amostra"
+              showGridlines="true"
+              stripedRows="true"
               value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.amostras}"
             >
               <p:column headerText="Amostra">
@@ -124,9 +129,26 @@
               </p:column>
 
               <p:column headerText="Data Realizada">
-                <h:panelGroup rendered="#{amostra.dataRealizada == NULL}">
-                  <h:outputText class="text-gray-600" value="#{amostra.status}" />
+                <h:panelGroup
+                  rendered="#{amostra.dataRealizada == NULL and amostra.status == 'Atrasada'}"
+                >
+                  <div class="flex align-items-center gap-2">
+                    <h:outputText
+                      class="text-red-600"
+                      value="#{amostra.status}"
+                    />
+                  </div>
                 </h:panelGroup>
+
+                <h:panelGroup
+                  rendered="#{amostra.dataRealizada == NULL and amostra.status == 'Pendente'}"
+                >
+                  <h:outputText
+                    class="text-gray-600"
+                    value="#{amostra.status}"
+                  />
+                </h:panelGroup>
+
                 <h:panelGroup rendered="#{amostra.dataRealizada != NULL}">
                   <div class="flex align-items-center gap-2">
                     <i class="pi pi-check-square text-green-600"></i>

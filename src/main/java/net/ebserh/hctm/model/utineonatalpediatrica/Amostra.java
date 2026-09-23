@@ -9,7 +9,8 @@ public class Amostra {
     private LocalDate dataRealizada;
     private String status;
 
-    public Amostra(){}
+    public Amostra() {
+    }
 
     public Amostra(Integer numero, LocalDate inicio, LocalDate fim, LocalDate dataRealizada,
             String status) {
