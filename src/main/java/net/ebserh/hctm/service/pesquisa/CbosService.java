@@ -75,4 +75,16 @@ public class CbosService {
             throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da CBO.");
         }
     }
+
+    public void excluiCbo(Cbo cbo){
+        if (Objects.isNull(cbo))
+            throw new CustomRuntimeException("É necessário selecionar um cbo.");
+
+        try {
+            entityManager.remove(entityManager.merge(cbo));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir o cbo.");
+        }
+    }
 }

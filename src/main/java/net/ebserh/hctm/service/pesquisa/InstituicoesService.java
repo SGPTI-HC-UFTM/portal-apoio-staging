@@ -74,4 +74,16 @@ public class InstituicoesService {
             throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados da instituição.");
         }
     }
+
+    public void excluiInstituicao(Instituicao instituicao){
+        if (Objects.isNull(instituicao))
+            throw new CustomRuntimeException("É necessário selecionar uma instituição.");
+
+        try {
+            entityManager.remove(entityManager.merge(instituicao));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir a instituição.");
+        }
+    }
 }

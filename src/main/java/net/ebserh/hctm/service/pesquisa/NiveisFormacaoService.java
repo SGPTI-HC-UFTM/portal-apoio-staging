@@ -76,4 +76,16 @@ public class NiveisFormacaoService {
             throw new CustomRuntimeException("Erro ao salvar nível de formação!");
         }
     }
+
+    public void excluiNivelFormacao(NivelFormacao nivelFormacao){
+        if (Objects.isNull(nivelFormacao))
+            throw new CustomRuntimeException("É necessário selecionar um nível de formação.");
+
+        try {
+            entityManager.remove(entityManager.merge(nivelFormacao));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir o nível de formação.");
+        }
+    }
 }

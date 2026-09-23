@@ -75,4 +75,16 @@ public class FormacoesAcademicasService {
         }
     }
 
+    public void excluiFormacao(FormacaoAcademica formacaoAcademica){
+        if (Objects.isNull(formacaoAcademica))
+            throw new CustomRuntimeException("É necessário selecionar uma formação acadêmica.");
+
+        try {
+            entityManager.remove(entityManager.merge(formacaoAcademica));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir a formação acadêmica.");
+        }
+    }
+
 }

@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.NiveisFormacaoService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,21 @@ public class NiveisFormacaoController implements Serializable {
         return niveis.stream()
                 .filter(n -> n.getNivel().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public void excluiNivelFormacao(NivelFormacao nivelFormacao){
+        if (Objects.isNull(nivelFormacao)) {
+            FacesUtils.showError("É necessário selecionar um nível de formação.");
+            return;
+        }
+
+        try {
+            niveisFormacaoService.excluiNivelFormacao(nivelFormacao);
+            niveis = niveisFormacaoService.buscaNiveis();
+            FacesUtils.showInfo("Nível de formação excluído com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir o nível de formação.");
+        }
     }
 
     public List<NivelFormacao> getNiveis() {

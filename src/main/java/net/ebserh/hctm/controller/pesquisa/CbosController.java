@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.CbosService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,21 @@ public class CbosController implements Serializable {
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o cbo.");
+        }
+    }
+
+    public void excluiCbo(Cbo cbo){
+        if (Objects.isNull(cbo)) {
+            FacesUtils.showError("É necessário selecionar um cbo.");
+            return;
+        }
+
+        try {
+            cbosService.excluiCbo(cbo);
+            cbos = cbosService.buscaCbos();
+            FacesUtils.showInfo("Cbo excluído com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir o cbo.");
         }
     }
 

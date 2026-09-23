@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.InstituicoesService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,21 @@ public class InstituicoesController implements Serializable {
         return instituicoes.stream()
                 .filter(i -> i.getNome().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public void excluiInstituicao(Instituicao instituicao){
+        if (Objects.isNull(instituicao)) {
+            FacesUtils.showError("É necessário selecionar uma instituição.");
+            return;
+        }
+
+        try {
+            instituicoesService.excluiInstituicao(instituicao);
+            instituicoes = instituicoesService.buscaInstituicoes();
+            FacesUtils.showInfo("Instituição excluída com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir a instituição.");
+        }
     }
 
     public void setInstituicao(Instituicao instituicao) {
