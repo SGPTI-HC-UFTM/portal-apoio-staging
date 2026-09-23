@@ -32,9 +32,12 @@ public class CalculoPadrao implements EstrategiaCalculoTriagemNeonatal {
                         Amostra amostra = new Amostra();
                         amostra.setNumero(i);
 
+                        LocalDate inicioCalculado;
+                        LocalDate fimCalculado;
+
                         if (dataRealizada != null) {
-                                LocalDate inicioCalculado = dataReferencia.plusDays(regra.getDiasParaInicio());
-                                LocalDate fimCalculado = dataReferencia.plusDays(regra.getDiasParaFim());
+                                inicioCalculado = dataReferencia.plusDays(regra.getDiasParaInicio());
+                                fimCalculado = dataReferencia.plusDays(regra.getDiasParaFim());
 
                                 amostra.setDataRealizada(dataRealizada);
                                 amostra.setStatus("Realizado");
@@ -42,20 +45,26 @@ public class CalculoPadrao implements EstrategiaCalculoTriagemNeonatal {
                                 amostra.setFim(fimCalculado);
                         } else {
 
-                                LocalDate inicioCalculado = dataReferencia.plusDays(regra.getDiasParaInicio());
-                                LocalDate fimCalculado = dataReferencia.plusDays(regra.getDiasParaFim());
+                                inicioCalculado = dataReferencia.plusDays(regra.getDiasParaInicio());
+                                fimCalculado = dataReferencia.plusDays(regra.getDiasParaFim());
 
                                 amostra.setInicio(inicioCalculado);
                                 amostra.setFim(fimCalculado);
                                 amostra.setDataRealizada(null);
-                                amostra.setStatus("Pendente");
 
+                        }
+                        LocalDate dataHoje = LocalDate.now();
+                        if (dataRealizada == null && fimCalculado.equals(dataHoje) || fimCalculado.isAfter(dataHoje)) {
+                                amostra.setStatus("Pendente");
+                        }
+                        if (dataRealizada == null && fimCalculado.isBefore(dataHoje)) {
+                                amostra.setStatus("Atrasada");
                         }
                         amostras.add(amostra);
                 }
 
                 return new ResultadoCalculadoraNeonatal(
                                 dados.getNomeRecemNascido(), dados.getNomeMae(), dados.getDataNascimentoRecemNascido(),
-                                categoriaClinica, amostras, "");
+                                categoriaClinica, amostras);
         }
 }
