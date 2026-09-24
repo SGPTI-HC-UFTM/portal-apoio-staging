@@ -105,6 +105,19 @@ public class ProjetosController implements Serializable {
             return;
         }
 
+        boolean temResponsavel = false;
+        for (ProjetoPesquisador pp : equipe) {
+            if (pp.getFuncao().equals(ProjetoPesquisador.RESPONSAVEL)) {
+                temResponsavel = true;
+                break;
+            }
+        }
+
+        if (!temResponsavel) {
+            FacesUtils.showError("É necessário informar um pesquisador responsável.");
+            return;
+        }
+
         try {
             projetosService.salvaProjeto(projeto, equipe);
             PrimeFaces.current().executeScript("PF('dialogProjeto').hide()");
@@ -161,7 +174,7 @@ public class ProjetosController implements Serializable {
             return;
         }
 
-        //Essa condicao está presente apenas aqui na camada controller, ela nao gera excecoes no service
+        //Essa condicao está presente apenas aqui na camada controller, ela não gera excecoes no service
         if (StringUtils.isBlank(projetoPesquisador.getFuncao())) {
             FacesUtils.showError("É necessário selecionar uma função para o pesquisador.");
             return;

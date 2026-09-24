@@ -15,11 +15,13 @@ WHERE
     p.projeto = :projeto""")
 @NamedQuery(name = "ProjetoPesquisador.deleteByProjeto", query = """
 DELETE
-FROM 
-    ProjetoPesquisador pp 
-WHERE 
+FROM
+    ProjetoPesquisador pp
+WHERE
     pp.projeto = :projeto""")
 public class ProjetoPesquisador extends AbstractEntity {
+
+    public static final String RESPONSAVEL = "Pesquisador responsável";
 
     @Size(max = 100)
     private String funcao;
