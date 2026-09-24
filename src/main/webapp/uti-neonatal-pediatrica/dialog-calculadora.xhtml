@@ -1,0 +1,210 @@
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:o="http://omnifaces.org/ui"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+  <p:dialog
+    id="dialogCalculadora"
+    widgetVar="dialogCalculadora"
+    width="80%"
+    height="700px"
+    appendTo="@(body)"
+    modal="true"
+    dynamic="true"
+  >
+    <h:form id="formResultadoCalculadora">
+      <h:panelGroup
+        id="conteudoImpressao"
+        layout="block"
+        class="ui-fluid formgrid grid"
+      >
+      <div class="col-12">
+          <h3>Resultado - Datas de Coleta</h3>
+          <div class="ui-g">
+            <div class="field col-3">
+              <p:outputLabel
+                for="nomeRecemNascido"
+                value="Nome do Recém-Nascido:"
+              />
+
+              <p:inputText
+                id="nomeRecemNascido"
+                required="false"
+                disabled="true"
+                inputStyleClass="w-auto"
+                value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.nomeRecemNascido}"
+              />
+            </div>
+
+            <div class="field col-3">
+              <p:outputLabel for="nomeMae" value="Nome da Mãe:" />
+
+              <p:inputText
+                id="nomeMae"
+                required="false"
+                disabled="true"
+                placeholder="N/A"
+                inputStyleClass="w-auto"
+                value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.nomeMae}"
+              />
+            </div>
+
+            <div class="field col-3">
+              <p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
+
+              <p:inputText
+                id="dtNascimento"
+                required="false"
+                placeholder="dd/mm/aaaa"
+                disabled="true"
+                inputStyleClass="w-auto"
+                value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.dataNascimentoRecemNascido}"
+              >
+                <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+              </p:inputText>
+            </div>
+          </div>
+
+          <p:divider />
+
+          <div class="col-12">
+            <h:panelGroup
+              layout="block"
+              styleClass="grid border-solid border-round p-2 #{calculadoraNeonatalController.resultadoCalculadoraNeonatal.categoriaClinica.numero == 1 ? 'border-green-200 bg-green-100 text-green-600': 
+              (calculadoraNeonatalController.resultadoCalculadoraNeonatal.categoriaClinica.numero == 2 ? 'border-yellow-200 bg-yellow-100 text-yellow-600': 
+              (calculadoraNeonatalController.resultadoCalculadoraNeonatal.categoriaClinica.numero == 3 ? 'border-orange-200 bg-orange-100 text-orange-600': 
+              'border-red-200 bg-red-100 text-red-600'))}"
+            >
+              <h:outputText
+                class="col-12 uppercase font-bold text-base mb-1"
+                value="Categoria #{calculadoraNeonatalController.resultadoCalculadoraNeonatal.categoriaClinica.numero}"
+              />
+              <h:outputText
+                class="col-12 uppercase font-bold text-lg mb-1"
+                value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.categoriaClinica.criterio}"
+              />
+              <div class="col-12 text-base">
+                <h:outputText value="Número de amostras necessárias: " />
+                <h:outputText
+                  class="font-bold"
+                  value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.categoriaClinica.quantidadeAmostras}"
+                />
+              </div>
+            </h:panelGroup>
+          </div>
+
+          <div class="col-12">
+            <h3>Datas de Coleta</h3>
+            <p:dataTable
+              var="amostra"
+              showGridlines="true"
+              stripedRows="true"
+              value="#{calculadoraNeonatalController.resultadoCalculadoraNeonatal.amostras}"
+            >
+              <p:column headerText="Amostra">
+                <h:outputText value="#{amostra.numero}ª amostra" />
+              </p:column>
+
+              <p:column headerText="Data Recomendada">
+                <h:panelGroup rendered="#{amostra.numero == 1}">
+                  <h:outputText value="Entre " />
+                  <h:outputText value="#{amostra.inicio}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+                  </h:outputText>
+                  <h:outputText value=" e " />
+                  <h:outputText value="#{amostra.fim}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+                  </h:outputText>
+                </h:panelGroup>
+
+                <h:outputText
+                  value="#{amostra.inicio}"
+                  rendered="#{amostra.numero != 1}"
+                >
+                  <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+                </h:outputText>
+              </p:column>
+
+              <p:column headerText="Data Realizada">
+                <h:panelGroup
+                  rendered="#{amostra.dataRealizada == NULL and amostra.status == 'Atrasada'}"
+                >
+                  <div class="flex align-items-center gap-2">
+                    <h:outputText
+                      class="text-red-600"
+                      value="#{amostra.status}"
+                    />
+                  </div>
+                </h:panelGroup>
+
+                <h:panelGroup
+                  rendered="#{amostra.dataRealizada == NULL and amostra.status == 'Pendente'}"
+                >
+                  <h:outputText
+                    class="text-gray-600"
+                    value="#{amostra.status}"
+                  />
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{amostra.dataRealizada != NULL}">
+                  <div class="flex align-items-center gap-2">
+                    <i class="pi pi-check-square text-green-600"></i>
+
+                    <h:outputText value="#{amostra.dataRealizada}">
+                      <f:convertDateTime
+                        pattern="dd/MM/yyyy"
+                        type="localDate"
+                      />
+                    </h:outputText>
+                  </div>
+                </h:panelGroup>
+              </p:column>
+            </p:dataTable>
+          </div>
+
+          <div class="col-12">
+            <h4 class="uppercase">Legenda - Data Realizada</h4>
+            <ul class="grid list-none p-0">
+              <li class="col-6 text-green-600">
+                <div class="flex align-items-center gap-2">
+                  <i class="pi pi-check-square"></i>
+                  <p>Dentro da janela recomendada</p>
+                </div>
+              </li>
+              <li class="col-6 text-orange-600">
+                <div class="flex align-items-center gap-2">
+                  <i class="pi pi-exclamation-triangle"></i>
+                  <p>Fora da janela recomendada - confirme a data</p>
+                </div>
+              </li>
+              <li class="col-6 text-red-600">
+                <div class="flex align-items-center gap-2">
+                  <i class="pi pi-minus-circle"></i>
+                  <p>Data inválida - anterior ao nascimento</p>
+                </div>
+              </li>
+              <li class="col-6">
+                <p class="text-gray-600">
+                  Pendente - coleta ainda não realizada
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </h:panelGroup>
+      <div class="field col-2">
+        <p:commandButton
+          value="Imprimir"
+          type="button"
+          icon="pi pi-print"
+          styleClass="shadow-1 mb-3 mr-2"
+        >
+          <p:printer target="conteudoImpressao" />
+        </p:commandButton>
+      </div>
+    </h:form>
+  </p:dialog>
+</ui:composition>
