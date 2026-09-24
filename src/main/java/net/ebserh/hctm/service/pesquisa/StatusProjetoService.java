@@ -75,4 +75,16 @@ public class StatusProjetoService {
             throw new CustomRuntimeException("Ocorreu um erro ao salvar os status de projeto cadastrados.");
         }
     }
+
+    public void excluiStatus(StatusProjeto statusProjeto){
+        if (Objects.isNull(statusProjeto))
+            throw new CustomRuntimeException("É necessário selecionar um status.");
+
+        try {
+            entityManager.remove(entityManager.merge(statusProjeto));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir o status.");
+        }
+    }
 }

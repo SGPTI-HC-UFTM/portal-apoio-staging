@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.FormacoesAcademicasService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,21 @@ public class FormacoesAcademicasController implements Serializable {
         return formacoes.stream()
                 .filter(f -> f.getNome().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public void excluiFormacao(FormacaoAcademica formacaoAcademica){
+        if (Objects.isNull(formacaoAcademica)) {
+            FacesUtils.showError("É necessário selecionar uma formacao acadêmica.");
+            return;
+        }
+
+        try {
+            formacoesAcademicasService.excluiFormacao(formacaoAcademica);
+            formacoes = formacoesAcademicasService.buscaFormacoes();
+            FacesUtils.showInfo("Formação excluída com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir a formação acadêmica.");
+        }
     }
 
     public List<FormacaoAcademica> getFormacoes() {

@@ -193,7 +193,7 @@ public class ProjetosService {
         try {
             return entityManager
                     .createNamedQuery("Projeto.findByTituloLike", Projeto.class)
-                    .setParameter("titulo", String.format("%%%s%%", titulo.toLowerCase()))
+                    .setParameter("titulo", String.format("%%%s%%", titulo.toLowerCase().trim()))
                     .getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -235,14 +235,20 @@ public class ProjetosService {
                 entityManager.persist(projeto);
             else
                 entityManager.merge(projeto);
+            
+            //Esvaziar dados anteriores presentes no banco antes de salvar os novos dados presentes na memoria
+            entityManager.createNamedQuery("ProjetoPesquisador.deleteByProjeto")
+                        .setParameter("projeto", projeto)
+                        .executeUpdate();
+            entityManager.flush();
 
             for (ProjetoPesquisador pp : equipe) {
                 pp.setProjeto(projeto);
-                if (Objects.isNull(pp.getId()))
-                    entityManager.persist(pp);
-                else
-                    entityManager.merge(pp);
+                //Merge estava causando erro, ja que nao ha id no banco, ele nao encontra o id presente em pp, solucao: apenas criando novamente no banco
+                pp.setId(null);
+                entityManager.persist(pp);
             }
+
         } catch (CustomRuntimeException e) {
             throw e;
         } catch (Exception e) {

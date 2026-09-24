@@ -76,4 +76,16 @@ public class OrgaosFinanciadoresService {
             throw new CustomRuntimeException("Erro ao salvar os dados do órgão financiador!");
         }
     }
+
+    public void excluiOrgao(OrgaoFinanciador orgaoFinanciador){
+        if (Objects.isNull(orgaoFinanciador))
+            throw new CustomRuntimeException("É necessário selecionar um orgão financiador.");
+
+        try {
+            entityManager.remove(entityManager.merge(orgaoFinanciador));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir o orgão financiador.");
+        }
+    }
 }
