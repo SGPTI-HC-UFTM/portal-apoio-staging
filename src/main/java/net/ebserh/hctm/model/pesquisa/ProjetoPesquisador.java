@@ -13,7 +13,7 @@ FROM
     ProjetoPesquisador p
 WHERE
     p.projeto = :projeto""")
-@NamedQuery(name = "ProjetoPesquisador.deleteProjeto", query = """
+@NamedQuery(name = "ProjetoPesquisador.deleteByProjeto", query = """
 DELETE
 FROM 
     ProjetoPesquisador pp 

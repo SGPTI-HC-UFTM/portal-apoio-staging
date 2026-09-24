@@ -95,7 +95,7 @@ public class ProjetosController implements Serializable {
     }
 
     public void salva() {
-        if (projeto == null) {
+        if (Objects.isNull(projeto)) {
             FacesUtils.showError("É necessário informar os dados do projeto.");
             return;
         }
@@ -158,6 +158,12 @@ public class ProjetosController implements Serializable {
     public void acrescentaPesquisador(ProjetoPesquisador projetoPesquisador) {
         if (Objects.isNull(projetoPesquisador)) {
             FacesUtils.showError("É necessário selecionar um pesquisador.");
+            return;
+        }
+
+        //Essa condicao está presente apenas aqui na camada controller, ela nao gera excecoes no service
+        if (StringUtils.isBlank(projetoPesquisador.getFuncao())) {
+            FacesUtils.showError("É necessário selecionar uma função para o pesquisador.");
             return;
         }
 

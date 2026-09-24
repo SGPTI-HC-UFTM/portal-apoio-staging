@@ -237,14 +237,14 @@ public class ProjetosService {
                 entityManager.merge(projeto);
             
             //Esvaziar dados anteriores presentes no banco antes de salvar os novos dados presentes na memoria
-            entityManager.createNamedQuery("ProjetoPesquisador.deleteProjeto")
+            entityManager.createNamedQuery("ProjetoPesquisador.deleteByProjeto")
                         .setParameter("projeto", projeto)
                         .executeUpdate();
             entityManager.flush();
 
             for (ProjetoPesquisador pp : equipe) {
                 pp.setProjeto(projeto);
-                //Merge estava causando erro, ja que nao ha id no banco, ele nao encontra o id presente em pp, apenas criando novamente no banco
+                //Merge estava causando erro, ja que nao ha id no banco, ele nao encontra o id presente em pp, solucao: apenas criando novamente no banco
                 pp.setId(null);
                 entityManager.persist(pp);
             }
