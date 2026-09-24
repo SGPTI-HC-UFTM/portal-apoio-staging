@@ -7,28 +7,27 @@ import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
 
 @Entity
-@Table(schema = "pesquisa", name = "fontes_financiadoras")
-@NamedQuery(name = "FonteFinanciadora.findAll", query = """
+@Table(schema = "pesquisa", name = "tipos_projeto")
+@NamedQuery(name = "TipoProjeto.findAll", query = """
 SELECT
-    f
+    t
 FROM
-    FonteFinanciadora f
+    TipoProjeto t
 ORDER BY
-    f.descricao""")
-@NamedQuery(name = "FonteFinanciadora.findByDescricao", query = """
+    t.descricao""")
+
+@NamedQuery(name = "TipoProjeto.findByDescricao", query = """
 SELECT
-    f
+    t
 FROM
-    FonteFinanciadora f
+    TipoProjeto t
 WHERE
-    function('TRANSLATE', function('UPPER', f.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
+    function('TRANSLATE', function('UPPER', t.descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')
     = function('TRANSLATE', function('UPPER', :descricao),'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ','AAAAAEEEEIIIIOOOOOUUUUC')""")
-public class FonteFinanciadora extends AbstractEntity {
+public class TipoProjeto extends AbstractEntity {
 
     @Size(max = 100)
     private String descricao;
-
-    private Boolean ativa;
 
     public String getDescricao() {
         return descricao;
@@ -36,14 +35,6 @@ public class FonteFinanciadora extends AbstractEntity {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Boolean getAtiva() {
-        return ativa; 
-    }
-
-    public void setAtiva(Boolean ativa) {
-        this.ativa = ativa;
     }
 
 }

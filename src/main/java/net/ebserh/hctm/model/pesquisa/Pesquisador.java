@@ -68,6 +68,8 @@ public class Pesquisador  extends AbstractEntity {
     @JoinColumn(name = "programa_pos_graduacao_id")
     private ProgramaPosGraduacao programaPosGraduacao;
 
+
+
     public String getNome() {
         return nome;
     }

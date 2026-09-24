@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.LinhasPesquisaService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,21 @@ public class LinhasPesquisaController implements Serializable {
         return linhasPesquisa.stream()
                 .filter(l -> l.getDescricao().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public void excluiLinhaPesquisa(LinhaPesquisa linhaPesquisa){
+        if (Objects.isNull(linhaPesquisa)) {
+            FacesUtils.showError("É necessário selecionar uma linha de pesquisa.");
+            return;
+        }
+
+        try {
+            linhasPesquisaService.excluiLinhaPesquisa(linhaPesquisa);
+            linhasPesquisa = linhasPesquisaService.buscaLinhasPesquisa();
+            FacesUtils.showInfo("Linha de pesquisa excluída com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir a linha de pesquisa.");
+        }
     }
 
     public List<LinhaPesquisa> getLinhasPesquisa() {

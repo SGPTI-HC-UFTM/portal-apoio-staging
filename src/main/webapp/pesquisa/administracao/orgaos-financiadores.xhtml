@@ -10,7 +10,7 @@
         <h:form id="formOrgaosFinanciadores">
             <div class="ui-fluid formgrid grid">
                 <div class="field col-2">
-                    <p:commandButton id="btnNova" value="Novo" icon="pi pi-plus"
+                    <p:commandButton id="btnNovo" value="Novo" icon="pi pi-plus"
                                      action="#{orgaosFinanciadoresController.openDialogNova}"
                                      update="dialogOrgaoFinanciador" />
                 </div>
@@ -23,13 +23,17 @@
                 <p:column headerText="Nome" field="descricao" style="width: 70%; text-align: center" />
 
                 <p:column headerText="Ações:" style="width:20%; text-align: center">
-                    <p:commandButton id="btnEdita"
-                                     icon="pi pi-pencil"
+                    <p:commandButton id="btnEdita" icon="pi pi-pencil"
                                      action="#{orgaosFinanciadoresController.editaOrgao(orgao)}"
-                                     update="dialogOrgaoFinanciador"
-                                     title="Editar" />
+                                     update="dialogOrgaoFinanciador" title="Editar" />
+                                     
+                	<p:commandButton id="btnExclui" icon="pi pi-trash" style="margin-left:2px"
+									 action="#{orgaosFinanciadoresController.excluiOrgao(orgao)}"
+									 update="@form" title="Excluir">
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o orgão financiador selecionado?"
+								   icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
                 </p:column>
-
             </p:dataTable>
         </h:form>
 

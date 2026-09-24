@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.StatusProjetoService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class StatusProjetoController implements Serializable {
         }
     }
 
-    public void openDialogNova(){
+    public void openDialogNovo(){
         statusProjeto = new StatusProjeto();
         PrimeFaces.current().executeScript("PF('dialogStatusProjeto').show()");
     }
@@ -66,6 +67,21 @@ public class StatusProjetoController implements Serializable {
             FacesUtils.showInfo("Dados salvos com sucesso!");
         }catch(Exception e){
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o status de projeto");
+        }
+    }
+
+    public void excluiStatus(StatusProjeto statusProjeto){
+        if (Objects.isNull(statusProjeto)) {
+            FacesUtils.showError("É necessário selecionar um status.");
+            return;
+        }
+
+        try {
+            statusProjetoService.excluiStatus(statusProjeto);
+            status = statusProjetoService.buscaStatusProjetos();
+            FacesUtils.showInfo("Status excluído com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir o status.");
         }
     }
 

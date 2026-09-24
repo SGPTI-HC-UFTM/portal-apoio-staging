@@ -97,6 +97,18 @@
 
     <security-constraint>
         <web-resource-collection>
+            <web-resource-name>PESQUISA_USUARIO</web-resource-name>
+            <url-pattern>/pesquisa/pesquisadores.jsf</url-pattern>
+            <url-pattern>/pesquisa/projetos.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PESQUISA_ADMIN</role-name>
+            <role-name>PESQUISA_USUARIO</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
             <web-resource-name>ADMIN</web-resource-name>
             <url-pattern>/administracao/acesso/gestao.jsf</url-pattern>
             <url-pattern>/administracao/acesso/grupos.jsf</url-pattern>

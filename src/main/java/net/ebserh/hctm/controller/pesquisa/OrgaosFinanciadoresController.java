@@ -9,6 +9,7 @@ import net.ebserh.hctm.service.pesquisa.OrgaosFinanciadoresService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.primefaces.PrimeFaces;
 
+import java.util.Objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,21 @@ public class OrgaosFinanciadoresController implements Serializable {
             FacesUtils.showInfo("Dados salvos com sucesso!");
         } catch (Exception e) {
             FacesUtils.processaExcecao(e, "Ocorreu um erro ao salvar o orgao financiador!");
+        }
+    }
+
+    public void excluiOrgao(OrgaoFinanciador orgaoFinanciador){
+        if (Objects.isNull(orgaoFinanciador)) {
+            FacesUtils.showError("É necessário selecionar um orgão financiador.");
+            return;
+        }
+
+        try {
+            orgaosFinanciadoresService.excluiOrgao(orgaoFinanciador);
+            orgaos = orgaosFinanciadoresService.buscaOrgaos();
+            FacesUtils.showInfo("Orgão financiador excluído com sucesso!");
+        } catch (Exception e) {
+            FacesUtils.processaExcecao(e, "Ocorreu um erro ao excluir o orgão financiador.");
         }
     }
 

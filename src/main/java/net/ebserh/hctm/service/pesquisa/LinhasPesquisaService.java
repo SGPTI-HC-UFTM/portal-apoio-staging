@@ -76,4 +76,17 @@ public class LinhasPesquisaService {
         }
     }
 
+
+    public void excluiLinhaPesquisa(LinhaPesquisa linhaPesquisa){
+        if (Objects.isNull(linhaPesquisa))
+            throw new CustomRuntimeException("É necessário selecionar uma linha de pesquisa.");
+
+        try {
+            entityManager.remove(entityManager.merge(linhaPesquisa));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao excluir a linha de pesquisa.");
+        }
+    }
+
 }
