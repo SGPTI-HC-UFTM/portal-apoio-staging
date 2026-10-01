@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<p:dialog id="dialogEstudoClinico" header="Cadastro de Estudo Clínico" widgetVar="dialogEstudoClinico" width="80%"
+			  height="70vh" appendTo="@(body)" modal="true">
+		<h:form id="formDialogEstudoClinico">
+			<p:panel header="Dados do Estudo">
+				<div class="ui-fluid formgrid grid">
+					<div class="field col-12">
+						<p:outputLabel for="titulo" value="Título:" />
+						<p:inputTextarea id="titulo" value="#{estudosClinicosController.estudoClinico.titulo}"
+										 maxlength="300" required="true" />
+					</div>
+
+					<div class="field col-6">
+						<p:outputLabel for="status" value="Status Atual:" />
+						<p:selectOneMenu id="status" value="#{estudosClinicosController.estudoClinico.status}"
+										 converter="omnifaces.SelectItemsConverter">
+
+							<f:selectItem itemLabel="Nenhum" itemValue="#{null}" />
+							<f:selectItems value="#{estudosClinicosController.status}" var="status"
+										   itemLabel="#{status.descricao}" itemValue="#{status}" />
+						</p:selectOneMenu>
+					</div>
+
+					<div class="field col-6">
+						<div class="font-bold">Responsável:</div>
+						<div>#{estudosClinicosController.estudoClinico.responsavel.nome}</div>
+					</div>
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlResponsavel" header="Pesquisador Responsável" style="margin-top: 20px">
+				<div class="ui-fluid formgrid grid">
+					<div class="field col-12">
+						<p:outputLabel for="nome" value="Nome:" />
+						<p:inputText id="nome" maxlength="50" value="#{estudosClinicosController.nomePesquisador}" />
+					</div>
+
+					<div class="field col-2">
+						<p:commandButton id="btnPesquisar" value="Pesquisar" icon="pi pi-search" process="pnlEquipe"
+										 action="#{estudosClinicosController.buscaPesquisador}"
+										 update="tblPesquisadores" />
+					</div>
+
+					<div class="field col-12">
+						<p:dataTable id="tblPesquisadores" var="p" value="#{estudosClinicosController.pesquisadores}"
+									 emptyMessage="Nenhum registro encontrado.">
+							<p:column headerText="Código" field="pesquisador.id" style="width: 20%; text-align: center"
+									  filterable="false" sortable="false" />
+
+							<p:column headerText="Nome" field="pesquisador.nome" style="width: 30%; text-align: center"
+									  filterable="false" sortable="false"/>
+
+							<p:column headerText="Ações" style="width:20%; text-align: center">
+								<p:commandButton id="btnSelecionar" icon="pi pi-check" title="Selecionar"
+												 action="#{estudosClinicosController.selecionaResponsavel(p)}" />
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</p:panel>
+
+			<div class="ui-fluid formgrid grid" style="margin-top: 10px">
+				<div class="field col-2">
+					<p:commandButton id="btnSalvar" value="Salvar" icon="pi pi-save"
+									 action="#{estudosClinicosController.salva}" update="@form" />
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>
