@@ -98,6 +98,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>PESQUISA_USUARIO</web-resource-name>
+            <url-pattern>/pesquisa/estudos-clinicos.jsf</url-pattern>
             <url-pattern>/pesquisa/pesquisadores.jsf</url-pattern>
             <url-pattern>/pesquisa/projetos.jsf</url-pattern>
         </web-resource-collection>
