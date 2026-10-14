@@ -39,22 +39,23 @@
 					</div>
 
 					<div class="field col-2">
-						<p:commandButton id="btnPesquisar" value="Pesquisar" icon="pi pi-search" process="pnlEquipe"
-										 action="#{estudosClinicosController.buscaPesquisador}"
+						<p:commandButton id="btnPesquisar" value="Pesquisar" icon="pi pi-search"
+										 process="pnlResponsavel" action="#{estudosClinicosController.buscaPesquisador}"
 										 update="tblPesquisadores" />
 					</div>
 
 					<div class="field col-12">
 						<p:dataTable id="tblPesquisadores" var="p" value="#{estudosClinicosController.pesquisadores}"
 									 emptyMessage="Nenhum registro encontrado.">
-							<p:column headerText="Código" field="pesquisador.id" style="width: 20%; text-align: center"
+							<p:column headerText="Código" field="id" style="width: 20%; text-align: center"
 									  filterable="false" sortable="false" />
 
-							<p:column headerText="Nome" field="pesquisador.nome" style="width: 30%; text-align: center"
+							<p:column headerText="Nome" field="nome" style="width: 30%; text-align: center"
 									  filterable="false" sortable="false"/>
 
 							<p:column headerText="Ações" style="width:20%; text-align: center">
 								<p:commandButton id="btnSelecionar" icon="pi pi-check" title="Selecionar"
+												 process="formDialogEstudoClinico:pnlResponsavel" update="@form"
 												 action="#{estudosClinicosController.selecionaResponsavel(p)}" />
 							</p:column>
 						</p:dataTable>
@@ -65,7 +66,7 @@
 			<div class="ui-fluid formgrid grid" style="margin-top: 10px">
 				<div class="field col-2">
 					<p:commandButton id="btnSalvar" value="Salvar" icon="pi pi-save"
-									 action="#{estudosClinicosController.salva}" update="@form" />
+									 action="#{estudosClinicosController.salva}" update="formEstudosClinicos" />
 				</div>
 			</div>
 		</h:form>

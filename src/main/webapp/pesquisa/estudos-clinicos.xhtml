@@ -5,9 +5,9 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<ui:define name="content">
-		<h2>Cadastro de Estudos Clínicos (EM CONSTRUÇÃO)</h2>
+		<h2>Cadastro de Estudos Clínicos</h2>
 
-		<h:form id="formProjetos">
+		<h:form id="formEstudosClinicos">
 			<div class="ui-fluid formgrid grid">
 				<div class="field col-2">
 					<p:commandButton id="btnNovo" value="Novo" action="#{estudosClinicosController.openDialogNovo}"
@@ -24,7 +24,7 @@
 
 					<div class="field col-2">
 						<p:commandButton id="btnPesquisar" value="Pesquisar" icon="pi pi-search"
-										 action="#{estudosClinicosController.pesquisa}" update="tblProjetos" />
+										 action="#{estudosClinicosController.pesquisa}" update="tblEstudos" />
 					</div>
 				</div>
 

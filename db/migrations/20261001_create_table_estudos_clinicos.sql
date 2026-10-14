@@ -4,6 +4,12 @@ CREATE TABLE pesquisa.status_estudo_clinico (
     PRIMARY KEY (id)
 );
 
+INSERT INTO pesquisa.status_estudo_clinico (descricao) VALUES
+('Em planejamento'),
+('Em execução'),
+('Suspenso temporariamente'),
+('Concluído');
+
 CREATE TABLE pesquisa.estudos_clinicos (
     id SERIAL,
     titulo VARCHAR (300) NOT NULL,

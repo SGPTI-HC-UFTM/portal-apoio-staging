@@ -6,6 +6,7 @@ DELETE FROM pesquisa.cbos;
 DELETE FROM pesquisa.tipos_projeto;
 DELETE FROM pesquisa.status_projeto;
 DELETE FROM pesquisa.fontes_financiadoras;
+DELETE FROM pesquisa.status_estudo_clinico;
 
 INSERT INTO auth.grupos (grupo) VALUES ('ADMIN'), ('PESQUISA_ADMIN');
 INSERT INTO auth.usuarios (login, password) VALUES ('admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
@@ -22,3 +23,4 @@ INSERT INTO pesquisa.status_projeto (descricao) VALUES ('Em planejamento'), ('Em
 
 INSERT INTO pesquisa.fontes_financiadoras (descricao, ativa) VALUES ('CAPES', true), ('CNPQ', true), ('FAPEMIG', true);
 
+INSERT INTO pesquisa.status_estudo_clinico (descricao) VALUES ('Em planejamento'), ('Em execução'), ('Suspenso temporariamente'), ('Concluído');

@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import net.ebserh.hctm.exception.CustomRuntimeException;
 import net.ebserh.hctm.model.pesquisa.EstudoClinico;
 import net.ebserh.hctm.model.pesquisa.StatusEstudoClinico;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,7 +48,18 @@ public class EstudosClinicosService {
     }
 
     public List<EstudoClinico> buscaEstudosPorTitulo(String titulo) {
-        throw new CustomRuntimeException("Em construção...");
+        if (StringUtils.isBlank(titulo))
+            throw new CustomRuntimeException("É necessário informar o título para pesquisa.");
+
+        try {
+            return entityManager
+                    .createNamedQuery("EstudoClinico.findByTitulo", EstudoClinico.class)
+                    .setParameter("titulo", String.format("%%%s%%", titulo.toUpperCase()))
+                    .getResultList();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao pesquisar os estudos clínicos.");
+        }
     }
 
 }
