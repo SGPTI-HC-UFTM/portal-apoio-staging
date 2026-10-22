@@ -360,7 +360,7 @@ public class PesquisasService {
 
 
     public void salvaPesquisador(Pesquisador pesquisador) {
-        if (pesquisador == null)
+        if (Objects.isNull(pesquisador))
             throw new CustomRuntimeException("É necessário informar os dados do pesquisador.");
 
         try {
