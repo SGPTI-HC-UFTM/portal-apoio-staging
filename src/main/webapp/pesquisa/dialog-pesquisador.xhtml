@@ -118,6 +118,16 @@
 				</div>
 
 				<div class="field col-6">
+					<p:outputLabel for="cargo" value="Função/Cargo:" />
+					<p:inputText id="cargo" maxlength="100" value="#{pesquisadoresController.pesquisador.cargo}" />
+				</div>
+	
+				<div class="field col-6">
+					<p:outputLabel for="departamento" value="Departamento:" />
+					<p:inputText id="departamento" maxlength="100" value="#{pesquisadoresController.pesquisador.departamento}" />
+				</div>
+
+				<div class="field col-6">
 					<p:outputLabel for="telefone" value="Telefone:" />
 					<p:inputText id="telefone" maxlength="20" value="#{pesquisadoresController.pesquisador.telefone}" />
 				</div>

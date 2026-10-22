@@ -37,6 +37,12 @@ public class Pesquisador  extends AbstractEntity {
     private Integer ramal;
 
     @Size(max = 100)
+    private String cargo;
+    
+    @Size(max = 100)
+    private String departamento;
+    
+    @Size(max = 100)
     @Column(name = "e_mail")
     private String eMail;
 
@@ -108,6 +114,22 @@ public class Pesquisador  extends AbstractEntity {
 
     public void setRamal(Integer ramal) {
         this.ramal = ramal;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+    
+    public void setDepartamento(String departamento){
+        this.departamento = departamento;
     }
 
     public String geteMail() {
