@@ -360,7 +360,7 @@ public class PesquisasService {
 
 
     public void salvaPesquisador(Pesquisador pesquisador) {
-        if (pesquisador == null)
+        if (Objects.isNull(pesquisador))
             throw new CustomRuntimeException("É necessário informar os dados do pesquisador.");
 
         try {
@@ -405,5 +405,21 @@ public class PesquisasService {
             throw new CustomRuntimeException("Ocorreu um erro ao salvar os dados do pesquisador.");
         }
     }
+
+    public List<ProjetoPesquisador> buscaProjetos(Integer pesquisadorId) {
+        if (Objects.isNull(pesquisadorId))
+            throw new CustomRuntimeException("É necessário selecionar um pesquisador.");
+
+        try {
+            return entityManager
+                    .createNamedQuery("ProjetoPesquisador.findByPesquisadorId", ProjetoPesquisador.class)
+                    .setParameter("pesquisadorId", pesquisadorId)
+                    .getResultList();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao buscar os projetos do pesquisador.");
+        }
+    }
+
 
 }

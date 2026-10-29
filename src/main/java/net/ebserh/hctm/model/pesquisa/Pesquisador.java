@@ -1,6 +1,11 @@
 package net.ebserh.hctm.model.pesquisa;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import net.ebserh.hctm.model.util.AbstractEntity;
 
@@ -37,6 +42,16 @@ public class Pesquisador  extends AbstractEntity {
     private Integer ramal;
 
     @Size(max = 100)
+    private String cargo;
+    
+    @Size(max = 100)
+    private String departamento;
+
+    @Size(max = 50)
+    @Column(name = "vinculo_institucional")
+    private String vinculoInstitucional;
+
+    @Size(max = 100)
     @Column(name = "e_mail")
     private String eMail;
 
@@ -67,8 +82,6 @@ public class Pesquisador  extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "programa_pos_graduacao_id")
     private ProgramaPosGraduacao programaPosGraduacao;
-
-
 
     public String getNome() {
         return nome;
@@ -108,6 +121,30 @@ public class Pesquisador  extends AbstractEntity {
 
     public void setRamal(Integer ramal) {
         this.ramal = ramal;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getVinculoInstitucional() {
+        return vinculoInstitucional;
+    }
+
+    public void setVinculoInstitucional(String vinculoInstitucional) {
+        this.vinculoInstitucional = vinculoInstitucional;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+    
+    public void setDepartamento(String departamento){
+        this.departamento = departamento;
     }
 
     public String geteMail() {
