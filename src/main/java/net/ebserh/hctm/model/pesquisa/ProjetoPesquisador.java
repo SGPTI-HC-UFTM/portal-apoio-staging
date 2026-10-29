@@ -13,6 +13,17 @@ FROM
     ProjetoPesquisador p
 WHERE
     p.projeto = :projeto""")
+@NamedQuery(name = "ProjetoPesquisador.findByPesquisadorId", query = """
+SELECT
+    pp
+FROM
+    ProjetoPesquisador pp
+    JOIN FETCH pp.projeto p
+    JOIN FETCH p.tipo
+    JOIN FETCH p.status
+    JOIN FETCH p.fonteFinanciadora
+WHERE
+    pp.pesquisador.id = :pesquisadorId""")
 @NamedQuery(name = "ProjetoPesquisador.deleteByProjeto", query = """
 DELETE
 FROM

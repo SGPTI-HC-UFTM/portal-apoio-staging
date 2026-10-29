@@ -7,6 +7,7 @@ CREATE TABLE pesquisa.pesquisadores (
     ramal INTEGER,
     e_mail VARCHAR (100),
     e_mail_alternativo VARCHAR (100),
+    vinculo_institucional VARCHAR(50),
     instituicao_id INTEGER,
     formacao_academica_id INTEGER,
     nivel_formacao_id INTEGER,

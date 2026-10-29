@@ -26,7 +26,7 @@
 					<p:inputText id="orcid" value="#{pesquisadoresController.pesquisador.orcid}" maxlength="50" />
 				</div>
 
-				<div class="field col-12">
+				<div class="field col-6">
 					<p:outputLabel for="instituicao" value="Instituição:" />
 					<p:autoComplete id="instituicao"
 									value="#{pesquisadoresController.pesquisador.instituicao}"
@@ -41,6 +41,14 @@
 						<o:converter converterId="omnifaces.ListIndexConverter"
 									 list="#{instituicoesController.instituicoes}" />
 					</p:autoComplete>
+				</div>
+
+				<div class="field col-6">
+					<p:outputLabel for="vinculoInstitucional" value="Vínculo institucional:" />
+					<p:selectOneMenu id="vinculoInstitucional" value="#{pesquisadoresController.pesquisador.vinculoInstitucional}">
+						<f:selectItem itemLabel="UFTM" itemValue="UFTM" />
+						<f:selectItem itemLabel="HC-UFTM/HU Brasil" itemValue="HC-UFTM/HU Brasil" />
+					</p:selectOneMenu>
 				</div>
 
 				<div class="field col-6">
@@ -147,6 +155,21 @@
 					<p:outputLabel for="emailAlternativo" value="E-mail (alternativo):" />
 					<p:inputText id="emailAlternativo" value="#{pesquisadoresController.pesquisador.eMailAlternativo}" />
 				</div>
+
+				<p:panel id="pnlPesquisa" header="Projetos vinculados" style="margin-top:15px; margin-bottom:15px;">
+					<p:dataTable id="tblProjetos" var="projetos" value="#{pesquisadoresController.projetosPesquisador}"
+								emptyMessage="Nenhum registro encontrado.">
+						<p:column headerText="Código" field="projeto.id" style="width: 10%; text-align: center"  />
+
+						<p:column headerText="Título" field="projeto.titulo" style="width: 35%; text-align: center" />
+
+						<p:column headerText="Tipo" field="projeto.tipo.descricao" style="width:15%; text-align: center" />
+
+						<p:column headerText="Status" field="projeto.status.descricao" style="width:15%; text-align: center" />
+						
+						<p:column headerText="Fonte financiadora" field="projeto.fonteFinanciadora.descricao" style="width:15%; text-align: center" />
+					</p:dataTable>
+				</p:panel>
 
 				<div class="field col-2">
 					<p:commandButton id="btnSalvar" value="Salvar" icon="pi pi-save"
